@@ -1,0 +1,24 @@
+{
+  "name": "wilted-milkshake",
+  "version": "0.0.0",
+  "homepage": "https://github.com/wilted-milkshake/wilted-milkshake",
+  "description": "event planner",
+  "main": "client/main.js",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.8"
+  }
+}

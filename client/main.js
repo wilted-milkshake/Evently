@@ -1,8 +1,8 @@
 // Initial Event Page
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router');
+// var React = require('react');
+// var ReactDOM = require('react-dom');
+// var Router = require('react-router');
 
 const Links = () => 
 
