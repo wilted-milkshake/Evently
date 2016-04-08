@@ -1,9 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-
 var mongoose = require('mongoose');
-
 
 var User = require('./users/usermodel');
 var Event = require('./events/eventmodel');
@@ -19,7 +17,7 @@ app.get('/*', function(req, res) {
 require('./routes.js')(app, express);
 
 mongoose.connect('mongodb://localhost/milkshake');
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
 app.listen(3000, function() {
   console.log('Listening on port 3000');

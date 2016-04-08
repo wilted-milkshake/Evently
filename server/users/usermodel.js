@@ -2,6 +2,7 @@ var Q = require('q');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
+
 var Event = require('../events/eventmodel');
 
 var UserSchema = new mongoose.Schema({

@@ -1,5 +1,6 @@
 var Q = require('q');
 var jwt = require('jwt-simple');
+
 var User = require('./usermodel');
 
 var findUser = Q.nbind(User.findOne, User);

@@ -23,6 +23,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "jwt-simple": "^0.2.0",
     "mongoose": "^4.4.11",
     "q": "^1.4.1",
     "react-router": "^2.0.1"
