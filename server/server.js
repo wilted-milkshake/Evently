@@ -4,22 +4,28 @@ var path = require('path');
 
 var mongoose = require('mongoose');
 
+
 var User = require('./users/usermodel');
 var Event = require('./events/eventmodel');
 
 var app = express();
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../client'));
-
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '/../client/index.html'));
 });
 
-app.use(bodyParser.json());
+require('./routes.js')(app, express);
 
 mongoose.connect('mongodb://localhost/milkshake');
-
 var db = mongoose.connection;
+
+app.listen(3000, function() {
+  console.log('Listening on port 3000');
+});
+
+module.exports = app;
 
 // db.on('error', console.error.bind(console, 'Error on mongo connection'));
 
@@ -71,11 +77,6 @@ var db = mongoose.connection;
 
   // db.users.remove({username: 'Phillip'});
   
-});
+// });
 
 
-app.listen(3000, function() {
-  console.log('Listening on port 3000');
-});
-
-module.exports = app;
