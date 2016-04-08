@@ -17,7 +17,7 @@ class SignIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('/users', {
+    axios.post('/users/signin', {
       username: this.state.username,
       password: this.state.password
     })
