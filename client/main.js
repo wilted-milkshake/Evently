@@ -4,26 +4,29 @@
 // var ReactDOM = require('react-dom');
 // var Router = require('react-router');
 
-const Links = () => 
+// const Links = () =>
 
 
-class Main extends React.Component {
+// class Main extends React.Component {
+//
+//   constructor(props) {
+//     super(props);
+//   }
+//
+//
+//
+//   render() {
+//
+//   }
+//
+//
+// }
 
-  constructor(props) {
-    super(props);
-  }
-
-
-
-  render() {
-
-  }
-
-
-}
-
-ReactDOM.render(
-  React.createElement('h1', null, 'Hello World!'),
-  // <h1>'Hello World'</h1>,
-  document.getElementById('example')
+var App = () => (
+  <div>
+    <h1>'Hello World'</h1>
+    <SignIn />
+  </div>
 );
+
+ReactDOM.render(<App />, document.getElementById('example'));
