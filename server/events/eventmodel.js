@@ -12,8 +12,8 @@ var EventSchema = new mongoose.Schema({
     {
       name: String,
       address: String,
-      lat: Number,
-      long: Number,
+      latitude: Number,
+      longitude: Number,
       time: Date
     }
   ],
@@ -23,5 +23,8 @@ var EventSchema = new mongoose.Schema({
   }]
 
 });
+console.trace('Called this')
 
-module.exports = mongoose.model('events', EventSchema);
+var eventModel = mongoose.model('events', EventSchema);
+
+module.exports = eventModel;

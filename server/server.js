@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 
-var User = require('./users/usermodel');
-var Event = require('./events/eventmodel');
+// var User = require('./users/usermodel');
+// var Event = require('./events/eventmodel');
 
 var app = express();
 app.use(bodyParser.json());
