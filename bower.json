@@ -19,6 +19,8 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.14.8"
+    "react": "~0.14.8",
+    "jquery": "^2.2.3",
+    "axios": "^0.9.1"
   }
 }
