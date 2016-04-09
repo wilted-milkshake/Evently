@@ -18,6 +18,7 @@ var Links = () => (
 var App = (props) => (
   <div>
     <h1>Evently.io</h1>
+    <Map />
     <Links />
     {props.children}
   </div>

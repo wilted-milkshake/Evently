@@ -14,7 +14,6 @@ var EventSchema = new mongoose.Schema({
     ref: 'User'
   }]
 });
-console.trace('Called event model')
 
 var eventModel = mongoose.model('events', EventSchema);
 
