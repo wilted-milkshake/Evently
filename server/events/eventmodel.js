@@ -1,18 +1,30 @@
 var mongoose = require('mongoose');
-var User = require('./usermodel');
-var Location = require('./locationmodel');
+var User = require('../users/usermodel');
 
 var EventSchema = new mongoose.Schema({
   name: String,
+  date: Date,
   coordinator: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  locations: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Location'
+  locations: [
+    {
+      name: String,
+      address: String,
+      latitude: Number,
+      longitude: Number,
+      time: Date
+    }
+  ],
+  guests: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }]
 
 });
+console.trace('Called this')
 
-module.exports = mongoose.model('events', EventSchema);
+var eventModel = mongoose.model('events', EventSchema);
+
+module.exports = eventModel;

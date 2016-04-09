@@ -1,8 +1,9 @@
 var Q = require('q');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-
 var SALT_WORK_FACTOR = 10;
+
+
 
 var UserSchema = new mongoose.Schema({
   username: {
@@ -16,7 +17,11 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
 
-  salt: String
+  salt: String,
+  events: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event'
+    }]
 });
 
 

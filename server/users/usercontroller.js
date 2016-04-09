@@ -1,6 +1,8 @@
 var Q = require('q');
 var jwt = require('jwt-simple');
+var Event = require('./../events/eventModel');
 var User = require('./usermodel');
+var path = require('path');
 
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
@@ -31,9 +33,10 @@ module.exports = {
       });
   },
 
-  signup: function() {
-    var username = req.body.usename;
+  signup: function(req, res, next) {
+    var username = req.body.username;
     var password = req.body.password;
+    console.log('username: ', username, password);
 
     findUser({username: username})
       .then(function(user) {
