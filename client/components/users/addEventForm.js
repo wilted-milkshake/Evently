@@ -9,10 +9,16 @@ class AddEventForm extends React.Component {
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
-      time: $('#time')[0].value,
-      location: $('#event_location')[0].value,
-      address: $('#address')[0].value
-    }
+      locations: [
+        {
+          name: $('#event_location')[0].value,
+          address: $('#address')[0].value,
+          latitude: 0,
+          longitude: 0,
+          time: $('#time')[0].value
+        }
+      ]
+    };
     $.ajax({
       type: 'POST',
       url: '/events/create',

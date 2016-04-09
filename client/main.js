@@ -42,7 +42,7 @@ window.Links = Links;
 ReactDOM.render((
   <Router history={ browserHistory }>
     <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
+      <IndexRoute component={UserProfile}/>
       <Route path="/events" component={Events}></Route>
       <Route path="/events/:eventName" component={Event}></Route>
       <Route path="/signin" component={SignIn}></Route>

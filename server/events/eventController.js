@@ -1,10 +1,14 @@
 var Q = require('q');
-var helpers = require('.././helpers.js')
 var path = require('path');
-// var User = require('./userModel');
-// var Event = require(path.resolve('./eventModel'));
-var Event = require('./eventModel');
-var addNew = Q.nbind(Event.create, Event);
+// var User = require('./usermodel');
+// var Event = require(path.resolve('./eventmodel'));
+var Event = require('./eventmodel');
+var User = require('./../users/usermodel');
+
+var addEvent = Q.nbind(Event.create, Event);
+var updateUser = Q.nbind(User.findOneAndUpdate, User);
+
+
 // var findUser = Q.nbind(User.findOne, User);
 // var createUser = Q.nbind(User.create, User);
 
@@ -13,21 +17,26 @@ module.exports = {
   // insert event info into Event table and User table
   createEvent: function(req, res, next) {
     
-    console.log('createEvent req.body: ', req.body);
+    console.log('createEvent location: ', req.body.locations);
     
     var newEvent = {
-      name: req.body.eventname,
+      title: req.body.title,
       date: req.body.date,
       cooridator: '',
-      locations: [], 
+      locations: req.body.locations, 
       guest: []
     };
 
-    addNew(newEvent)
+    addEvent(newEvent)
     .then(function(addedNewEvent) {
       console.log("addedNewEvent: ", addedNewEvent);
       res.json(addedNewEvent);
+    })
+    .catch(function(error) {
+      res.json(error);
     });
+
+
 
 
   },
