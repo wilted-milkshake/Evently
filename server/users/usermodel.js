@@ -61,8 +61,6 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-console.trace('Called user model')
-
 var userModel = mongoose.model('users', UserSchema);
 
 module.exports = userModel;
