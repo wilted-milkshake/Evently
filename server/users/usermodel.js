@@ -2,7 +2,7 @@ var Q = require('q');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
-
+// var Event = require('../events/eventmodel');
 
 
 var UserSchema = new mongoose.Schema({
@@ -61,4 +61,8 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-module.exports = mongoose.model('users', UserSchema);
+console.trace('Called user model')
+
+var userModel = mongoose.model('users', UserSchema);
+
+module.exports = userModel;
