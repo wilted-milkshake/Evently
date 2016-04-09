@@ -8,12 +8,10 @@ var User = require('./../users/usermodel');
 var addEvent = Q.nbind(Event.create, Event);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
 
-
 // var findUser = Q.nbind(User.findOne, User);
 // var createUser = Q.nbind(User.create, User);
 
 module.exports = {
-
   // insert event info into Event table and User table
   createEvent: function(req, res, next) {
     
