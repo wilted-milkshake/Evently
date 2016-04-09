@@ -33,9 +33,10 @@ module.exports = {
       });
   },
 
-  signup: function() {
-    var username = req.body.usename;
+  signup: function(req, res, next) {
+    var username = req.body.username;
     var password = req.body.password;
+    console.log('username: ', username, password);
 
     findUser({username: username})
       .then(function(user) {
