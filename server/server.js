@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
 var morgan = require('morgan');
+var dbConfig = require('./config/database');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -13,7 +14,7 @@ var port = process.env.PORT || 3000;
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/milkshake');
+mongoose.connect(dbConfig.url);
 
 require('./config/passport')(passport);
 
@@ -41,16 +42,3 @@ app.get('/*', helper.isLoggedIn, function(req, res) {
 app.listen(port, function() {
   console.log('Listening on port ' + port);
 });
-
-
-// // route middleware to make sure a user is logged in
-// function isLoggedIn(req, res, next) {
-
-//     // if user is authenticated in the session, carry on 
-//     if (req.isAuthenticated())
-//         return next();
-
-//     // if they aren't redirect them to the home page
-//     res.redirect('/');
-// }
-// module.exports = app;
