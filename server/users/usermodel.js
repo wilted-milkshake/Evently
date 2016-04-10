@@ -6,7 +6,8 @@ var UserSchema = mongoose.Schema({
   local : {
     username: String,
     password: String
-  }
+  },
+  events: []
 });
 
 // methods ======================
