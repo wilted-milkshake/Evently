@@ -10,8 +10,7 @@ var Links = () => (
   <div>
     <li><IndexLink to="/" activeStyle={{ color: 'red' }}>Home</IndexLink></li>
     <li><Link to="/events" activeStyle={{ color: 'red' }}>Events</Link></li>
-    <li><Link to="/signin" activeStyle={{ color: 'red' }}>Sign In</Link></li>
-    <li><Link to="/signup" activeStyle={{ color: 'red' }}>Sign Up</Link></li>
+    <li><a href='/logout'>Logout</a></li>
   </div>
 );
 
@@ -42,12 +41,10 @@ window.Links = Links;
 
 ReactDOM.render((
   <Router history={ browserHistory }>
-    <Route path="/" component={App}>
+    <Route path="/users" component={App}>
       <IndexRoute component={UserProfile}/>
       <Route path="/events" component={Events}></Route>
       <Route path="/events/:eventName" component={Event}></Route>
-      <Route path="/signin" component={SignIn}></Route>
-      <Route path="/signup" component={SignUp}></Route>
     </Route>
   </Router>
   ),
