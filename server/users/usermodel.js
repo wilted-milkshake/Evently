@@ -6,7 +6,8 @@ var UserSchema = mongoose.Schema({
   local : {
     username: String,
     password: String
-  }
+  },
+  events: []
 });
 
 // methods ======================
@@ -49,44 +50,3 @@ module.exports = UserModel;
 //       ref: 'Event'
 //     }]
 // });
-
-
-// UserSchema.methods.comparePasswords = function(candidatePassword) {
-//   var savedPassword = this.password;
-//   return Q.Promise(function(resolve, reject) {
-//     bcrypt.compare(candidatePassword, savedPassword, function(err, isMatch) {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(isMatch);
-//       }
-//     });
-//   });
-// };
-
-// UserSchema.pre('save', function(next) {
-//   var user = this;
-
-//   if (!user.isModified('password')) {
-//     return next();
-//   }
-
-//   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-//     if (err) {
-//       return next(err);
-//     }
-
-//     bcrypt.hash(user.password, salt, null, function(err, hash) {
-//       if (err) {
-//         return next(err);
-//       }
-//       user.password = hash;
-//       user.salt = salt;
-//       next();
-//     });
-//   });
-// });
-
-// var userModel = mongoose.model('users', UserSchema);
-
-// module.exports = userModel;
