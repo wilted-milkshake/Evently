@@ -1,21 +1,3 @@
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
-var browserHistory = ReactRouter.browserHistory;
-var IndexRoute = ReactRouter.IndexRoute;
-var IndexLink = ReactRouter.IndexLink;
-
-
-
-// var Links = () => (
-//   <div>
-//     <li><IndexLink to="/" activeStyle={{ color: 'red' }}>Home</IndexLink></li>
-//     <li><Link to="/events" activeStyle={{ color: 'red' }}>Events</Link></li>
-//   </div>
-// );
-
-// window.Links = Links;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -56,17 +38,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
-//
-// ReactDOM.render((
-//   <Router history={ browserHistory }>
-//     <Route path="/" component={App}>
-//       <IndexRoute component={UserProfile}/>
-//       <Route path="/events" component={Event}></Route>
-//       <Route path="/events/:eventID" component={EventPage}></Route>
-//       {/*<Route path="/signin" component={SignIn}></Route>
-//       <Route path="/signup" component={SignUp}></Route>*/}
-//     </Route>
-//   </Router>
-//   ),
-//   document.getElementById('app')
-// );
