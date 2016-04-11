@@ -4,13 +4,12 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    var myLatLong = {lat: -34.397, lng: 150.644};
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: myLatLong,
+      center: this.props.location,
       zoom: 8
     });
     var marker = new google.maps.Marker({
-      position: myLatLong,
+      position: this.props.location,
       map: map,
       title: 'Hello Poop!'
     });
@@ -23,4 +22,5 @@ class Map extends React.Component {
     )
   }
 }
+
 window.Map = Map;
