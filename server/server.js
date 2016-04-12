@@ -31,24 +31,27 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes
-require('./routes-passport')(app, passport); // load our routes and pass in our app and fully configured passport
+// require('./routes-passport')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../dist'));
 
-app.get('/api/events/users', function(req, res) {
-  res.send(req.user)
-})
+// app.get('/api/events/users', function(req, res) {
+//   res.send(req.user)
+// })
 
-app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res, next) {
-  res.params = req.user;
-  next();
+// app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res, next) {
+//   res.params = req.user;
+//   next();
+// });
+
+// app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res) {
+//   // console.log('USERRRRRR in server.js', req.params);
+//   res.sendFile(path.join(__dirname, '/../client/index.html'));
+// });
+app.get('/*', function(req, res) {
+  // console.log('USERRRRRR in server.js', req.params);
+  res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
-
-app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res) {
-  console.log('USERRRRRR in server.js', req.params);
-  res.sendFile(path.join(__dirname, '/../client/index.html'));
-});
-
 
 app.listen(port, function() {
   console.log('Listening on port ' + port);
