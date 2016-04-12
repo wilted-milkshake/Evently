@@ -35,9 +35,20 @@ require('./routes-passport')(app, passport); // load our routes and pass in our 
 
 app.use(express.static(__dirname + '/../client'));
 
-app.get('/*', helper.isLoggedIn, function(req, res) {
+app.get('/api/events/users', function(req, res) {
+  res.send(req.user)
+})
+
+app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res, next) {
+  res.params = req.user;
+  next();
+});
+
+app.get('/api/events/', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res) {
+  console.log('USERRRRRR in server.js', req.params);
   res.sendFile(path.join(__dirname, '/../client/index.html'));
 });
+
 
 app.listen(port, function() {
   console.log('Listening on port ' + port);

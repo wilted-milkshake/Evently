@@ -2,6 +2,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
+      events: [
+        {
+          title: 'Bonfire',
+          date: new Date(),
+          time: '1:00pm',
+          Coordinator: 'Megan'
+        },
+        {
+          title: 'Zoo',
+          date: new Date(),
+          time: '1:00pm',
+          Coordinator: 'Allison'
+        }
+      ],
       event: {
         url: '/api/events/abc',
         itinerary: [
@@ -24,12 +39,36 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    $.ajax({
+      url: '/api/events/users',
+      dataType: 'json',
+      success: function(data) {
+        console.log(data.local.username, 'LOCALDATA')
+        this.setState({
+          username: data.local.username
+        });
+      }.bind(this)
+    });
+  }
+  getUser() {
+    console.log(this.state.username);
+  }
+
   render() {
+    const {
+      events,
+      username
+    } = this.state;
     return (
       <div>
         <h1>Evently.io</h1>
-        <UserProfile />
-        <EventPage {...this.state.event}/>
+        <div>
+          <li>{username}</li>
+          <li>logout</li>
+        </div>
+        <UserProfile username={username} events={events} />
+        {/*<EventPage {...this.state.event}/>*/}
       </div>
     );
   }
