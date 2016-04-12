@@ -4,7 +4,7 @@ class ListOfEvents extends React.Component {
   }
 
   goToEvent() {
-    console.log(axios)
+    // console.log(axios)
   }
 
   render() {
@@ -14,7 +14,7 @@ class ListOfEvents extends React.Component {
     return (
       <div>
         <ul>
-          { events.map(event => <Event onCLick={this.goToEvent.bind(this)} event={event} />) }
+          { events.map((event, index) => <Event key={index} onClick={this.goToEvent.bind(this)} event={event} />) }
         </ul>
       </div>
     )
