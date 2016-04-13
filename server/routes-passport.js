@@ -1,3 +1,4 @@
+var helper = require('./helpers.js');
 module.exports = function(app, passport) {
   // home page with login links
   app.get('/', function(req, res) {

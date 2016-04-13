@@ -1,59 +1,36 @@
 import React from 'react';
-import CreateEventButton from './createEventButton.js';
-import AddEventForm from './addEventForm.js';
-import ListOfEvents from './listOfEvents.js';
-import EventPage from './../events/EventPage.js';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Link } from 'react-router';
+import ListOfEvents from './ListOfEvents.js';
 
+require('./../../styles/styles.css');
 
 export default class UserProfile extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      showForm: false
-    }
-  }
-
-  showForm() {
-    this.setState({
-      showForm: !this.state.showForm
-    })
   }
 
   render() {
+    const {
+      username,
+      events
+    } = this.props
     return (
       <div>
-        <div>
-          UserProfile
-          <h3>{this.props.username}</h3>
-          <a href='/logout'>logout</a>
+        <h3 className="username">{username}</h3>
+        {/*Logout button*/}
+        <div className="logout-btn">
+          <a href='/logout' className="waves-effect waves-light btn-large">Logout</a>
         </div>
-        <div>
-          <ul>
-          </ul>
-
-        </div>
-      </div>
-    )
-  }
-
-  /*render() {
-    return (
-      <div>
-      HWLLO
-        <CreateEventButton showForm={this.showForm.bind(this)}/>
-        {this.state.showForm ? <AddEventForm showForm={this.showForm.bind(this)}/> : null}
-        <ListOfEvents events={this.props.events} />
+        {/*Create an event button*/}
+        <a className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></a>
+        <ListOfEvents events={events} />
       </div>
 
       <Links />
-            <li><Link to="/eventform">Create An Event</Link></li>
-
-      
+      <li><Link to="/eventform">Create An Event</Link></li>
     )
   }
-  */
 
 
 
