@@ -6,6 +6,7 @@ import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
 
 require('./styles/styles.css');
+// require('socket.io-client');
 
 class App extends React.Component {
   constructor(props) {
@@ -44,7 +45,8 @@ class App extends React.Component {
         ],
         location: {lat: -34.397, lng: 150.644},
         chats: []
-      }
+      },
+      socket: undefined
     }
   }
 
@@ -55,21 +57,35 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {
         this.setState({
-          username: data.local.username
+          username: data.local.username,
+          socket: this.configSocket('poop')
         });
+        console.log(this.state);
       }.bind(this)
     });
-
-
   }
 
-  connectSocket(eventID) {
-    this.setState({
-      socket: SocketConnection(eventID)
+  configSocket(eventID) {
+    let socket = io.connect(window.location.origin, {
+      query: 'eventRoom=' + eventID
     });
+    socket.on('event data', data => this.setState({event: data}));
+    return socket;
+  }
 
-    this.state.socket.on('event data', data => this.setState({event: data}));
-  }.bind(this)
+  emitTest() {
+    console.log('testing');
+    this.state.socket.emit('fetch data');
+  }
+
+  // connectSocket(eventID) {
+  //   this.setState({
+  //     // socket: SocketConnection.initialize(eventID)
+  //     socket: SocketConnection.test()
+  //   });
+
+    // this.state.socket.on('event data', data => this.setState({event: data}));
+  // }
 
   render() {
     const {

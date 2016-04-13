@@ -13,6 +13,10 @@ var helper = require('./helpers.js');
 var port = process.env.PORT || 3000;
 
 var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+// set up socket listerner
+require('./config/socket')(io);
 
 mongoose.connect(dbConfig.url);
 
@@ -32,6 +36,8 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes
 require('./routes-passport')(app, passport); // load our routes and pass in our app and fully configured passport
+
+
 
 app.use(express.static(__dirname + '/../dist'));
 
@@ -54,6 +60,6 @@ app.get('/events', helper.findUserByUsernameMiddleware && helper.isLoggedIn, fun
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 
-app.listen(port, function() {
+server.listen(port, function() {
   console.log('Listening on port ' + port);
 });
