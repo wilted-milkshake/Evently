@@ -1,3 +1,6 @@
+import React from 'react';
+import ItineraryEntry from './ItineraryEntry.js';
+
 const Itinerary = (props) => (
   <div>
     <h3>Event Itinerary</h3>
@@ -15,4 +18,5 @@ const Itinerary = (props) => (
   </div>
 );
 
-window.Itinerary = Itinerary;
+export default Itinerary;
+// window.Itinerary = Itinerary;

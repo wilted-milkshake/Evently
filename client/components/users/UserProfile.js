@@ -1,8 +1,4 @@
-var React = require('react');
-// var ReactDOM = require('react-dom');
-
-// import React from 'react';
-
+import React from 'react';
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -20,7 +16,7 @@ export default class UserProfile extends React.Component {
   render() {
     return (
       <div>
-        USER PROFILE TODAYYYY
+      HWLLO
         {/*<CreateEventButton showForm={this.showForm.bind(this)} />
         {this.state.showForm ? <AddEventForm showForm={this.showForm.bind(this)} /> : null}
         <ListOfEvents events={this.props.events} />*/}
@@ -28,5 +24,3 @@ export default class UserProfile extends React.Component {
     )
   }
 };
-
-// export default UserProfile;

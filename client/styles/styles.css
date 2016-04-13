@@ -74,10 +74,12 @@ body {
 
 #content {
   background: rgba(40,100,100,0.1);
+  height: 500px;
+}
 /*  width:100px;
   height:50px;
   margin:5px 0 5px 0;*/
-}
+
 /*#footer { border:1px solid #000; width:100px; height:20px;
     margin:5px 0 0 0;
 }*/

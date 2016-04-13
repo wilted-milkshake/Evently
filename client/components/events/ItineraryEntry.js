@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ItineraryEntry = (props) => (
   <tr>
     <td>{props.time}</td>
@@ -5,4 +7,5 @@ const ItineraryEntry = (props) => (
   </tr>
 );
 
-window.ItineraryEntry = ItineraryEntry;
+export default ItineraryEntry;
+// window.ItineraryEntry = ItineraryEntry;

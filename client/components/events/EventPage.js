@@ -1,15 +1,19 @@
-// var Link = ReactRouter.Link;
+import React from 'react';
+import Map from './Map.js';
+import Itinerary from './Itinerary.js';
+// import Chat from './Chat.js';
 
 const EventPage = props => (
   <div>
     <h2>Your Super Awesome Event</h2>
-    <Map location={props.location}/>
-    <Itinerary entries={props.itinerary}/>
+    <Map location={props.event.location}/>
+    <Itinerary entries={props.event.itinerary}/>
     {/*<Chat />*/}
   </div>
 );
 
-window.EventPage = EventPage;
+export default EventPage;
+// window.EventPage = EventPage;
 
 
 /*
