@@ -35,7 +35,7 @@ require('./routes-passport')(app, passport); // load our routes and pass in our 
 
 app.use(express.static(__dirname + '/../dist'));
 
-app.get('/api/events/users', function(req, res) {
+app.get('/api/events', function(req, res) {
   res.send(req.user)
 })
 
@@ -49,7 +49,7 @@ app.get('/api/events/users', function(req, res) {
   // res.sendFile(path.join(__dirname, '/../dist/index.html'));
 // });
 
-app.get('/events', function(req, res) {
+app.get('/events', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res) {
   console.log('USERRRRRR in server.js', req.user);
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });

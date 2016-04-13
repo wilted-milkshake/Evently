@@ -36,7 +36,8 @@ class App extends React.Component {
 
   componentDidMount() {
     $.ajax({
-      url: '/api/events/users',
+      type: 'GET',
+      url: '/api/events',
       dataType: 'json',
       success: function(data) {
         console.log('HI');
