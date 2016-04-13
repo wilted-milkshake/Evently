@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
@@ -13,22 +13,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: 'Megan',
-      events: [
-        {
-          title: 'Bonfire Party',
-          date: new Date("September 3, 2016"),
-          coordinator: 'Megan',
-          locations: [
-            {
-              name: 'Ocean Beach',
-              time: '1:00 pm',
-              address: '449 Powell St, San Francisco, CA 94108'
-            }
-          ]
-        }
-      ],
+      events: [this.state.event],
       event: {
         url: '/api/events/abc',
+        name: 'PARTY',
         itinerary: [
           {
             time: '1:45 pm',
@@ -102,12 +90,66 @@ class App extends React.Component {
           <h1 className="header">Evently.io</h1>
         </div>
         <div id="content">
-          <AddEventForm />
-          {/*<EventPage event={event} />*/}
+          {this.props.children}
         </div>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Router history={browserHistory}>
+    <Route path='/' component={App}>
+      <IndexRoute component={AddEventForm} />
+      <Route path='events/:eventname' component={EventPage} />
+    </Route>
+  </Router>,
+  document.getElementById('app')
+);
+
+
+/*
+
+    // <Route path='/' component={App}>
+*/
+
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       username: '',
+//       events: [
+//         {
+//           title: 'Bonfire Partys',
+//           date: new Date(),
+//           time: '1:00pm',
+//           Coordinator: 'Megan'
+//         },
+//         {
+//           title: 'Christmas Party',
+//           date: new Date(),
+//           time: '1:00pm',
+//           Coordinator: 'Allison'
+//         }
+//       ],
+//       event: {
+//         url: '/api/events/abc',
+//         itinerary: [
+//           {
+//             time: '1:45 pm',
+//             location: 'here'
+//           },
+//           {
+//             time: '2:00 pm',
+//             location: 'a little bit away from here'
+//           },
+//           {
+//             time: '3:00 pm',
+//             location: 'super far away'
+//           }
+//         ],
+//         location: {lat: -34.397, lng: 150.644},
+//         chats: []
+//       }
+//     };
+//   }
