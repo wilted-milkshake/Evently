@@ -33,7 +33,7 @@ export default class AddEventForm extends React.Component {
 
   render() {
     return (
-      <div className=" form row">
+      <div className="row">
         <form className="col s12">
           <div className="row">
             <div className="input-field col s6">

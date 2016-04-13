@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ListOfEvents from './ListOfEvents.js';
+import { Link } from 'react-router';
 
 require('./../../styles/styles.css');
 
@@ -9,7 +10,6 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     const {
       username,
@@ -23,7 +23,8 @@ export default class UserProfile extends React.Component {
           <a href='/logout' className="waves-effect waves-light btn-large">Logout</a>
         </div>
         {/*Create an event button*/}
-        <a className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></a>
+        <Link to='/form'><div className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></div></Link>
+        
         <ListOfEvents events={events} />
       </div>
 

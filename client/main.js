@@ -66,15 +66,6 @@ class App extends React.Component {
     this.state.socket.emit('fetch data');
   }
 
-  // connectSocket(eventID) {
-  //   this.setState({
-  //     // socket: SocketConnection.initialize(eventID)
-  //     socket: SocketConnection.test()
-  //   });
-
-    // this.state.socket.on('event data', data => this.setState({event: data}));
-  // }
-
   render() {
     const {
       events,
@@ -97,59 +88,11 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
+ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={AddEventForm} />
-      <Route path='events/:eventname' component={EventPage} />
+    <Route path="/events" component={App}>
+      <IndexRoute component={EventPage} />
+      <Route path="/form" component={AddEventForm} />
     </Route>
-  </Router>,
-  document.getElementById('app')
-);
-
-
-/*
-
-    // <Route path='/' component={App}>
-*/
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       username: '',
-//       events: [
-//         {
-//           title: 'Bonfire Partys',
-//           date: new Date(),
-//           time: '1:00pm',
-//           Coordinator: 'Megan'
-//         },
-//         {
-//           title: 'Christmas Party',
-//           date: new Date(),
-//           time: '1:00pm',
-//           Coordinator: 'Allison'
-//         }
-//       ],
-//       event: {
-//         url: '/api/events/abc',
-//         itinerary: [
-//           {
-//             time: '1:45 pm',
-//             location: 'here'
-//           },
-//           {
-//             time: '2:00 pm',
-//             location: 'a little bit away from here'
-//           },
-//           {
-//             time: '3:00 pm',
-//             location: 'super far away'
-//           }
-//         ],
-//         location: {lat: -34.397, lng: 150.644},
-//         chats: []
-//       }
-//     };
-//   }
+  </Router>
+), document.getElementById('app'));

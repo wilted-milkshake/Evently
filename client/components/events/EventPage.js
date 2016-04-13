@@ -19,4 +19,3 @@ export default class EventPage extends React.Component {
     )
   }
 };
-
