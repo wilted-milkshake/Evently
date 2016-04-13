@@ -13,7 +13,7 @@ export default class Map extends React.Component {
     var marker = new google.maps.Marker({
       position: this.props.location,
       map: map,
-      title: 'Hello Poop!'
+      title: 'Australia!'
     });
   }
 
