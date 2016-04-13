@@ -13,7 +13,10 @@ export default class CreateEventButton extends React.Component {
   render() {
     return (
       <div>
-        <a onClick={this.createEvent.bind(this)} className="waves-effect waves-light btn-large">Create an Event</a>
+        <a onClick={this.createEvent.bind(this)} 
+         className="waves-effect waves-light btn-large">
+         Create an Event
+        </a>
       </div>
     )
   }
