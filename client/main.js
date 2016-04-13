@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
+require('./styles/styles.css');
 
 class App extends React.Component {
   constructor(props) {

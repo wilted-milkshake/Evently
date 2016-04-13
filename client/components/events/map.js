@@ -24,5 +24,3 @@ export default class Map extends React.Component {
     )
   }
 }
-
-// window.Map = Map;

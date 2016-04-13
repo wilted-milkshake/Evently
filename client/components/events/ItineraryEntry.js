@@ -8,4 +8,3 @@ const ItineraryEntry = (props) => (
 );
 
 export default ItineraryEntry;
-// window.ItineraryEntry = ItineraryEntry;

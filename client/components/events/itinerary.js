@@ -19,4 +19,3 @@ const Itinerary = (props) => (
 );
 
 export default Itinerary;
-// window.Itinerary = Itinerary;
