@@ -1,4 +1,6 @@
-class Event extends React.Component {
+import React from 'react';
+
+export default class Event extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -11,5 +13,3 @@ class Event extends React.Component {
     )
   }
 };
-
-window.Event = Event;

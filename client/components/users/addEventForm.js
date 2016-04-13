@@ -1,4 +1,7 @@
-class AddEventForm extends React.Component {
+import React from 'react';
+import $ from 'jquery';
+
+export default class AddEventForm extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -62,5 +65,3 @@ class AddEventForm extends React.Component {
     )
   }
 };
-
-window.AddEventForm = AddEventForm;

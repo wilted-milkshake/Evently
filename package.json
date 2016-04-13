@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/wilted-milkshake/wilted-milkshake#readme",
   "dependencies": {
-
     "babelify": "^7.2.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",

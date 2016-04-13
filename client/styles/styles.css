@@ -50,12 +50,12 @@ table {
 /*MY STYLES*/
 
 body {
-  font-family: Roboto, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 .container {
   position: relative;
-  padding: 0 0 0 150px;
+  padding: 0 0 0 250px;
 }
 
 #sidebar {
@@ -63,7 +63,7 @@ body {
   top: 0;
   bottom:0;
   left:0;
-  width: 150px;
+  width: 250px;
   background: rgba(0,200,0,0.1);
 }
 
