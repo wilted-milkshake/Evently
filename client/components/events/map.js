@@ -1,4 +1,6 @@
-class Map extends React.Component {
+import React from 'react';
+
+export default class Map extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -11,7 +13,7 @@ class Map extends React.Component {
     var marker = new google.maps.Marker({
       position: this.props.location,
       map: map,
-      title: 'Hello Poop!'
+      title: 'Australia!'
     });
   }
 
@@ -22,5 +24,3 @@ class Map extends React.Component {
     )
   }
 }
-
-window.Map = Map;

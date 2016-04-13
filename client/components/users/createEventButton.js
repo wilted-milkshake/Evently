@@ -1,4 +1,6 @@
-class CreateEventButton extends React.Component {
+import React from 'react';
+
+export default class CreateEventButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,5 +18,3 @@ class CreateEventButton extends React.Component {
     )
   }
 };
-
-window.CreateEventButton = CreateEventButton;

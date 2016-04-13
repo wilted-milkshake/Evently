@@ -1,10 +1,8 @@
-class ListOfEvents extends React.Component {
+import React from 'react';
+
+export default class ListOfEvents extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  goToEvent() {
-    console.log(axios)
   }
 
   render() {
@@ -14,11 +12,9 @@ class ListOfEvents extends React.Component {
     return (
       <div>
         <ul>
-          { events.map(event => <Event onCLick={this.goToEvent.bind(this)} event={event} />) }
+          { events.map((event, index) => <Event key={index} event={event} />) }
         </ul>
       </div>
     )
   }
 };
-
-window.ListOfEvents = ListOfEvents;
