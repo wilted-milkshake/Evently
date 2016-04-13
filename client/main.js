@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
+import $ from 'jquery';
+
 require('./styles/styles.css');
 
 class App extends React.Component {
@@ -31,6 +33,20 @@ class App extends React.Component {
       }
     }
   }
+
+  componentDidMount() {
+    $.ajax({
+      url: '/api/events/users',
+      dataType: 'json',
+      success: function(data) {
+        console.log('HI');
+        this.setState({
+          username: data.local.username
+        });
+      }.bind(this)
+    });
+  }
+
   render() {
     const {
       events,
@@ -99,41 +115,4 @@ ReactDOM.render(<App />, document.getElementById('app'));
 //     };
 //   }
 
-//   componentDidMount() {
-//     $.ajax({
-//       url: '/api/events/users',
-//       dataType: 'json',
-//       success: function(data) {
-//         this.setState({
-//           username: data.local.username
-//         });
-//       }.bind(this)
-//     });
-//   }
 
-//   render() {
-//     const {
-//       events,
-//       username
-//     } = this.state;
-//     return (
-//       <div className="container">
-//         <div id="sidebar">
-//           <h3>{username}</h3>
-//           <a href='/logout'>logout</a>
-//           <UserProfile username={username} events={events} />
-//         </div>
-//         <div id="header">
-//           <h1>Evently.io</h1>
-//         </div>
-//         <div id="content">
-//           <EventPage {...this.state.event}/>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-
-
-// ReactDOM.render(<App />, document.getElementById('app'));
