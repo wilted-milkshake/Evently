@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
+import SocketConnection from './socket.js';
 import $ from 'jquery';
 
 require('./styles/styles.css');
@@ -46,7 +47,17 @@ class App extends React.Component {
         });
       }.bind(this)
     });
+
+
   }
+
+  connectSocket(eventID) {
+    this.setState({
+      socket: SocketConnection(eventID)
+    });
+
+    this.state.socket.on('event data', data => this.setState({event: data}));
+  }.bind(this)
 
   render() {
     const {
@@ -115,5 +126,3 @@ ReactDOM.render(<App />, document.getElementById('app'));
 //       }
 //     };
 //   }
-
-
