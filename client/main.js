@@ -11,71 +11,14 @@ require('./styles/styles.css');
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: 'Megan',
-      events: [this.state.event],
-      event: {
-        url: '/api/events/abc',
-        name: 'PARTY',
-        itinerary: [
-          {
-            time: '1:45 pm',
-            location: 'here'
-          },
-          {
-            time: '2:00 pm',
-            location: 'a little bit away from here'
-          },
-          {
-            time: '3:00 pm',
-            location: 'super far away'
-          }
-        ],
-        location: {lat: -34.397, lng: 150.644},
-        chats: []
-      },
-      socket: undefined
-    }
-  }
-
-  componentDidMount() {
-    $.ajax({
-      type: 'GET',
-      url: '/api/events',
-      dataType: 'json',
-      success: function(data) {
-        this.setState({
-          username: data.local.username,
-          socket: this.configSocket('poop')
-        });
-        console.log(this.state);
-      }.bind(this)
-    });
-  }
-
-  configSocket(eventID) {
-    let socket = io.connect(window.location.origin, {
-      query: 'eventRoom=' + eventID
-    });
-    socket.on('event data', data => this.setState({event: data}));
-    return socket;
-  }
-
-  emitTest() {
-    console.log('testing');
-    this.state.socket.emit('fetch data');
   }
 
   render() {
-    const {
-      events,
-      event,
-      username
-    } = this.state;
     return (
       <div className="container">
         <div id="sidebar">
-          <UserProfile username={username} events={events} />
+          <UserProfile />
+          <Link to="/events/hahaha">Testing</Link>
         </div>
         <div id="header">
           <h1 className="header">Evently.io</h1>
@@ -91,8 +34,9 @@ class App extends React.Component {
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/events" component={App}>
-      <IndexRoute component={EventPage} />
-      <Route path="/form" component={AddEventForm} />
+      <IndexRoute component={AddEventForm} />
+      <Route path='/events/:eventName' component={EventPage} />
     </Route>
-  </Router>
-), document.getElementById('app'));
+  </Router>,
+  document.getElementById('app')
+);

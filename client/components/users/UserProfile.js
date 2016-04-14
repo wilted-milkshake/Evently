@@ -9,7 +9,36 @@ export default class UserProfile extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      username: '',
+      events: [],
+      showForm: false
+    }
   }
+
+  fetchProfile() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/users',
+      dataType: 'json',
+      success: function(data) {
+        console.log(data);
+        this.setState({
+          username: data.local.username,
+          events: data.local.events
+        });
+        console.log(this.state);
+      }.bind(this)
+    });
+  }
+
+  showForm() {
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  }
+
   render() {
     const {
       username,
@@ -24,12 +53,9 @@ export default class UserProfile extends React.Component {
         </div>
         {/*Create an event button*/}
         <Link to='/form'><div className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></div></Link>
-        
         <ListOfEvents events={events} />
       </div>
-
       <Links />
-      <li><Link to="/eventform">Create An Event</Link></li>
     )
   }
 

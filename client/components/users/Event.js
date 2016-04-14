@@ -12,10 +12,9 @@ export default class Event extends React.Component {
       event
     } = this.props;
     return (
-      <li className="collection-item dismissable">
-        <div>{event.title}<a href="#!" className="secondary-content"><i className="material-icons">location_on</i></a>
-        </div>
+      <li>
+        {this.props.event.title}
       </li>
     )
   }
-}
+};
