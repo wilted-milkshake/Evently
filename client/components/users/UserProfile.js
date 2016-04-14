@@ -12,8 +12,7 @@ export default class UserProfile extends React.Component {
 
     this.state = {
       username: '',
-      events: [],
-      showForm: false
+      events: []
     }
   }
 
@@ -33,12 +32,6 @@ export default class UserProfile extends React.Component {
     });
   }
 
-  showForm() {
-    this.setState({
-      showForm: !this.state.showForm
-    })
-  }
-
   render() {
     const {
       username,
@@ -55,10 +48,7 @@ export default class UserProfile extends React.Component {
         <Link to='/form'><div className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></div></Link>
         <ListOfEvents events={events} />
       </div>
-      <Links />
-    )
+    );
   }
-
-
 
 };
