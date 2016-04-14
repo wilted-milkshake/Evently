@@ -5,22 +5,23 @@ export default class Map extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    this.drawMap(nextProps);
+  }
+
+  drawMap(props) {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: this.props.location,
+      center: props.location,
       zoom: 8
     });
     var marker = new google.maps.Marker({
-      position: this.props.location,
+      position: props.location,
       map: map,
       title: 'Australia!'
     });
   }
 
   render() {
-    return(
-      <div id="map" style={{width: '600px', height:'450px'}}>
-      </div>
-    )
+    return(<p>your map here</p>);
   }
 }
