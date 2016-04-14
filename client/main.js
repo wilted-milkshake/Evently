@@ -28,6 +28,7 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {
         this.setState({
+          userID: data._id,
           username: data.local.username,
           events: data.events
         });
@@ -48,7 +49,10 @@ class App extends React.Component {
           <h1 className="header">Evently.io</h1>
         </div>
         <div id="content">
-          {React.cloneElement(this.props.children, {user: this.state.username})}
+          {React.cloneElement(this.props.children, {
+            user: this.state.username,
+            userID: this.state.userID
+          })}
         </div>
       </div>
     );

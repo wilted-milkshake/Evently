@@ -25,6 +25,7 @@ export default class UserProfile extends React.Component {
         </div>
         {/*Create an event button*/}
         <Link to='/events'><div className="add-btn btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></div></Link>
+        <Link to='/events/abc'>Test</Link>
         <ListOfEvents events={events} />
       </div>
     );

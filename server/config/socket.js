@@ -15,7 +15,8 @@ var dummyData = {
     }
   ],
   location: {lat: -34.397, lng: 150.644},
-  chats: []
+  chats: [],
+  coordinator: '570e929579611d792f533e91'
 };
 
 module.exports = function socketConfig(io) {

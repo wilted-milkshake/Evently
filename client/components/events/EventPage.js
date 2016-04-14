@@ -13,7 +13,8 @@ export default class EventPage extends React.Component {
         name: '',
         itinerary: [],
         location: {lat: 0, lng: 0},
-        chats: []
+        chats: [],
+        coordinator: ''
       }
     }
   }
@@ -36,6 +37,10 @@ export default class EventPage extends React.Component {
     return socket;
   }
 
+  isCoordinator() {
+    return this.state.event.coordinator.includes(this.props.userID);
+  }
+
   render() {
     return (
       <div>
@@ -46,6 +51,7 @@ export default class EventPage extends React.Component {
           <Map location={this.state.event.location}/>
         </div>
         <Itinerary entries={this.state.event.itinerary}/>
+        { this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>
     )
   }
