@@ -11,19 +11,44 @@ require('./styles/styles.css');
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      events: []
+    }
+  }
+
+  componentDidMount() {
+    this.fetchProfile();
+  }
+
+  fetchProfile() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/users',
+      dataType: 'json',
+      success: function(data) {
+        this.setState({
+          username: data.local.username,
+          events: data.events
+        });
+      }.bind(this),
+      fail: function(err) {
+        console.error(err);
+      }
+    });
   }
 
   render() {
     return (
       <div className="container">
         <div id="sidebar">
-          <UserProfile />
+          <UserProfile {...this.state}/>
         </div>
         <div id="header">
           <h1 className="header">Evently.io</h1>
         </div>
         <div id="content">
-          {this.props.children}
+          {React.cloneElement(this.props.children, {user: this.state.username})}
         </div>
       </div>
     );
