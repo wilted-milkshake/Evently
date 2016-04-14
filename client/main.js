@@ -19,6 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchProfile();
+    $(".button-collapse").sideNav();
   }
 
   fetchProfile() {
@@ -41,19 +42,31 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div id="sidebar">
-          <UserProfile {...this.state}/>
-        </div>
-        <div id="header">
-          <h1 className="header">Evently.io</h1>
-        </div>
-        <div id="content">
-          {React.cloneElement(this.props.children, {
-            user: this.state.username,
-            userID: this.state.userID
-          })}
-        </div>
+      <div>
+        <header>
+          <div className="container">
+            {/*"button-collapse top-nav waves-effect waves-light circle hide-on-large-only" "mdi-navigation-menu"*/}
+            <a href="#" data-activates="slide-out" className="button-collapse top-nav full hide-on-large-only"><i className="material-icons">menu</i></a>
+          </div>
+          <div id="slide-out" className="side-nav fixed">
+            <UserProfile {...this.state}/>
+          </div>
+        </header>
+        <main>
+          <section id="header">
+            <div className="container">
+              <h1>Evently.io</h1>
+            </div>
+          </section>
+          <section className="event-content">
+            <div className="container">
+              {React.cloneElement(this.props.children, {
+                user: this.state.username,
+                userID: this.state.userID
+              })}
+            </div>
+          </section>
+        </main>
       </div>
     );
   }

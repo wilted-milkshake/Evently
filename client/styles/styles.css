@@ -2,35 +2,53 @@
   padding: 10px;
 }
 
-.container {
+/*.container {
   position: relative;
   padding: 0 0 0 250px;
-}
+}*/
 
-#sidebar {
+/*#sidebar {
   position: absolute;
   top: 0;
   bottom:0;
   left:0;
   width: 250px;
   background: rgba(0,200,0,0.1);
-}
+}*/
 
-#header {
+/*#header {
   background: rgba(0,40,200,0.1);
   height: 100px;
 }
 
 #content {
   background: rgba(40,100,100,0.1);
-}
+}*/
 
+.profile {
+  position: relative;
+}
 .add-btn {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: -27.5px;
+  left: 160px;
+}
+
+.add-btn i {
+  position: absolute;
+  left: 16.25px;
 }
 
 .username, .logout-btn {
   text-align: center;
+}
+
+header, main, footer {
+      padding-left: 240px;
+    }
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
 }
