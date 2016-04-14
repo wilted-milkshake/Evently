@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render((
+ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/events" component={App}>
       <IndexRoute component={AddEventForm} />
