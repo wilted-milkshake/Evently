@@ -1,5 +1,6 @@
 import React from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
+require('./../../styles/styles.css');
 
 export default class AddEventForm extends React.Component {
   constructor(props) {
@@ -8,7 +9,6 @@ export default class AddEventForm extends React.Component {
 
   postEvent(e) {
     e.preventDefault();
-    this.props.showForm();
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
@@ -33,7 +33,7 @@ export default class AddEventForm extends React.Component {
 
   render() {
     return (
-      <div className="container row">
+      <div className="row">
         <form className="col s12">
           <div className="row">
             <div className="input-field col s6">
@@ -56,10 +56,10 @@ export default class AddEventForm extends React.Component {
             <div className="input-field col s4">
               <input id="date" type="date" className="validate" />
             </div>
-            <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i className="material-icons right">send</i>
-            </button>
           </div>
+          <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i className="material-icons right">send</i>
+          </button>
         </form>
       </div>
     )

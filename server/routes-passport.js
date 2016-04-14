@@ -1,3 +1,5 @@
+var helper = require('./helpers.js');
+var eventController = require('./events/eventController.js');
 module.exports = function(app, passport) {
   // home page with login links
   app.get('/', function(req, res) {
@@ -9,7 +11,7 @@ module.exports = function(app, passport) {
     // var user = User.find({_id: 'ObjectId("570ac3dcdc4476821277d008")'})
     // console.log('USRRRRR', user );
     // render the page and pass in any flash data if it exists
-    res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    res.render('login.ejs', { message: req.flash('loginMessage') });
   });
 
   // process the login form
@@ -38,5 +40,7 @@ module.exports = function(app, passport) {
     req.logout();
     res.redirect('/');
   });
+
+  app.post('/events/create', eventController.createEvent); // insert event info into Event table and User table
 
 };

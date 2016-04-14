@@ -21,6 +21,10 @@
   "dependencies": {
     "react": "~0.14.8",
     "jquery": "^2.2.3",
-    "axios": "^0.9.1"
-  }
+    "axios": "^0.9.1",
+    "Materialize": "materialize#^0.97.6"
+  },
+  "authors": [
+    "Danny Tunon <danieltunon@gmail.com>"
+  ]
 }

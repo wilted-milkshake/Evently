@@ -1,119 +1,83 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
-import $ from 'jquery';
+import AddEventForm from './components/users/AddEventForm.js';
 
 require('./styles/styles.css');
+// require('socket.io-client');
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'Megan',
-      events: [],
-      event: {
-        url: '/api/events/abc',
-        itinerary: [
-          {
-            time: '1:45 pm',
-            location: 'here'
-          },
-          {
-            time: '2:00 pm',
-            location: 'a little bit away from here'
-          },
-          {
-            time: '3:00 pm',
-            location: 'super far away'
-          }
-        ],
-        location: {lat: -34.397, lng: 150.644},
-        chats: []
-      }
+      username: '',
+      events: []
     }
   }
 
   componentDidMount() {
+    this.fetchProfile();
+    $(".button-collapse").sideNav();
+  }
+
+  fetchProfile() {
     $.ajax({
       type: 'GET',
-      url: '/api/events',
+      url: '/api/users',
       dataType: 'json',
       success: function(data) {
-        console.log('HI');
         this.setState({
-          username: data.local.username
+          userID: data._id,
+          username: data.local.username,
+          events: data.events
         });
-      }.bind(this)
+      }.bind(this),
+      fail: function(err) {
+        console.error(err);
+      }
     });
   }
 
   render() {
-    const {
-      events,
-      event,
-      username
-    } = this.state;
     return (
-      <div className="container">
-        <div id="sidebar">
-          <h3>{username}</h3>
-          <a href='/logout'>logout</a>
-          <UserProfile username={username} events={events} />
-        </div>
-        <div id="header">
-          <h1>Evently.io</h1>
-        </div>
-        <div id="content">
-          <EventPage event={event} />
-        </div>
+      <div>
+        <header>
+          <div className="container">
+            {/*"button-collapse top-nav waves-effect waves-light circle hide-on-large-only" "mdi-navigation-menu"*/}
+            <a href="#" data-activates="slide-out" className="button-collapse top-nav full hide-on-large-only"><i className="material-icons">menu</i></a>
+          </div>
+          <div id="slide-out" className="side-nav fixed">
+            <UserProfile {...this.state}/>
+          </div>
+        </header>
+        <main>
+          <section id="header">
+            <div className="container">
+              <h1>Evently.io</h1>
+            </div>
+          </section>
+          <section className="event-content">
+            <div className="container">
+              {React.cloneElement(this.props.children, {
+                user: this.state.username,
+                userID: this.state.userID
+              })}
+            </div>
+          </section>
+        </main>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
-
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       username: '',
-//       events: [
-//         {
-//           title: 'Bonfire Partys',
-//           date: new Date(),
-//           time: '1:00pm',
-//           Coordinator: 'Megan'
-//         },
-//         {
-//           title: 'Christmas Party',
-//           date: new Date(),
-//           time: '1:00pm',
-//           Coordinator: 'Allison'
-//         }
-//       ],
-//       event: {
-//         url: '/api/events/abc',
-//         itinerary: [
-//           {
-//             time: '1:45 pm',
-//             location: 'here'
-//           },
-//           {
-//             time: '2:00 pm',
-//             location: 'a little bit away from here'
-//           },
-//           {
-//             time: '3:00 pm',
-//             location: 'super far away'
-//           }
-//         ],
-//         location: {lat: -34.397, lng: 150.644},
-//         chats: []
-//       }
-//     };
-//   }
-
-
+ReactDOM.render((
+  <Router history={browserHistory}>
+    <Route path="/events" component={App}>
+      <IndexRoute component={AddEventForm} />
+      <Route path='/events/:eventName' component={EventPage} />
+    </Route>
+  </Router>,
+  document.getElementById('app')
+);

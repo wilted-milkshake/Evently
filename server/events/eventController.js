@@ -34,9 +34,6 @@ module.exports = {
       res.json(error);
     });
 
-
-
-
   },
 
   joinEvent: function(req, res, next) {},
