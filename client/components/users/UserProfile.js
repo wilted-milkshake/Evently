@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ListOfEvents from './ListOfEvents.js';
-import { Link } from 'react-router';
+import { IndexLink } from 'react-router';
 
 require('./../../styles/styles.css');
 

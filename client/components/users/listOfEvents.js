@@ -15,16 +15,18 @@ require('./../../styles/styles.css');
 export default class ListOfEvents extends React.Component {
   constructor(props) {
     super(props);
+    console.log('loe: ', props)
   }
 
   render() {
     const {
-      events
+      events,
+      user
     } = this.props;
     return (
       <div>
         <ul className="collection">
-          { events.map((event, index) => <Event key={index} event={event} />) }
+          { events.map((event, index) => <Event key={index} event={event} user={user}/>) }
         </ul>
       </div>
     )

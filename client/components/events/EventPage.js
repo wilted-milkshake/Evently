@@ -41,6 +41,8 @@ export default class EventPage extends React.Component {
       <div>
         <h2>Your Super Awesome Event</h2>
         <h2>{this.state.event.name}</h2>
+        <h3>params.eventName = {this.props.params.eventName}</h3>
+        <h3>params.user = {this.props.params.user}</h3>
         <div id="map" style={{width: '600px', height:'450px'}}>
           <Map location={this.state.event.location}/>
         </div>
