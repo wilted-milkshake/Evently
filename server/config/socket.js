@@ -1,5 +1,6 @@
 var dummyData = {
   url: '/api/events/abc',
+  name: 'pooopie',
   itinerary: [
     {
       time: '1:45 pm',
