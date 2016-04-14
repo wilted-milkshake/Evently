@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -24,9 +23,9 @@ export default class Map extends React.Component {
     var eventMap = new google.maps.Map(document.getElementById('map'));
     var bounds = new google.maps.LatLngBounds();
     var infoWindow = new google.maps.InfoWindow();
-    var markers = this.props.location.locations;
+    var markers = this.props.locations;
 
-    var createInfo = this.createInfoWindowContent;
+    var createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
     var infoWindowContent = markers.map(marker => createInfo(marker));
 
@@ -34,8 +33,8 @@ export default class Map extends React.Component {
     for (var i = 0; i < markers.length; i++) {
       // get LatLng object from marker
       var position = new google.maps.LatLng({
-        lat: markers[i].latitude,
-        lng: markers[i].longitude
+        lat: markers[i].lat,
+        lng: markers[i].lng
       });
       // extends map bounds to contain the marker
       bounds.extend(position);

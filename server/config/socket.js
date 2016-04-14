@@ -14,7 +14,7 @@ var dummyData = {
       location: 'super far away and also chaged'
     }
   ],
-  location: {lat: -34.397, lng: 150.644},
+  locations: [{lat: -34.397, lng: 150.644, name: 'bazongaville'}],
   chats: [],
   coordinator: '570e929579611d792f533e91'
 };

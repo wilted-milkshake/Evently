@@ -12,7 +12,7 @@ export default class EventPage extends React.Component {
         url: '',
         name: '',
         itinerary: [],
-        location: {lat: 0, lng: 0},
+        locations: [{lat: 0, lng: 0, name: ''}],
         chats: [],
         coordinator: ''
       }
@@ -48,7 +48,7 @@ export default class EventPage extends React.Component {
         <h2>{this.state.event.name}</h2>
         <h3>{this.props.user}</h3>
         <div id="map" style={{width: '600px', height:'450px'}}>
-          <Map location={this.state.event.location}/>
+          <Map locations={this.state.event.locations}/>
         </div>
         <Itinerary entries={this.state.event.itinerary}/>
         { this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
