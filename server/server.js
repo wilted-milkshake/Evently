@@ -42,7 +42,7 @@ require('./routes-passport')(app, passport); // load our routes and pass in our 
 app.use(express.static(__dirname + '/../dist'));
 
 app.get('/api/users', function(req, res) {
-  helper.findUserByUsername(req.user.username, function(err, user) {
+  helper.findUserByUsername(req.user.local.username, function(err, user) {
     if (err) {
       console.log(err);
     }

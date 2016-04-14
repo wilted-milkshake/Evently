@@ -16,19 +16,24 @@ export default class UserProfile extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchProfile();
+  }
+
   fetchProfile() {
     $.ajax({
       type: 'GET',
       url: '/api/users',
       dataType: 'json',
       success: function(data) {
-        console.log(data);
         this.setState({
           username: data.local.username,
-          events: data.local.events
+          events: data.events
         });
-        console.log(this.state);
-      }.bind(this)
+      }.bind(this),
+      fail: function(err) {
+        console.error(err);
+      }
     });
   }
 

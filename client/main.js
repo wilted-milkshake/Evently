@@ -18,7 +18,6 @@ class App extends React.Component {
       <div className="container">
         <div id="sidebar">
           <UserProfile />
-          <Link to="/events/hahaha">Testing</Link>
         </div>
         <div id="header">
           <h1 className="header">Evently.io</h1>
