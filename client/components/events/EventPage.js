@@ -12,14 +12,24 @@ export default class EventPage extends React.Component {
       socket: undefined,
       event: {
         url: '',
-        name: '',
-        itinerary: [],
-        locations: [{ lat: 0, lng: 0, name: '' }],
-        chats: [],
-        coordinator: '',
+        title: '',
+        date: null,
+        coordinator: {},
+        description: '',
         guests: [],
-      },
-    };
+        locations: [
+          {
+            title: '', 
+            address: '',
+            description: '',
+            time: null
+            lat: 0,
+            lng: 0
+          }
+        ],
+        chats: []
+      }
+    }
   }
 
   componentWillMount() {
@@ -42,6 +52,10 @@ export default class EventPage extends React.Component {
 
   isCoordinator() {
     return this.state.event.coordinator.includes(this.props.userID);
+  }
+
+  addMarker(marker) {
+    this.state.socket.emit('new marker added', {marker: marker, id: this.state.event.id});
   }
 
   render() {

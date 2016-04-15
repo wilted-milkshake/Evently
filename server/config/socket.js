@@ -1,3 +1,5 @@
+const EventController = require('../events/eventController');
+
 const dummyData = {
   url: '/api/events/abc',
   name: 'event name',
@@ -45,5 +47,10 @@ module.exports = function socketConfig(io) {
       socket.emit('event data', dummyData);
     });
     // socket.on('chat message', )
+    socket.on('new marker added', function(marker) {
+      EventController.addLocation(marker.id, marker.location, function(err, event) {
+        io.emit('event data', event);
+      })
+    })
   });
 };
