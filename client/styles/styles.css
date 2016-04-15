@@ -16,7 +16,12 @@
   left: 16.25px;
 }
 
-.username, .logout-btn {
+.username {
+  text-align: center;
+}
+
+.logout {
+  color: white;
   text-align: center;
 }
 
