@@ -43,14 +43,25 @@ export default class EventPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Your Super Awesome Event</h2>
-        <h2>{this.state.event.name}</h2>
-        <h3>{this.props.user}</h3>
-        <div id="map" style={{width: '600px', height:'450px'}}>
-          <Map locations={this.state.event.locations}/>
+      <div className="row">
+        <div>
+          <h2>Your Super Awesome Event</h2>
+          <h2>{this.state.event.name}</h2>
+          <h3>{this.props.user}</h3>
         </div>
-        <Itinerary entries={this.state.event.itinerary}/>
+        <div className="row">
+          <div className="col s12 m6 l6">
+            <Itinerary entries={this.state.event.itinerary}/>
+          </div>
+          <div className="col s12 m6 l6">
+            <div id="map" style={{width:'400px', height:'350px'}}>
+              <Map locations={this.state.event.locations}/>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          
+        </div>
         { this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>
     )
