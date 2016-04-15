@@ -6,7 +6,6 @@ import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
 
 require('./styles/styles.css');
-// require('socket.io-client');
 
 class App extends React.Component {
   constructor(props) {
@@ -45,11 +44,10 @@ class App extends React.Component {
       <div>
         <header>
           <div className="container">
-            {/*"button-collapse top-nav waves-effect waves-light circle hide-on-large-only" "mdi-navigation-menu"*/}
             <a href="#" data-activates="slide-out" className="button-collapse top-nav full hide-on-large-only"><i className="material-icons">menu</i></a>
           </div>
           <div id="slide-out" className="side-nav fixed">
-            <UserProfile {...this.state}/>
+            <UserProfile {...this.state} />
           </div>
         </header>
         <main>
@@ -72,11 +70,11 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render((
+ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/events" component={App}>
       <IndexRoute component={AddEventForm} />
-      <Route path='/events/:eventName' component={EventPage} />
+      <Route path="/events/:eventName" component={EventPage} />
     </Route>
   </Router>,
   document.getElementById('app')

@@ -1,6 +1,8 @@
 import React from 'react';
 import Map from './Map.js';
 import Itinerary from './Itinerary.js';
+import GuestList from './GuestList.js';
+import Chat from './Chat.js';
 
 export default class EventPage extends React.Component {
 
@@ -12,17 +14,18 @@ export default class EventPage extends React.Component {
         url: '',
         name: '',
         itinerary: [],
-        locations: [{lat: 0, lng: 0, name: ''}],
+        locations: [{ lat: 0, lng: 0, name: '' }],
         chats: [],
-        coordinator: ''
-      }
-    }
+        coordinator: '',
+        guests: [],
+      },
+    };
   }
 
   componentWillMount() {
     this.setState({
       socket: this.configSocket(this.props.params.eventName)
-    })
+    });
   }
 
   componentDidMount() {
@@ -30,10 +33,10 @@ export default class EventPage extends React.Component {
   }
 
   configSocket(eventID) {
-    let socket = io.connect(window.location.origin, {
-      query: 'eventRoom=' + eventID
+    const socket = io.connect(window.location.origin, {
+      query: `eventRoom=${eventID}`
     });
-    socket.on('event data', data => this.setState({event: data}));
+    socket.on('event data', data => this.setState({ event: data }));
     return socket;
   }
 
@@ -42,17 +45,30 @@ export default class EventPage extends React.Component {
   }
 
   render() {
+    const { itinerary, chats, name, locations, guests } = this.state.event;
     return (
-      <div>
-        <h2>Your Super Awesome Event</h2>
-        <h2>{this.state.event.name}</h2>
-        <h3>{this.props.user}</h3>
-        <div id="map" style={{width: '600px', height:'450px'}}>
-          <Map locations={this.state.event.locations}/>
+      <div className="row">
+        <div>
+          <h2>Your Super Awesome Event</h2>
+          <h2>{name}</h2>
+          <h3>{this.props.user}</h3>
         </div>
-        <Itinerary entries={this.state.event.itinerary}/>
-        { this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
+        <div className="row">
+          <div className="col s12 m6 l6">
+            <Itinerary entries={itinerary} />
+          </div>
+          <div className="col s12 m6 l6">
+            <div id="map" style={{ width: '400px', height: '350px' }}>
+              <Map locations={locations} />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <GuestList guests={guests} />
+          <Chat messages={chats} />
+        </div>
+        {this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>
-    )
+    );
   }
-};
+}

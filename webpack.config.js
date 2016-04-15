@@ -9,6 +9,7 @@ module.exports = {
     './client/main.js'
   ],
   output: {
+    publicPath: '/',
     path: __dirname + '/dist',
     filename: 'main_bundle.js'
   },
@@ -19,32 +20,4 @@ module.exports = {
     ]
   },
   plugins: [HtmlWebpackPluginConfig]
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
