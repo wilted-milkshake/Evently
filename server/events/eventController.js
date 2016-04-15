@@ -14,15 +14,13 @@ var updateUser = Q.nbind(User.findOneAndUpdate, User);
 module.exports = {
   // insert event info into Event table and User table
   createEvent: function(req, res, next) {
-    
-    console.log('createEvent location: ', req.body.locations);
-    
+    console.log('IN CREATE EVENT', req.body);
     var newEvent = {
       title: req.body.title,
       date: req.body.date,
-      coordinator: [],
-      description: '',
-      guests: [],
+      description: req.body.description,
+      guests: [req.body.coordinator],
+      coordinator: req.body.coordinator,
       locations: req.body.locations, 
       chats: []
     };

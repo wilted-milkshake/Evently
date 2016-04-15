@@ -22,7 +22,8 @@ export default class AddEventForm extends React.Component {
           latitude: 0,
           longitude: 0
         }
-      ]
+      ],
+      guests: []
     };
     console.log('EVENT INFO in POST EVENT', eventInfo)
     $.ajax({

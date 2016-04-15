@@ -49,8 +49,14 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+app.get('/api/getEvents', (req, res) => {
+  helper.findAllEvents(function(events) {
+    console.log('events in server', events);
+    res.send(events);
+  });
+});
+
 app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
-  // console.log('USERRRRRR in server.js', req.user);
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 

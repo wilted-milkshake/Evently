@@ -12,6 +12,17 @@ export default class UserProfile extends React.Component {
 
   joinEvent() {
     console.log('hi');
+    $.ajax({
+      type: 'GET',
+      url: '/api/getEvents',
+      dataType: 'json',
+      success: function(data) {
+        console.log('Data in joinEvent', data)
+      }.bind(this),
+      fail: function(err) {
+        console.error(err);
+      }
+    });
   }
 
   render() {
@@ -27,7 +38,9 @@ export default class UserProfile extends React.Component {
           <a href='/logout' className="waves-effect waves-light btn logouta"><span className='logout'>Logout</span></a>
         </div>
         {/*Join an event*/}
-        <button onClick={this.joinEvent.bind(this)} className="waves-effect waves-light btn">Join an Event</button>
+        <div className="logout-btn">
+          <a onClick={this.joinEvent.bind(this)} className="waves-effect waves-light btn logouta"><span className='logout'>Join an Event</span></a>
+        </div>
         {/*Create an event button*/}
         <div className="add-btn btn-floating btn-large waves-effect waves-light blue"><Link to='/events'><i className="material-icons">add</i></Link></div>
         {/*<Link to='/events/abc'>Test</Link>*/}
