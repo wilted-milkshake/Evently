@@ -16,8 +16,14 @@
   left: 16.25px;
 }
 
-.username {
+.username, {
   text-align: center;
+}
+
+.events-title {
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: bold;
 }
 
 .logout {
@@ -25,9 +31,26 @@
   text-align: center;
 }
 
+.logout-btn {
+  padding: 12px;
+}
+
+.list-item {
+  border: 1px solid #eee;
+}
+
+.list-events {
+  margin-top: 5px;
+}
+
+.side-nav .logouta {
+  height: 30px;
+  line-height: 30px;
+}
+
 header, main, footer {
-      padding-left: 240px;
-    }
+  padding-left: 240px;
+}
 
 @media only screen and (max-width : 992px) {
   header, main, footer {
