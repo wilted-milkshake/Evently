@@ -16,7 +16,7 @@ export default class ListOfEvents extends React.Component {
     return (
       <div>
         <Link to='/events/abc'>Test</Link>
-        {/* events.map((event, index) => <Event key={index} event={event} />) */}
+        { events.map((event, index) => <Event key={index} url={`/events/'${event.title}`} event={event} />) }
       </div>
     )
   }

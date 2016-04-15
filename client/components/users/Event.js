@@ -10,7 +10,8 @@ export default class Event extends React.Component {
 
   render() {
     const {
-      event
+      event,
+      url
     } = this.props;
     return (
       <li>
