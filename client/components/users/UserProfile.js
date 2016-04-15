@@ -10,6 +10,10 @@ export default class UserProfile extends React.Component {
     super(props);
   }
 
+  joinEvent() {
+    console.log('hi');
+  }
+
   render() {
     const {
       username,
@@ -22,10 +26,13 @@ export default class UserProfile extends React.Component {
         <div className="logout-btn">
           <a href='/logout' className="waves-effect waves-light btn logouta"><span className='logout'>Logout</span></a>
         </div>
+        {/*Join an event*/}
+        <button onClick={this.joinEvent.bind(this)} className="waves-effect waves-light btn">Join an Event</button>
         {/*Create an event button*/}
         <div className="add-btn btn-floating btn-large waves-effect waves-light blue"><Link to='/events'><i className="material-icons">add</i></Link></div>
         {/*<Link to='/events/abc'>Test</Link>*/}
         <ListOfEvents events={events} />
+        
       </div>
     );
   }

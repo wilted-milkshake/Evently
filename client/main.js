@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   onAddEvent(newEvent) {
-    console.log('what upppp');
+    console.log('what upppp', newEvent);
     var newEvents = this.state.events.concat(newEvent);
     this.setState({
       events: newEvents
@@ -37,11 +37,11 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {
         this.setState({
+          user: data.local.username,
           userID: data._id,
           username: data.local.username,
           events: data.events
         });
-        console.log('STATE IN FETCHPROFILE', this.state);
       }.bind(this),
       fail: function(err) {
         console.error(err);

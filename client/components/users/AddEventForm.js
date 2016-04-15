@@ -12,7 +12,7 @@ export default class AddEventForm extends React.Component {
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
-      coordinator: 'user',
+      coordinator: this.props.user,
       locations: [
         {
           title: $('#event_location')[0].value,
@@ -24,6 +24,7 @@ export default class AddEventForm extends React.Component {
         }
       ]
     };
+    console.log('EVENT INFO in POST EVENT', eventInfo)
     $.ajax({
       type: 'POST',
       url: '/events/create',

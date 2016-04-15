@@ -5,10 +5,12 @@
 .profile {
   position: relative;
 }
+
 .add-btn {
   position: absolute;
   bottom: -27.5px;
   left: 160px;
+  color: #26a69a;
 }
 
 .add-btn i {
@@ -23,7 +25,6 @@
 .events-title {
   font-size: 1.1rem;
   text-align: center;
-  font-weight: bold;
 }
 
 .logout {
