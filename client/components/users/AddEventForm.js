@@ -12,12 +12,15 @@ export default class AddEventForm extends React.Component {
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
+      coordinator: 'user',
       locations: [
         {
           title: $('#event_location')[0].value,
           address: $('#address')[0].value,
           time: $('#time')[0].value,
-          description: ''
+          description: '',
+          latitude: 0,
+          longitude: 0
         }
       ]
     };
@@ -26,9 +29,12 @@ export default class AddEventForm extends React.Component {
       url: '/events/create',
       data: JSON.stringify(eventInfo),
       dataType: 'json',
-      contentType: 'application/json'
-    });
-  }
+      contentType: 'application/json',
+      success: function(newEvent) {
+        this.props.onAddEvent(newEvent);
+      }.bind(this)
+    })
+  };
 
   render() {
     return (

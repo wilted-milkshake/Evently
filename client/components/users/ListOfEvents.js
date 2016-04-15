@@ -1,5 +1,6 @@
 import React from 'react';
-import Event from './Event.js'
+import { Link } from 'react-router';
+import Event from './Event.js';
 
 require('./../../styles/styles.css');
 
@@ -14,9 +15,8 @@ export default class ListOfEvents extends React.Component {
     } = this.props;
     return (
       <div>
-        <ul className="collection">
-          { events.map((event, index) => <Event key={index} event={event} />) }
-        </ul>
+        <Link to='/events/abc'>Test</Link>
+        {/* events.map((event, index) => <Event key={index} event={event} />) */}
       </div>
     )
   }

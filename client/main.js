@@ -21,6 +21,15 @@ class App extends React.Component {
     $(".button-collapse").sideNav();
   }
 
+  onAddEvent(newEvent) {
+    console.log('what upppp');
+    var newEvents = this.state.events.concat(newEvent);
+    this.setState({
+      events: newEvents
+    });
+    console.log('STATE IN ONADDEVENT', this.state);
+  }
+
   fetchProfile() {
     $.ajax({
       type: 'GET',
@@ -32,6 +41,7 @@ class App extends React.Component {
           username: data.local.username,
           events: data.events
         });
+        console.log('STATE IN FETCHPROFILE', this.state);
       }.bind(this),
       fail: function(err) {
         console.error(err);
@@ -60,7 +70,9 @@ class App extends React.Component {
             <div className="container">
               {React.cloneElement(this.props.children, {
                 user: this.state.username,
-                userID: this.state.userID
+                userID: this.state.userID,
+                onAddEvent: this.onAddEvent.bind(this),
+                events: this.state.events
               })}
             </div>
           </section>
