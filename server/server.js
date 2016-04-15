@@ -1,20 +1,19 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
-var morgan = require('morgan');
-var dbConfig = require('./config/database');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var helper = require('./helpers.js');
-var port = process.env.PORT || 3000;
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
+const morgan = require('morgan');
+const dbConfig = require('./config/database');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const helper = require('./helpers.js');
+const port = process.env.PORT || 3000;
 
-var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 // set up socket listerner
 require('./config/socket')(io);
 
@@ -35,14 +34,14 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes
-require('./routes-passport')(app, passport); // load our routes and pass in our app and fully configured passport
+// load our routes and pass in our app and fully configured passport
+require('./routes-passport')(app, passport);
 
 
+app.use(express.static(`${__dirname}/../dist`));
 
-app.use(express.static(__dirname + '/../dist'));
-
-app.get('/api/users', function(req, res) {
-  helper.findUserByUsername(req.user.local.username, function(err, user) {
+app.get('/api/users', (req, res) => {
+  helper.findUserByUsername(req.user.local.username, (err, user) => {
     if (err) {
       console.log(err);
     }
@@ -50,11 +49,9 @@ app.get('/api/users', function(req, res) {
   });
 });
 
-app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, function(req, res) {
+app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
   // console.log('USERRRRRR in server.js', req.user);
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 
-server.listen(port, function() {
-  console.log('Listening on port ' + port);
-});
+server.listen(port, () => console.log(`Listening on port ${port}`));
