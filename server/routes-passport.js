@@ -47,5 +47,4 @@ module.exports = function(app, passport) {
 
   app.post('/events/join', eventController.joinEvent);
 
-  
 };

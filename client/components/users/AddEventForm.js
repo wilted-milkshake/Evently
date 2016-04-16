@@ -11,7 +11,7 @@ export default class AddEventForm extends React.Component {
       url: $('#event_title')[0].value,
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
-      description: 'description string',
+      description: 'description string', //TODO FIX DESCRIPTION
       coordinator: [this.props.user],
       locations: [
         {
@@ -32,7 +32,6 @@ export default class AddEventForm extends React.Component {
       dataType: 'json',
       contentType: 'application/json',
       success: function(newEvent) {
-        console.log('IN SUCCESS AEF', newEvent);
         this.props.onAddEvent(newEvent);
       }.bind(this)
     })

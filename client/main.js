@@ -10,8 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: '',
-      events: [],
-      currentEvent: null
+      events: []
     }
   }
 
@@ -25,47 +24,46 @@ class App extends React.Component {
     this.setState({
       events: newEvents
     });
-    console.log('hi', this.state.events);
   }
 
   onJoinEvent(user) {
     console.log('USERNAME IN MAIN.JS', user);
-  }
+    // we want to add event to users event list
 
-  fetchEvent() {
-  //   console.log('hi');
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: '/api/getEvent',
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       console.log('Data in Main', data);
-  //       this.setState({currentEvent: data});
-  //     }.bind(this),
-  //     fail: function(err) {
-  //       console.error(err);
-  //     }
-  //   });
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/events/join',
+    //   data: eventTitle,
+    //   success: function(event) {
+    //     console.log('Data in Main', event);
+    //     this.setState({
+    //       currentEvent: event
+    //     });
+    //   }.bind(this),
+    //   fail: function(err) {
+    //     console.error(err);
+    //   }
+    // });
   }
 
   fetchProfile() {
-    $.ajax({
-      type: 'GET',
-      url: '/api/users',
-      dataType: 'json',
-      success: function(data) {
-        this.setState({
-          user: data.local.username,
-          userID: data._id,
-          username: data.local.username,
-          events: data.events
-        });
-      }.bind(this),
-      fail: function(err) {
-        console.error(err);
-      }
-    });
-  }
+      $.ajax({
+        type: 'GET',
+        url: '/api/users',
+        dataType: 'json',
+        success: function(data) {
+          this.setState({
+            userID: data._id,
+            username: data.local.username,
+            events: data.events
+          });
+        }.bind(this),
+        fail: function(err) {
+          console.error(err);
+        }
+      });
+    }
+
 
   render() {
     return (
@@ -92,8 +90,6 @@ class App extends React.Component {
                 onAddEvent: this.onAddEvent.bind(this),
                 onJoinEvent: this.onJoinEvent.bind(this),
                 events: this.state.events,
-                fetchEvent: this.fetchEvent.bind(this)
-                // allEvents: this.state.allEvents
               })}
             </div>
           </section>

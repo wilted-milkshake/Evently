@@ -31,11 +31,11 @@ module.exports = {
 
   joinEvent: function(req, res, next) {
     var user = req.body
-    updateUser(user)
-    .then(function(err, user) {
-      console.log('USER IN JOIN EVENT', user);
-      res.json(user);
-    })
+    // updateUser(user)
+    // .then(function(err, user) {
+    //   console.log('USER IN JOIN EVENT', user);
+    //   res.json(user);
+    // })
   },
 
   addLocation: function(id, location, cb) {
