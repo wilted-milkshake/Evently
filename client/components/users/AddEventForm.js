@@ -1,6 +1,4 @@
 import React from 'react';
-// import $ from 'jquery';
-require('./../../styles/styles.css');
 
 export default class AddEventForm extends React.Component {
   constructor(props) {
@@ -12,23 +10,30 @@ export default class AddEventForm extends React.Component {
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
+      coordinator: [this.props.user],
       locations: [
         {
           title: $('#event_location')[0].value,
           address: $('#address')[0].value,
           time: $('#time')[0].value,
-          description: ''
+          description: '',
+          latitude: 0,
+          longitude: 0
         }
-      ]
+      ],
+      guests: [this.props.user]
     };
     $.ajax({
       type: 'POST',
-      url: '/events/create',
+      url: '/api/events/',
       data: JSON.stringify(eventInfo),
       dataType: 'json',
-      contentType: 'application/json'
-    });
-  }
+      contentType: 'application/json',
+      success: function(events) {
+        this.props.onAddEvent(events);
+      }.bind(this)
+    })
+  };
 
   render() {
     return (

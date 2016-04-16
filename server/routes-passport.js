@@ -1,5 +1,6 @@
 var helper = require('./helpers.js');
-var eventController = require('./events/eventController.js');
+var path = require('path');
+
 module.exports = function(app, passport) {
   // home page with login links
   app.get('/', function(req, res) {
@@ -41,6 +42,27 @@ module.exports = function(app, passport) {
     res.redirect('/');
   });
 
-  app.post('/events/create', eventController.createEvent); // insert event info into Event table and User table
+  app.get('/api/users', (req, res) => {
+    helper.findUserByUsername(req.user.local.username, (err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      helper.getEventTitles(user.events)
+      .then(eventTitles => {
+        user.events = eventTitles;
+        res.send(user);
+      });
+    });
+  });
+
+  app.post('/api/events', (req, res) => {
+    helper.createEvent(req.body)
+    .then(user => helper.getEventTitles(user.events))
+    .then(eventTitles => res.send(eventTitles));
+  });
+
+  app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, '/../dist/index.html'));
+  });
 
 };

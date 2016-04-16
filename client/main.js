@@ -5,20 +5,24 @@ import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
 
-require('./styles/styles.css');
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      events: []
+      events: [],
     }
   }
 
   componentDidMount() {
     this.fetchProfile();
     $(".button-collapse").sideNav();
+  }
+
+  onAddEvent(events) {
+    this.setState({
+      events: events
+    });
   }
 
   fetchProfile() {
@@ -60,7 +64,8 @@ class App extends React.Component {
             <div className="container">
               {React.cloneElement(this.props.children, {
                 user: this.state.username,
-                userID: this.state.userID
+                userID: this.state.userID,
+                onAddEvent: this.onAddEvent.bind(this),
               })}
             </div>
           </section>

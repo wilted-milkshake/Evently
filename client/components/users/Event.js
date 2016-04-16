@@ -15,7 +15,7 @@ export default class Event extends React.Component {
     return (
       <li>
         <Link to={`/events/${event}`} className="collection-item" activeClassName="active">
-          {event} <i className="material-icons">location_on</i>
+          {event} <i className="material-icons right">location_on</i>
         </Link>
       </li>
     )

@@ -5,10 +5,12 @@
 .profile {
   position: relative;
 }
+
 .add-btn {
   position: absolute;
   bottom: -27.5px;
   left: 160px;
+  color: #26a69a;
 }
 
 .add-btn i {
@@ -16,13 +18,40 @@
   left: 16.25px;
 }
 
-.username, .logout-btn {
+.username, {
   text-align: center;
 }
 
+.events-title {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.btn-text {
+  color: white;
+  text-align: center;
+}
+
+/*.logout-btn {
+  padding: 12px;
+}*/
+
+.list-item {
+  border: 1px solid #eee;
+}
+
+.list-events {
+  margin-top: 5px;
+}
+
+.side-nav .style-btn {
+  height: 30px;
+  line-height: 30px;
+}
+
 header, main, footer {
-      padding-left: 240px;
-    }
+  padding-left: 240px;
+}
 
 @media only screen and (max-width : 992px) {
   header, main, footer {

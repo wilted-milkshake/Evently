@@ -5,19 +5,9 @@ var EventSchema = new mongoose.Schema({
   url: String,
   title: String,
   date: Date,
-  coordinator: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
+  coordinator: [],
   description: String,
-  guests: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
+  guests: [],
   locations: [],
   chats: []
 });

@@ -24,29 +24,3 @@ UserSchema.methods.validPassword = function(password) {
 var UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;
-
-// var Q = require('q');
-// var mongoose = require('mongoose');
-// var bcrypt = require('bcrypt-nodejs');
-// var SALT_WORK_FACTOR = 10;
-// // var Event = require('../events/eventmodel');
-
-
-// var UserSchema = new mongoose.Schema({
-//   username: {
-//     type: String,
-//     required: true,
-//     unique: true
-//   },
-
-//   password: {
-//     type: String,
-//     required: true
-//   },
-
-//   salt: String,
-//   events: [{
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: 'Event'
-//     }]
-// });
