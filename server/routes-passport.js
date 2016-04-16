@@ -1,5 +1,6 @@
 const helpers = require('./helpers.js');
 const path = require('path');
+const express = require('express');
 
 module.exports = (app, passport) => {
   // home page with login links
@@ -39,6 +40,9 @@ module.exports = (app, passport) => {
     req.logout();
     res.redirect('/');
   });
+
+  app.use(express.static(`${__dirname}/../dist`));
+
 
   app.get('/api/users', (req, res) => {
     helpers.findUserByUsername(req.user.local.username, (err, user) => {
