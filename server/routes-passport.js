@@ -1,5 +1,4 @@
 var helper = require('./helpers.js');
-var eventController = require('./events/eventController.js');
 module.exports = function(app, passport) {
   // home page with login links
   app.get('/', function(req, res) {
@@ -41,6 +40,6 @@ module.exports = function(app, passport) {
     res.redirect('/');
   });
 
-  app.post('/events/create', eventController.createEvent); // insert event info into Event table and User table
+  // app.post('/events/create', helper.createEvent); // insert event info into Event table and User table
 
 };

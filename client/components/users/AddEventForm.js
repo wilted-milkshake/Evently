@@ -10,7 +10,7 @@ export default class AddEventForm extends React.Component {
     var eventInfo = {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
-      coordinator: this.props.user,
+      coordinator: [this.props.user],
       locations: [
         {
           title: $('#event_location')[0].value,
@@ -21,16 +21,16 @@ export default class AddEventForm extends React.Component {
           longitude: 0
         }
       ],
-      guests: []
+      guests: [this.props.user]
     };
     $.ajax({
       type: 'POST',
-      url: '/events/create',
+      url: '/api/events/',
       data: JSON.stringify(eventInfo),
       dataType: 'json',
       contentType: 'application/json',
-      success: function(newEvent) {
-        this.props.onAddEvent(newEvent);
+      success: function(events) {
+        this.props.onAddEvent(events);
       }.bind(this)
     })
   };

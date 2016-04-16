@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+require('./../../styles/styles.css');
+
 export default class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -11,11 +13,11 @@ export default class Event extends React.Component {
       event
     } = this.props;
     return (
-      <Link
-        to={`/events/${event.title}`}
-        className="list-item">
-        {event.title}
-      </Link>
+      <li>
+        <Link to={`/events/${event}`} className="collection-item" activeClassName="active">
+          {event} <i className="material-icons right">location_on</i>
+        </Link>
+      </li>
     )
   }
 };

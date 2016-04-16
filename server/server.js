@@ -45,15 +45,18 @@ app.get('/api/users', (req, res) => {
     if (err) {
       console.log(err);
     }
-    res.send(user);
+    helper.getEventTitles(user.events)
+    .then(eventTitles => {
+      user.events = eventTitles;
+      res.send(user);
+    });
   });
 });
 
-app.get('/api/getEvents', (req, res) => {
-  helper.findAllEvents(function(events) {
-    console.log('events in server', events);
-    res.send(events);
-  });
+app.post('/api/events', (req, res) => {
+  helper.createEvent(req.body)
+  .then(user => helper.getEventTitles(user.events))
+  .then(eventTitles => res.send(eventTitles));
 });
 
 app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {

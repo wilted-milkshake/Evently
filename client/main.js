@@ -20,28 +20,9 @@ class App extends React.Component {
     $(".button-collapse").sideNav();
   }
 
-  onAddEvent(newEvent) {
-    console.log('what upppp', newEvent);
-    var newEvents = this.state.events.concat(newEvent);
+  onAddEvent(events) {
     this.setState({
-      events: newEvents
-    });
-    console.log('STATE IN ONADDEVENT', this.state);
-  }
-
-  fetchAllEvents() {
-    console.log('hi');
-    $.ajax({
-      type: 'GET',
-      url: '/api/getEvents',
-      dataType: 'json',
-      success: function(data) {
-        console.log('Data in Main', data);
-        this.setState({allEvents: data});
-      }.bind(this),
-      fail: function(err) {
-        console.error(err);
-      }
+      events: events
     });
   }
 
@@ -52,7 +33,6 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {
         this.setState({
-          user: data.local.username,
           userID: data._id,
           username: data.local.username,
           events: data.events
@@ -87,8 +67,6 @@ class App extends React.Component {
                 user: this.state.username,
                 userID: this.state.userID,
                 onAddEvent: this.onAddEvent.bind(this),
-                events: this.state.events,
-                allEvents: this.state.allEvents
               })}
             </div>
           </section>
