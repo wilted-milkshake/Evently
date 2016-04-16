@@ -21,12 +21,10 @@ class App extends React.Component {
   }
 
   onAddEvent(newEvent) {
-    console.log('what upppp', newEvent);
     var newEvents = this.state.events.concat(newEvent);
     this.setState({
       events: newEvents
     });
-    console.log('STATE IN ONADDEVENT', this.state);
   }
 
   fetchAllEvents() {
@@ -57,6 +55,8 @@ class App extends React.Component {
           username: data.local.username,
           events: data.events
         });
+
+
       }.bind(this),
       fail: function(err) {
         console.error(err);
