@@ -16,7 +16,7 @@ export default class ListOfEvents extends React.Component {
     return (
       <div className="list-events">
         <h2 className="events-title">My Events</h2>
-        <Link to='/events/abc' className="list-item">Test</Link>
+        <Link to='/events/abc' onClick={$(".button-collapse").sideNav('hide')} className="list-item">Test</Link>
         { events.map((event, index) => <Event key={index} event={event} />) }
       </div>
     )
