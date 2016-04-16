@@ -66,6 +66,6 @@ export default class AddEventForm extends React.Component {
 }
 
 AddEventForm.propTypes = {
-  user: React.PropTypes.object,
+  user: React.PropTypes.string,
   onAddEvent: React.PropTypes.func,
 };

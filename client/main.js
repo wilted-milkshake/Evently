@@ -86,5 +86,5 @@ ReactDOM.render(
 );
 
 App.propTypes = {
-  children: React.PropTypes.oneOf(['AddEventForm', 'EventPage']),
+  children: React.PropTypes.object,
 };
