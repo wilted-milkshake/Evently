@@ -20,7 +20,7 @@ module.exports = {
     var newEvent = {
       title: req.body.title,
       date: req.body.date,
-      coordinator: '',
+      coordinator: [],
       description: '',
       guests: [],
       locations: req.body.locations, 

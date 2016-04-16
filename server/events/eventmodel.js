@@ -5,10 +5,12 @@ var EventSchema = new mongoose.Schema({
   url: String,
   title: String,
   date: Date,
-  coordinator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  coordinator: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   description: String,
   guests: [
     {

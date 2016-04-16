@@ -24,7 +24,7 @@ export default class Map extends React.Component {
     var eventMap = new google.maps.Map(document.getElementById('map'));
     var bounds = new google.maps.LatLngBounds();
     var infoWindow = new google.maps.InfoWindow();
-    var markers = this.props.locations;
+    var markers = props.locations;
 
     var createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
