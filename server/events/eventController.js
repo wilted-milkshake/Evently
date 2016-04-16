@@ -29,7 +29,9 @@ module.exports = {
 
   },
 
-  joinEvent: function(req, res, next) {},
+  joinEvent: function(req, res, next) {
+    console.log('IN JOIN EVENT', req.body)
+  },
 
   addLocation: function(id, location, cb) {
     Event.findByIdAndUpdate(id, {$push: {locations: location}}, {new: true}, cb);
