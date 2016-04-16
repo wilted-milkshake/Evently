@@ -21,11 +21,11 @@ class App extends React.Component {
   }
 
   onAddEvent(newEvent) {
-    console.log('hi')
     var newEvents = this.state.events.concat(newEvent);
     this.setState({
       events: newEvents
     });
+    console.log('hi', this.state.events);
   }
 
   onJoinEvent(user) {
@@ -33,19 +33,19 @@ class App extends React.Component {
   }
 
   fetchEvent() {
-    console.log('hi');
-    $.ajax({
-      type: 'GET',
-      url: '/api/getEvent',
-      dataType: 'json',
-      success: function(data) {
-        console.log('Data in Main', data);
-        this.setState({currentEvent: data});
-      }.bind(this),
-      fail: function(err) {
-        console.error(err);
-      }
-    });
+  //   console.log('hi');
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: '/api/getEvent',
+  //     dataType: 'json',
+  //     success: function(data) {
+  //       console.log('Data in Main', data);
+  //       this.setState({currentEvent: data});
+  //     }.bind(this),
+  //     fail: function(err) {
+  //       console.error(err);
+  //     }
+  //   });
   }
 
   fetchProfile() {
@@ -55,13 +55,11 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {
         this.setState({
-          user: data.local.username, // Do we need this?
+          user: data.local.username,
           userID: data._id,
           username: data.local.username,
           events: data.events
         });
-
-
       }.bind(this),
       fail: function(err) {
         console.error(err);

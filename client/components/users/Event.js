@@ -9,6 +9,7 @@ export default class Event extends React.Component {
   }
 
   handleClick() {
+    console.log('HIHIHIH', this.props.event);
     $(".button-collapse").sideNav('hide')
     this.props.fetchEvent();
   }

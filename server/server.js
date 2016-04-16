@@ -50,10 +50,11 @@ app.get('/api/users', (req, res) => {
 });
 
 app.get('/api/getEvent', (req, res) => {
-  helper.findEvent(function(event) {
-    console.log('events in server', event);
-    res.send(event);
-  });
+  console.log('IN SERVER', req.body);
+  // helper.findEventByName(function(event) {
+  //   console.log('event in server', event);
+  //   res.send(event);
+  // });
 });
 
 app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {

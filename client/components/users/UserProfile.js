@@ -14,7 +14,6 @@ export default class UserProfile extends React.Component {
     const {
       username,
       events,
-      allEvents,
       fetchEvent
     } = this.props
     return (
