@@ -35,22 +35,15 @@ module.exports = {
     var user = req.body;
 
     findEvent({title: user.title}).then(function(foundEvent) {
+      foundEvent.guests = foundEvent.guests.concat(user.username);
       return foundEvent;
     }).then(function(foundEvent) {
+      console.log('FOUND EVENT', foundEvent);
       helper.findUserByUsername(user.username, function(err, user) {
         user.events = user.events.concat(foundEvent);
         res.json(user);
       });
     });
-    // find user based on user.username
-
-    // add that event to user's event array
-
-    // updateUser(user)
-    // .then(function(err, user) {
-    //   console.log('USER IN JOIN EVENT', user);
-    //   res.json(user);
-    // })
   },
 
   addLocation: function(id, location, cb) {
