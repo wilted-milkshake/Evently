@@ -60,18 +60,16 @@ export default class EventPage extends React.Component {
   }
 
   joinEvent() {
-    var user = this.props.user;
+    var user = {username: this.props.user};
     $.ajax({
       type: 'POST',
       url: '/events/join',
       data: user,
-      success: function(username) {
-        console.log('USER ID in Event Page', username);
-      }.bind(this),
-      fail: function(err) {
-        console.log('ERROR in event page post: ', err)
+      success: function(user) {
+        console.log('hi'); //Not console logging anything
+        this.props.onJoinEvent(user); 
       }.bind(this)
-    })
+    });
   }
 
   render() {

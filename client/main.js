@@ -21,10 +21,15 @@ class App extends React.Component {
   }
 
   onAddEvent(newEvent) {
+    console.log('hi')
     var newEvents = this.state.events.concat(newEvent);
     this.setState({
       events: newEvents
     });
+  }
+
+  onJoinEvent(user) {
+    console.log('USERNAME IN MAIN.JS', user);
   }
 
   // fetchAllEvents() {
@@ -87,6 +92,7 @@ class App extends React.Component {
                 user: this.state.username,
                 userID: this.state.userID,
                 onAddEvent: this.onAddEvent.bind(this),
+                onJoinEvent: this.onJoinEvent.bind(this),
                 events: this.state.events,
                 // allEvents: this.state.allEvents
               })}
