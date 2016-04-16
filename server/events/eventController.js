@@ -36,6 +36,4 @@ module.exports = {
   },
 
   displayEvent: function(req, res, next) {}
-  }
-
-};
+}
