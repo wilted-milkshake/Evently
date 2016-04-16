@@ -59,6 +59,10 @@ export default class EventPage extends React.Component {
     this.state.socket.emit('new marker added', {marker: marker, id: this.state.event.id});
   }
 
+  joinEvent() {
+    console.log(this.props.userID)
+  }
+
   render() {
     const { locations, chats, title, guests } = this.state.event;
     return (
@@ -66,7 +70,9 @@ export default class EventPage extends React.Component {
         <div>
           <h2>{title}</h2>
         </div>
-        <a className="waves-effect waves-light btn">Join This Event <i className="material-icons">launch</i></a>
+        <button onClick={this.joinEvent.bind(this)} className="btn waves-effect waves-light">Join This Event
+          <i className="material-icons right">launch</i>
+        </button>
         <div className="row">
           <div className="col s12 m6 l6">
             <Itinerary entries={locations} />
