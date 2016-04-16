@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {
       username: '',
       events: [],
-    }
+    };
   }
 
   componentDidMount() {
@@ -21,7 +21,7 @@ class App extends React.Component {
 
   onAddEvent(events) {
     this.setState({
-      events: events
+      events,
     });
   }
 
@@ -30,16 +30,16 @@ class App extends React.Component {
       type: 'GET',
       url: '/api/users',
       dataType: 'json',
-      success: function(data) {
+      success: (data) => {
         this.setState({
           userID: data._id,
           username: data.local.username,
-          events: data.events
+          events: data.events,
         });
-      }.bind(this),
-      fail: function(err) {
+      },
+      fail(err) {
         console.error(err);
-      }
+      },
     });
   }
 
@@ -84,3 +84,7 @@ ReactDOM.render(
   </Router>,
   document.getElementById('app')
 );
+
+App.propTypes = {
+  children: React.PropTypes.oneOf(['AddEventForm', 'EventPage']),
+};
