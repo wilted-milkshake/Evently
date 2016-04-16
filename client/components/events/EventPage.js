@@ -64,10 +64,9 @@ export default class EventPage extends React.Component {
     return (
       <div className="row">
         <div>
-          <h2>Your Super Awesome Event</h2>
           <h2>{title}</h2>
-          <h3>{this.props.user}</h3>
         </div>
+        <a className="waves-effect waves-light btn">Join This Event <i className="material-icons">launch</i></a>
         <div className="row">
           <div className="col s12 m6 l6">
             <Itinerary entries={locations} />
