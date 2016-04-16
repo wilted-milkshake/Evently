@@ -8,6 +8,11 @@ export default class Event extends React.Component {
     super(props);
   }
 
+  handleClick() {
+    $(".button-collapse").sideNav('hide')
+    this.props.fetchEvent();
+  }
+
   render() {
     const {
       event
@@ -15,7 +20,8 @@ export default class Event extends React.Component {
     return (
       <Link
         to={`/events/${event.title}`}
-        className="list-item">
+        className="list-item"
+        onClick={this.handleClick.bind(this)} >
         {event.title}
       </Link>
     )

@@ -30,7 +30,12 @@ module.exports = {
   },
 
   joinEvent: function(req, res, next) {
-    console.log('IN JOIN EVENT', req.body)
+    var user = req.body
+    updateUser(user)
+    .then(function(err, user) {
+      console.log('USER IN JOIN EVENT', user);
+      res.json(user);
+    })
   },
 
   addLocation: function(id, location, cb) {

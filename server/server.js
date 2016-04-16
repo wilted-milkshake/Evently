@@ -49,10 +49,10 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-app.get('/api/getEvents', (req, res) => {
-  helper.findAllEvents(function(events) {
-    console.log('events in server', events);
-    res.send(events);
+app.get('/api/getEvent', (req, res) => {
+  helper.findEvent(function(event) {
+    console.log('events in server', event);
+    res.send(event);
   });
 });
 

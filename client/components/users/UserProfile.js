@@ -14,7 +14,8 @@ export default class UserProfile extends React.Component {
     const {
       username,
       events,
-      allEvents
+      allEvents,
+      fetchEvent
     } = this.props
     return (
       <div className="profile">
@@ -26,7 +27,7 @@ export default class UserProfile extends React.Component {
         {/*Create an event button*/}
         <div className="add-btn btn-floating btn-large waves-effect waves-light blue"><Link to='/events'><i className="material-icons" onClick={$(".button-collapse").sideNav('hide')}>add</i></Link></div>
         {/*<Link to='/events/abc'>Test</Link>*/}
-        <ListOfEvents events={events} />
+        <ListOfEvents fetchEvent={fetchEvent} events={events} />
         
       </div>
     );

@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {
       username: '',
       events: [],
-      // allEvents: []
+      currentEvent: null
     }
   }
 
@@ -32,21 +32,21 @@ class App extends React.Component {
     console.log('USERNAME IN MAIN.JS', user);
   }
 
-  // fetchAllEvents() {
-  //   console.log('hi');
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: '/api/getEvents',
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       console.log('Data in Main', data);
-  //       this.setState({allEvents: data});
-  //     }.bind(this),
-  //     fail: function(err) {
-  //       console.error(err);
-  //     }
-  //   });
-  // }
+  fetchEvent() {
+    console.log('hi');
+    $.ajax({
+      type: 'GET',
+      url: '/api/getEvent',
+      dataType: 'json',
+      success: function(data) {
+        console.log('Data in Main', data);
+        this.setState({currentEvent: data});
+      }.bind(this),
+      fail: function(err) {
+        console.error(err);
+      }
+    });
+  }
 
   fetchProfile() {
     $.ajax({
@@ -94,6 +94,7 @@ class App extends React.Component {
                 onAddEvent: this.onAddEvent.bind(this),
                 onJoinEvent: this.onJoinEvent.bind(this),
                 events: this.state.events,
+                fetchEvent: this.fetchEvent.bind(this)
                 // allEvents: this.state.allEvents
               })}
             </div>

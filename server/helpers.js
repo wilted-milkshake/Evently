@@ -33,11 +33,19 @@ module.exports = {
       return next();
     }
   },
-  findUserByUsername: findUserByUsername
+  findUserByUsername: findUserByUsername,
+
+  findEventByName: findEventByName
 };
 
 function findUserByUsername(username, callback) {
   // Perform database query that calls callback when it's done
   // This is our fake database!
   User.findOne({'local.username': username}, callback);
+}
+
+function findEventByName(name, callback) {
+  // Perform database query that calls callback when it's done
+  // This is our fake database!
+  Event.findOne({'name': name}, callback);
 }
