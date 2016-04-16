@@ -1,8 +1,6 @@
 import React from 'react';
 import ItineraryEntry from './ItineraryEntry.js';
 
-require('./../../styles/styles.css');
-
 const Itinerary = (props) => (
   <div>
     <h3>Event Itinerary</h3>

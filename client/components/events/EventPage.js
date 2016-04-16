@@ -4,8 +4,6 @@ import Itinerary from './Itinerary.js';
 import GuestList from './GuestList.js';
 import Chat from './Chat.js';
 
-require('./../../styles/styles.css');
-
 export default class EventPage extends React.Component {
 
   constructor(props) {
