@@ -26,15 +26,14 @@ class App extends React.Component {
     });
   }
 
-  onJoinEvent(user) {
+  onJoinEvent() {
     // we want to add event to users event list
-    console.log(user);
     // $.ajax({
     //   type: 'POST',
     //   url: '/events/join',
     //   data: ,
-    //   success: function(event) {
-        
+    //   success: function(user) {
+    //     console.log('ONJOIN EVENT', user)
     //   }.bind(this),
     //   fail: function(err) {
     //     console.error(err);

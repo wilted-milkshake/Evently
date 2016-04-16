@@ -69,8 +69,9 @@ export default class EventPage extends React.Component {
       type: 'POST',
       url: '/events/join',
       data: user,
-      success: function(user) {
-        this.props.onJoinEvent(user); 
+      success: function(data) {
+        console.log('DATA', data);
+        this.props.onJoinEvent(data); 
       }.bind(this)
     });
   }

@@ -2,6 +2,7 @@ var Q = require('q');
 var path = require('path');
 var Event = require('./eventmodel');
 var User = require('./../users/usermodel');
+var helper = require('./../helpers');
 
 var addEvent = Q.nbind(Event.create, Event);
 var findEvent = Q.nbind(Event.findOne, Event);
@@ -32,11 +33,14 @@ module.exports = {
 
   joinEvent: function(req, res, next) {
     var user = req.body;
-    console.log('USER IN EVENT CONTROLLER', user)
 
-    // find event based on user.title
     findEvent({title: user.title}).then(function(foundEvent) {
-      console.log('FOUND EVENT', foundEvent);
+      return foundEvent;
+    }).then(function(foundEvent) {
+      helper.findUserByUsername(user.username, function(err, user) {
+        user.events = user.events.concat(foundEvent);
+        res.json(user);
+      });
     });
     // find user based on user.username
 
