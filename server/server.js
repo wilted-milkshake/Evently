@@ -37,30 +37,6 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // load our routes and pass in our app and fully configured passport
 require('./routes-passport')(app, passport);
 
-
 app.use(express.static(`${__dirname}/../dist`));
-
-app.get('/api/users', (req, res) => {
-  helper.findUserByUsername(req.user.local.username, (err, user) => {
-    if (err) {
-      console.log(err);
-    }
-    helper.getEventTitles(user.events)
-    .then(eventTitles => {
-      user.events = eventTitles;
-      res.send(user);
-    });
-  });
-});
-
-app.post('/api/events', (req, res) => {
-  helper.createEvent(req.body)
-  .then(user => helper.getEventTitles(user.events))
-  .then(eventTitles => res.send(eventTitles));
-});
-
-app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
-  res.sendFile(path.join(__dirname, '/../dist/index.html'));
-});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
