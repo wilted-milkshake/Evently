@@ -4,6 +4,7 @@ var Event = require('./eventmodel');
 var User = require('./../users/usermodel');
 
 var addEvent = Q.nbind(Event.create, Event);
+var findEvent = Q.nbind(Event.findOne, Event);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
 
 module.exports = {
@@ -32,6 +33,15 @@ module.exports = {
   joinEvent: function(req, res, next) {
     var user = req.body;
     console.log('USER IN EVENT CONTROLLER', user)
+
+    // find event based on user.title
+    findEvent({title: user.title}).then(function(foundEvent) {
+      console.log('FOUND EVENT', foundEvent);
+    });
+    // find user based on user.username
+
+    // add that event to user's event array
+
     // updateUser(user)
     // .then(function(err, user) {
     //   console.log('USER IN JOIN EVENT', user);
