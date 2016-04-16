@@ -1,5 +1,4 @@
 import React from 'react';
-// import $ from 'jquery';
 
 export default class AddEventForm extends React.Component {
   constructor(props) {
