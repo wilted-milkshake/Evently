@@ -25,7 +25,6 @@ export default class AddEventForm extends React.Component {
       ],
       guests: []
     };
-    console.log('EVENT INFO in POST EVENT', eventInfo)
     $.ajax({
       type: 'POST',
       url: '/events/create',
