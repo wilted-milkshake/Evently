@@ -59,15 +59,33 @@ export default class EventPage extends React.Component {
     this.state.socket.emit('new marker added', {marker: marker, id: this.state.event.id});
   }
 
+  joinEvent() {
+    console.log
+    var user = {
+      username: this.props.user,
+      title: this.props.params.eventName
+    };
+    $.ajax({
+      type: 'POST',
+      url: '/events/join',
+      data: user,
+      success: function(data) {
+        console.log('DATA', data);
+        this.props.onJoinEvent(data); 
+      }.bind(this)
+    });
+  }
+
   render() {
     const { locations, chats, title, guests } = this.state.event;
     return (
       <div className="row">
         <div>
-          <h2>Your Super Awesome Event</h2>
           <h2>{title}</h2>
-          <h3>{this.props.user}</h3>
         </div>
+        <button onClick={this.joinEvent.bind(this)} className="btn waves-effect waves-light">Join This Event
+          <i className="material-icons right">launch</i>
+        </button>
         <div className="row">
           <div className="col s12 m6 l6">
             <Itinerary entries={locations} />

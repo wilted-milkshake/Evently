@@ -50,7 +50,6 @@ app.get('/api/users', (req, res) => {
 });
 
 app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
-  // console.log('USERRRRRR in server.js', req.user);
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 

@@ -8,16 +8,21 @@ export default class Event extends React.Component {
     super(props);
   }
 
+  handleClick() {
+    $(".button-collapse").sideNav('hide')
+  }
+
   render() {
     const {
       event
     } = this.props;
     return (
-      <li>
-        <Link to={`/events/${event}`} className="collection-item" activeClassName="active">
-          {event} <i className="material-icons">location_on</i>
-        </Link>
-      </li>
+      <Link
+        to={`/events/${event.title}`}
+        className="list-item"
+        onClick={this.handleClick.bind(this)} >
+        {event.title}
+      </Link>
     )
   }
 };
