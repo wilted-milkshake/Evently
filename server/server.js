@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -8,7 +7,6 @@ const morgan = require('morgan');
 const dbConfig = require('./config/database');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const helper = require('./helpers.js');
 const port = process.env.PORT || 3000;
 
 const app = express();

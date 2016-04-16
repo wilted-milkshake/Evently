@@ -1,53 +1,51 @@
-var helper = require('./helpers.js');
-var path = require('path');
+const helpers = require('./helpers.js');
+const path = require('path');
 
-module.exports = function(app, passport) {
+module.exports = (app, passport) => {
   // home page with login links
-  app.get('/', function(req, res) {
-    res.render('index.ejs');
-  });
+  app.get('/', (req, res) => res.render('index.ejs'));
 
   // show the login form
-  app.get('/login', function(req, res) {
-    // var user = User.find({_id: 'ObjectId("570ac3dcdc4476821277d008")'})
-    // console.log('USRRRRR', user );
+  app.get('/login', (req, res) => {
     // render the page and pass in any flash data if it exists
     res.render('login.ejs', { message: req.flash('loginMessage') });
   });
 
   // process the login form
-  app.post('/login', passport.authenticate('local-login', {
+  app.post('/login', passport.authenticate('local-login',
+    {
       failureRedirect: '/login',
-      failureFlash: true
-    }), function(req, res) {
-      res.redirect('/events');
-  });
+      failureFlash: true,
+    }),
+    (req, res) => res.redirect('/events')
+  );
 
   // show the signup form
-  app.get('/signup', function(req, res) {
+  app.get('/signup', (req, res) => {
     // render the page and pass in any flash data if it exists
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
 
   // process the signup form
-  app.post('/signup', passport.authenticate('local-signup', {
-      failureRedirect : '/signup', // redirect back to the signup page if there is an error
-      failureFlash : true // allow flash messages
-    }), function(req, res) {
-      res.redirect('/events');
-  });
+  app.post('/signup', passport.authenticate('local-signup',
+    {
+      failureRedirect: '/signup', // redirect back to the signup page if there is an error
+      failureFlash: true, // allow flash messages
+    }),
+    (req, res) => res.redirect('/events')
+  );
 
-  app.get('/logout', function(req, res) {
+  app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
   app.get('/api/users', (req, res) => {
-    helper.findUserByUsername(req.user.local.username, (err, user) => {
+    helpers.findUserByUsername(req.user.local.username, (err, user) => {
       if (err) {
         console.log(err);
       }
-      helper.getEventTitles(user.events)
+      helpers.getEventTitles(user.events)
       .then(eventTitles => {
         user.events = eventTitles;
         res.send(user);
@@ -56,13 +54,12 @@ module.exports = function(app, passport) {
   });
 
   app.post('/api/events', (req, res) => {
-    helper.createEvent(req.body)
-    .then(user => helper.getEventTitles(user.events))
+    helpers.createEvent(req.body)
+    .then(user => helpers.getEventTitles(user.events))
     .then(eventTitles => res.send(eventTitles));
   });
 
-  app.get('/*', helper.findUserByUsernameMiddleware && helper.isLoggedIn, (req, res) => {
+  app.get('/*', helpers.findUserByUsernameMiddleware && helpers.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '/../dist/index.html'));
   });
-
 };

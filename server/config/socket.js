@@ -1,4 +1,4 @@
-const EventController = require('../events/eventController');
+const helpers = require('../helpers');
 
 const dummyData = {
   url: '/api/events/abc',
@@ -9,7 +9,7 @@ const dummyData = {
   guests: ['poo', 'foo', 'abc', '123', 'michael jackson'],
   locations: [
     {
-      title: 'bazongaville', 
+      title: 'bazongaville',
       address: '',
       description: 'hey everybody!!! we\'re pooping!!!!',
       time: '1:45pm',
@@ -17,7 +17,7 @@ const dummyData = {
       lng: 123
     },
     {
-      title: 'poop 2', 
+      title: 'poop 2',
       address: '',
       description: 'we\'re pooping here too!!!!',
       time: '2:45pm',
@@ -25,7 +25,7 @@ const dummyData = {
       lng: 123.35
     },
     {
-      title: 'poop 3', 
+      title: 'poop 3',
       address: '',
       description: 'and here!!!',
       time: '2:48pm',
@@ -61,7 +61,7 @@ module.exports = function socketConfig(io) {
     });
     // socket.on('chat message', )
     socket.on('new marker added', function(marker) {
-      EventController.addLocation(marker.id, marker.location, function(err, event) {
+      helper.addLocation(marker.id, marker.location, function(err, event) {
         io.emit('event data', event);
       })
     })
