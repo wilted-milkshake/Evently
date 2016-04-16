@@ -12,7 +12,7 @@ const Itinerary = (props) => (
         </tr>
       </thead>
       <tbody>
-        {props.entries.map((e, i) => <ItineraryEntry {...e} key={i} />)}
+        {props.entries.map((e, i) => <ItineraryEntry time={e.time} description={e.description} key={i} />)}
       </tbody>
     </table>
   </div>

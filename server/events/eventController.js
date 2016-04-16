@@ -20,9 +20,11 @@ module.exports = {
     var newEvent = {
       title: req.body.title,
       date: req.body.date,
-      cooridator: '',
+      coordinator: [],
+      description: '',
+      guests: [],
       locations: req.body.locations, 
-      guest: []
+      chats: []
     };
 
     addEvent(newEvent)
@@ -37,6 +39,10 @@ module.exports = {
   },
 
   joinEvent: function(req, res, next) {},
+
+  addLocation: function(id, location, cb) {
+    Event.findByIdAndUpdate(id, {$push: {locations: location}}, {new: true}, cb);
+  },
 
   displayEvent: function(req, res, next) {}
 

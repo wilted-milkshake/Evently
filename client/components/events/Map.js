@@ -12,9 +12,10 @@ export default class Map extends React.Component {
   createInfoWindowContent(marker) {
     return (
       '<div class="info_content">' +
-      '<h3>' + marker.name + '</h3>' +
+      '<h3>' + marker.title + '</h3>' +
       '<p>' + marker.address + '</p>' +
       '<p>' + marker.time + '</p>' +
+      '<p>' + marker.description + '</p>' +
       '</div>'
     );
   }
@@ -23,7 +24,7 @@ export default class Map extends React.Component {
     var eventMap = new google.maps.Map(document.getElementById('map'));
     var bounds = new google.maps.LatLngBounds();
     var infoWindow = new google.maps.InfoWindow();
-    var markers = this.props.locations;
+    var markers = props.locations;
 
     var createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
@@ -40,10 +41,10 @@ export default class Map extends React.Component {
       bounds.extend(position);
       // create marker object
       var markerObj = new google.maps.Marker({
-        position: position,
+        title: markers[i].title,
         map: eventMap,
-        draggable: true,
-        title: markers[i].name
+        position: position,
+        draggable: true
       });
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
@@ -61,11 +62,11 @@ export default class Map extends React.Component {
     google.maps.event.addListener(eventMap, 'dblclick', function(event) {
       // create marker on screen
       var markerObj = new google.maps.Marker({
-        position: event.latLng,
+        title: 'untitled event',
         map: eventMap, // this.getMap(),
-        animation: google.maps.Animation.DROP,
+        position: event.latLng,
         draggable: true,
-        title: 'untitled event'
+        animation: google.maps.Animation.DROP
       });
 
       infoWindowContent.push(createInfo(markerObj));
@@ -73,20 +74,21 @@ export default class Map extends React.Component {
       var info = new google.maps.InfoWindow();
 
       google.maps.event.addListener(markerObj, 'click', function() {
-        info.setContent(markerObj.position.lat().toString());
+        info.setContent(markerObj.position.toString());
         info.open(eventMap, markerObj);
       });
       // set up marker information to be added to database
       var markerInfo = {
-        name: markerObj.title,
-        address: 'lat: ' + markerObj.position.lat() + ', long: ' + markerObj.position.lng(),
-        latitude: markerObj.position.lat(),
-        longitude: markerObj.position.lng(),
-        time: null
+        title: markerObj.title,
+        address: '',
+        description: 'no description',
+        time: null,
+        lat: markerObj.position.lat(),
+        lng: markerObj.position.lng()
       };
 
       var geocoder = new google.maps.Geocoder();
-      // reverse geo-code: get request for a human-readable address of dropped marker
+      // get human-readable address of dropped marker (reverse geo-coding)
       geocoder.geocode({'latLng': markerObj.position}, function(res, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (res[0]) {
@@ -97,14 +99,8 @@ export default class Map extends React.Component {
         } else {
           alert("Could not get address from latLng: " + status);
         }
-      });
-      // add marker information to event table
-      $.ajax({
-        type: 'POST',
-        url: 'api/events',
-        data: JSON.stringify(markerInfo),
-        dataType: 'json',
-        contentType: 'application/json'
+        // add marker information to event table
+        props.addMarker(markerInfo);
       });
     });
   }

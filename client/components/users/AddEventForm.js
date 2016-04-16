@@ -14,11 +14,10 @@ export default class AddEventForm extends React.Component {
       date: $('#date')[0].value,
       locations: [
         {
-          name: $('#event_location')[0].value,
+          title: $('#event_location')[0].value,
           address: $('#address')[0].value,
-          latitude: 0,
-          longitude: 0,
-          time: $('#time')[0].value
+          time: $('#time')[0].value,
+          description: ''
         }
       ]
     };

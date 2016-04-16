@@ -1,21 +1,38 @@
+const EventController = require('../events/eventController');
+
 const dummyData = {
   url: '/api/events/abc',
-  name: 'event name',
-  itinerary: [
+  title: 'event name',
+  date: null,
+  coordinator: ['570e929579611d792f533e91'],
+  description: '',
+  guests: ['poo', 'foo', 'abc', '123', 'michael jackson'],
+  locations: [
     {
-      time: '1:45 pm',
-      location: 'here changed bloop',
+      title: 'bazongaville', 
+      address: '',
+      description: 'hey everybody!!! we\'re pooping!!!!',
+      time: '1:45pm',
+      lat: -34.45,
+      lng: 123
     },
     {
-      time: '2:00 pm',
-      location: 'a little bit away from here over there',
+      title: 'poop 2', 
+      address: '',
+      description: 'we\'re pooping here too!!!!',
+      time: '2:45pm',
+      lat: -44.7,
+      lng: 123.35
     },
     {
-      time: '3:00 pm',
-      location: 'super far away and also chaged',
-    },
+      title: 'poop 3', 
+      address: '',
+      description: 'and here!!!',
+      time: '2:48pm',
+      lat: 4.1,
+      lng: 42.4
+    }
   ],
-  locations: [{ lat: -34.397, lng: 150.644, name: 'bazongaville' }],
   chats: [
     {
       author: 'me',
@@ -28,10 +45,8 @@ const dummyData = {
     {
       author: 'no one',
       text: 'who am i',
-    },
-  ],
-  coordinator: '570e929579611d792f533e91',
-  guests: ['poo', 'foo', 'abc', '123', 'michael jackson'],
+    }
+  ]
 };
 
 module.exports = function socketConfig(io) {
@@ -45,5 +60,10 @@ module.exports = function socketConfig(io) {
       socket.emit('event data', dummyData);
     });
     // socket.on('chat message', )
+    socket.on('new marker added', function(marker) {
+      EventController.addLocation(marker.id, marker.location, function(err, event) {
+        io.emit('event data', event);
+      })
+    })
   });
 };

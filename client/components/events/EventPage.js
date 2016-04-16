@@ -12,14 +12,24 @@ export default class EventPage extends React.Component {
       socket: undefined,
       event: {
         url: '',
-        name: '',
-        itinerary: [],
-        locations: [{ lat: 0, lng: 0, name: '' }],
-        chats: [],
-        coordinator: '',
+        title: '',
+        date: null,
+        coordinator: ['aaaaa'],
+        description: '',
         guests: [],
-      },
-    };
+        locations: [
+          {
+            title: '', 
+            address: '',
+            description: '',
+            time: null,
+            lat: 0,
+            lng: 0
+          }
+        ],
+        chats: []
+      }
+    }
   }
 
   componentWillMount() {
@@ -41,25 +51,30 @@ export default class EventPage extends React.Component {
   }
 
   isCoordinator() {
-    return this.state.event.coordinator.includes(this.props.userID);
+    // return this.state.event.coordinator.includes(this.props.userID);
+    return false;
+  }
+
+  addMarker(marker) {
+    this.state.socket.emit('new marker added', {marker: marker, id: this.state.event.id});
   }
 
   render() {
-    const { itinerary, chats, name, locations, guests } = this.state.event;
+    const { locations, chats, title, guests } = this.state.event;
     return (
       <div className="row">
         <div>
           <h2>Your Super Awesome Event</h2>
-          <h2>{name}</h2>
+          <h2>{title}</h2>
           <h3>{this.props.user}</h3>
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
-            <Itinerary entries={itinerary} />
+            <Itinerary entries={locations} />
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              <Map locations={locations} />
+              <Map locations={locations} addMarker={this.addMarker.bind(this)}/>
             </div>
           </div>
         </div>
