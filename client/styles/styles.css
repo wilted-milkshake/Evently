@@ -27,7 +27,7 @@
   text-align: center;
 }
 
-.logout {
+.btn-text {
   color: white;
   text-align: center;
 }
@@ -44,7 +44,7 @@
   margin-top: 5px;
 }
 
-.side-nav .logouta {
+.side-nav .style-btn {
   height: 30px;
   line-height: 30px;
 }

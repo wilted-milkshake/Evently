@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ListOfEvents from './ListOfEvents.js';
+import JoinAnEvent from './JoinAnEvent.js';
 
 require('./../../styles/styles.css');
 
@@ -35,12 +36,10 @@ export default class UserProfile extends React.Component {
         <h3 className="username">{username}</h3>
         {/*Logout button*/}
         <div className="logout-btn">
-          <a href='/logout' className="waves-effect waves-light btn logouta"><span className='logout'>Logout</span></a>
+          <a href='/logout' className="waves-effect waves-light btn style-btn"><span className='btn-text'>Logout</span></a>
         </div>
         {/*Join an event*/}
-        <div className="logout-btn">
-          <a onClick={this.joinEvent.bind(this)} className="waves-effect waves-light btn logouta"><span className='logout'>Join an Event</span></a>
-        </div>
+        <JoinAnEvent joinEvent={this.joinEvent.bind(this)} events={events} />
         {/*Create an event button*/}
         <div className="add-btn btn-floating btn-large waves-effect waves-light blue"><Link to='/events'><i className="material-icons">add</i></Link></div>
         {/*<Link to='/events/abc'>Test</Link>*/}
