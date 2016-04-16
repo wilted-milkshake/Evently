@@ -19,22 +19,22 @@ export default class EventPage extends React.Component {
         guests: [],
         locations: [
           {
-            title: '', 
+            title: '',
             address: '',
             description: '',
             time: null,
             lat: 0,
-            lng: 0
-          }
+            lng: 0,
+          },
         ],
-        chats: []
-      }
-    }
+        chats: [],
+      },
+    };
   }
 
   componentWillMount() {
     this.setState({
-      socket: this.configSocket(this.props.params.eventName)
+      socket: this.configSocket(this.props.params.eventName),
     });
   }
 
@@ -44,7 +44,7 @@ export default class EventPage extends React.Component {
 
   configSocket(eventID) {
     const socket = io.connect(window.location.origin, {
-      query: `eventRoom=${eventID}`
+      query: `eventRoom=${eventID}`,
     });
     socket.on('event data', data => this.setState({ event: data }));
     return socket;
@@ -56,7 +56,7 @@ export default class EventPage extends React.Component {
   }
 
   addMarker(marker) {
-    this.state.socket.emit('new marker added', {marker: marker, id: this.state.event.id});
+    this.state.socket.emit('new marker added', { marker, id: this.state.event.id });
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class EventPage extends React.Component {
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              <Map locations={locations} addMarker={this.addMarker.bind(this)}/>
+              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
             </div>
           </div>
         </div>
@@ -87,3 +87,8 @@ export default class EventPage extends React.Component {
     );
   }
 }
+
+EventPage.propTypes = {
+  params: React.PropTypes.object,
+  user: React.PropTypes.string,
+};

@@ -1,9 +1,6 @@
 import React from 'react';
 
 export default class AddEventForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   postEvent(e) {
     e.preventDefault();
@@ -18,10 +15,10 @@ export default class AddEventForm extends React.Component {
           time: $('#time')[0].value,
           description: '',
           latitude: 0,
-          longitude: 0
-        }
+          longitude: 0,
+        },
       ],
-      guests: [this.props.user]
+      guests: [this.props.user],
     };
     $.ajax({
       type: 'POST',
@@ -29,11 +26,9 @@ export default class AddEventForm extends React.Component {
       data: JSON.stringify(eventInfo),
       dataType: 'json',
       contentType: 'application/json',
-      success: function(events) {
-        this.props.onAddEvent(events);
-      }.bind(this)
-    })
-  };
+      success: (events) => this.props.onAddEvent(events),
+    });
+  }
 
   render() {
     return (
@@ -61,11 +56,16 @@ export default class AddEventForm extends React.Component {
               <input id="date" type="date" className="validate" />
             </div>
           </div>
-          <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i className="material-icons right">send</i>
+          <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">
+            Submit<i className="material-icons right">send</i>
           </button>
         </form>
       </div>
-    )
+    );
   }
+}
+
+AddEventForm.propTypes = {
+  user: React.PropTypes.string,
+  onAddEvent: React.PropTypes.func,
 };

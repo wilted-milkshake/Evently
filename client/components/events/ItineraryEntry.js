@@ -8,3 +8,8 @@ const ItineraryEntry = (props) => (
 );
 
 export default ItineraryEntry;
+
+ItineraryEntry.propTypes = {
+  time: React.PropTypes.string,
+  description: React.PropTypes.string,
+};
