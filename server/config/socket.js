@@ -36,7 +36,12 @@ module.exports = function socketConfig(io) {
 
     socket.on('leave event', user => {
       helpers.removeUserFromEvent(user, event)
-      .then(broadcastEventData);
+      .then(eventData => {
+        broadcastEventData(eventData);
+        return helpers.removeEventFromUser(user, eventData);
+      })
+      .then(userData => helpers.getEventTitles(userData.events))
+      .then(eventTitles => socket.emit('update profile', eventTitles));
     });
   });
 };

@@ -39,7 +39,7 @@ function createEvent(newEvent) {
 }
 
 function addLocation(id, location, cb) {
-  Event.findByIdAndUpdate(id, {$push: {locations: location}}, {new: true}, cb);
+  Event.findByIdAndUpdate(id, {$addToSet: {locations: location}}, {new: true}, cb);
 }
 
 function getEventTitles(eventIds) {
@@ -58,7 +58,7 @@ function findUserByUsername(username, callback) {
 function addUserToEvent(user, event) {
   return Event.findOneAndUpdate(
     {url: event},
-    {$push: {guests: user}},
+    {$addToSet: {guests: user}},
     {new: true}
   );
 }
@@ -66,7 +66,23 @@ function addUserToEvent(user, event) {
 function addEventToUser(user, event) {
   return User.findOneAndUpdate(
     {'local.username': user},
-    {$push: {'events': event._id}},
+    {$addToSet: {'events': event._id}},
+    {new: true}
+  );
+}
+
+function removeUserFromEvent(user, event) {
+  return Event.findOneAndUpdate(
+    {url: event},
+    {$pull: {guests: user}},
+    {new: true}
+  );
+}
+
+function removeEventFromUser(user, event) {
+  return User.findOneAndUpdate(
+    {'local.username': user},
+    {$pull: {'events': event._id}},
     {new: true}
   );
 }
@@ -84,4 +100,6 @@ module.exports = {
   findAllEvents: findAllEvents,
   addUserToEvent: addUserToEvent,
   addEventToUser: addEventToUser,
+  removeUserFromEvent: removeUserFromEvent,
+  removeEventFromUser: removeEventFromUser,
 };
