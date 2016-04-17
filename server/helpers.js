@@ -2,13 +2,13 @@ var User = require('./users/usermodel');
 var Event = require('./events/eventmodel');
 
 function findAllEvents(callback) {
-  Event.find({}, function(err, events) {
+  Event.find({}, (err, events) => {
     if (err) {
       console.log('ERROR', err);
     } else {
       callback(events);
     }
-  })
+  });
 }
 
 function isLoggedIn(req, res, next) {
@@ -20,16 +20,37 @@ function isLoggedIn(req, res, next) {
   res.redirect('/');
 }
 
+function findUserByUsername(username, callback) {
+  // Perform database query that calls callback when it's done
+  // This is our fake database!
+  User.findOne({ 'local.username': username }, callback);
+}
+
 function findUserByUsernameMiddleware(request, response, next) {
   if (request.params.username) {
-    findUserByUsername(request.params.username, function(error, user){
+    findUserByUsername(request.params.username, (error, user) => {
       if (error) return next(error);
       request.user = user;
       return next();
     });
-  } else {
-    return next();
   }
+  return next();
+}
+
+function addUserToEvent(user, event) {
+  return Event.findOneAndUpdate(
+    { url: event },
+    { $addToSet: { guests: user } },
+    { new: true }
+  );
+}
+
+function addEventToUser(user, event) {
+  return User.findOneAndUpdate(
+    { 'local.username': user },
+    { $addToSet: { events: event._id } },
+    { new: true }
+  );
 }
 
 function createEvent(newEvent) {
@@ -39,67 +60,46 @@ function createEvent(newEvent) {
 }
 
 function addLocation(id, location, cb) {
-  Event.findByIdAndUpdate(id, {$addToSet: {locations: location}}, {new: true}, cb);
+  Event.findByIdAndUpdate(
+    id,
+    { $addToSet: { locations: location } },
+    { new: true },
+    cb
+  );
 }
 
 function getEventTitles(eventIds) {
-  return Event.find({_id: {$in: eventIds}})
-    .then(events => events.map(e => ({title: e.title, url: e.url})))
+  return Event.find({ _id: { $in: eventIds } })
+    .then(events => events.map(e => ({ title: e.title, url: e.url })))
     .catch(err => console.log(err));
-}
-
-
-function findUserByUsername(username, callback) {
-  // Perform database query that calls callback when it's done
-  // This is our fake database!
-  User.findOne({'local.username': username}, callback);
-}
-
-function addUserToEvent(user, event) {
-  return Event.findOneAndUpdate(
-    {url: event},
-    {$addToSet: {guests: user}},
-    {new: true}
-  );
-}
-
-function addEventToUser(user, event) {
-  return User.findOneAndUpdate(
-    {'local.username': user},
-    {$addToSet: {'events': event._id}},
-    {new: true}
-  );
 }
 
 function removeUserFromEvent(user, event) {
   return Event.findOneAndUpdate(
-    {url: event},
-    {$pull: {guests: user}},
-    {new: true}
+    { url: event },
+    { $pull: { guests: user } },
+    { new: true }
   );
 }
 
 function removeEventFromUser(user, event) {
   return User.findOneAndUpdate(
-    {'local.username': user},
-    {$pull: {'events': event._id}},
-    {new: true}
+    { 'local.username': user },
+    { $pull: { events: event._id } },
+    { new: true }
   );
 }
 
-
-
-
 module.exports = {
-  findUserByUsername: findUserByUsername,
-  findUserByUsernameMiddleware: findUserByUsernameMiddleware,
-  addLocation: addLocation,
-  getEventTitles: getEventTitles,
-  createEvent:createEvent,
-  isLoggedIn: isLoggedIn,
-  findAllEvents: findAllEvents,
-  addUserToEvent: addUserToEvent,
-  addEventToUser: addEventToUser,
-  removeUserFromEvent: removeUserFromEvent,
-  removeEventFromUser: removeEventFromUser,
+  findUserByUsername,
+  findUserByUsernameMiddleware,
+  addLocation,
+  getEventTitles,
+  createEvent,
+  isLoggedIn,
+  findAllEvents,
+  addUserToEvent,
+  addEventToUser,
+  removeUserFromEvent,
+  removeEventFromUser,
 };
