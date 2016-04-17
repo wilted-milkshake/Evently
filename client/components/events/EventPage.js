@@ -47,6 +47,7 @@ export default class EventPage extends React.Component {
       query: `eventRoom=${eventID}`,
     });
     socket.on('event data', data => this.setState({ event: data }));
+    socket.on('update profile', userData => this.props.onAddEvent(userData))
     return socket;
   }
 
@@ -59,7 +60,7 @@ export default class EventPage extends React.Component {
       return (
         <button
           className="waves-effect waves-light btn red right"
-          onClick="{() => this.state.socket.emit('leave event', this.props.user)}">
+          onClick={() => this.state.socket.emit('leave event', this.props.user)}>
             Leave Event
         </button>
       );
@@ -67,7 +68,7 @@ export default class EventPage extends React.Component {
       return (
         <button
           className="waves-effect waves-light btn green accent-3 right"
-          onClick="{() => this.state.socket.emit('join event', this.props.user)}">
+          onClick={() => this.state.socket.emit('join event', this.props.user)}>
             Join Event
         </button>
       );
@@ -94,7 +95,7 @@ export default class EventPage extends React.Component {
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
+              {/* <Map locations={locations} addMarker={this.addMarker.bind(this)} /> */}
             </div>
           </div>
         </div>

@@ -20,7 +20,6 @@ class App extends React.Component {
   }
 
   onAddEvent(events) {
-    console.log(events);
     this.setState({
       events,
     });

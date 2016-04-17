@@ -34,12 +34,7 @@ function findUserByUsernameMiddleware(request, response, next) {
 
 function createEvent(newEvent) {
   return Event.create(newEvent)
-  .then(event => {
-    return User.findOneAndUpdate(
-      {'local.username': event.coordinator[0]},
-      {$push: {'events': event._id}},
-      {new: true});
-  })
+  .then(event => addEventToUser(event.coordinator[0], event))
   .catch(err => console.log(err));
 }
 
@@ -49,11 +44,7 @@ function addLocation(id, location, cb) {
 
 function getEventTitles(eventIds) {
   return Event.find({_id: {$in: eventIds}})
-    .then(events => {
-      const pooo = events.map(e => ({title: e.title, url: e.url}));
-      console.log(pooo);
-      return pooo;
-    })
+    .then(events => events.map(e => ({title: e.title, url: e.url})))
     .catch(err => console.log(err));
 }
 
@@ -64,6 +55,25 @@ function findUserByUsername(username, callback) {
   User.findOne({'local.username': username}, callback);
 }
 
+function addUserToEvent(user, event) {
+  return Event.findOneAndUpdate(
+    {url: event},
+    {$push: {guests: user}},
+    {new: true}
+  );
+}
+
+function addEventToUser(user, event) {
+  return User.findOneAndUpdate(
+    {'local.username': user},
+    {$push: {'events': event._id}},
+    {new: true}
+  );
+}
+
+
+
+
 module.exports = {
   findUserByUsername: findUserByUsername,
   findUserByUsernameMiddleware: findUserByUsernameMiddleware,
@@ -72,4 +82,6 @@ module.exports = {
   createEvent:createEvent,
   isLoggedIn: isLoggedIn,
   findAllEvents: findAllEvents,
+  addUserToEvent: addUserToEvent,
+  addEventToUser: addEventToUser,
 };

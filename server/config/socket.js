@@ -17,7 +17,7 @@ module.exports = function socketConfig(io) {
     });
 
     // socket.on('chat message', )
-    
+
     socket.on('new marker added', function(marker) {
       helpers.addLocation(marker.id, marker.location, function(err, eventData) {
         broadcastEventData(eventData);
@@ -26,7 +26,12 @@ module.exports = function socketConfig(io) {
 
     socket.on('join event', user => {
       helpers.addUserToEvent(user, event)
-      .then(broadcastEventData);
+      .then(eventData => {
+        broadcastEventData(eventData);
+        return helpers.addEventToUser(user, eventData);
+      })
+      .then(userData => helpers.getEventTitles(userData.events))
+      .then(eventTitles => socket.emit('update profile', eventTitles));
     });
 
     socket.on('leave event', user => {
