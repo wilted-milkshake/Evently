@@ -5,6 +5,8 @@ import UserProfile from './components/users/UserProfile.js';
 import EventPage from './components/events/EventPage.js';
 import AddEventForm from './components/users/AddEventForm.js';
 
+require('./styles/styles.css');
+
 class App extends React.Component {
   constructor(props) {
     super(props);

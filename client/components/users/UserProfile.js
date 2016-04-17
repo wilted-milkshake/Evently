@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import ListOfEvents from './ListOfEvents.js';
 
-require('./../../styles/styles.css');
-
 export default class UserProfile extends React.Component {
 
   constructor(props) {
