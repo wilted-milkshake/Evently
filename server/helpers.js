@@ -50,7 +50,9 @@ function addLocation(id, location, cb) {
 function getEventTitles(eventIds) {
   return Event.find({_id: {$in: eventIds}})
     .then(events => {
-      return events.map(e => e.title);
+      const pooo = events.map(e => ({title: e.title, url: e.url}));
+      console.log(pooo);
+      return pooo;
     })
     .catch(err => console.log(err));
 }
