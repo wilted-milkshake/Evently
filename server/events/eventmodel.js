@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const User = require('../users/usermodel');
 
 var EventSchema = new mongoose.Schema({
   url: String,
