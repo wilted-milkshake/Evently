@@ -39,7 +39,7 @@ class EventPage extends React.Component {
   }
 
   componentDidMount() {
-    this.state.socket.emit('fetch data');
+    this.state.socket.emit('fetch data', this.props.params.eventName);
   }
 
   configSocket(eventID) {

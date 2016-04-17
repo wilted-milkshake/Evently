@@ -10,16 +10,19 @@ module.exports = function socketConfig(io) {
     }
 
     socket.join(event);
-    socket.emit('event data', dummyData);
 
-    socket.on('fetch data', () => {
-      socket.emit('event data', dummyData);
+    socket.on('fetch data', (event) => {
+      console.log('heard fetch', event);
+      helpers.findEventByUrl(event)
+      .then(eventData => {
+        console.log(eventData);
+        socket.emit('event data', eventData);
+      });
     });
 
     socket.on('new chat', chat => {
       helpers.addChatToEvent(chat, event)
       .then(eventData => {
-        console.log(eventData)
         broadcastEventData(eventData);
       });
     });

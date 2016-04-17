@@ -1,16 +1,6 @@
 var User = require('./users/usermodel');
 var Event = require('./events/eventmodel');
 
-function findAllEvents(callback) {
-  Event.find({}, (err, events) => {
-    if (err) {
-      console.log('ERROR', err);
-    } else {
-      callback(events);
-    }
-  });
-}
-
 function isLoggedIn(req, res, next) {
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated()) {
@@ -24,6 +14,10 @@ function findUserByUsername(username, callback) {
   // Perform database query that calls callback when it's done
   // This is our fake database!
   User.findOne({ 'local.username': username }, callback);
+}
+
+function findEventByUrl(url) {
+  return Event.findOne({ url: url });
 }
 
 function findUserByUsernameMiddleware(request, response, next) {
@@ -105,10 +99,10 @@ module.exports = {
   getEventTitles,
   createEvent,
   isLoggedIn,
-  findAllEvents,
   addUserToEvent,
   addEventToUser,
   removeUserFromEvent,
   removeEventFromUser,
   addChatToEvent,
+  findEventByUrl,
 };

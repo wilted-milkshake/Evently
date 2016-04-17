@@ -18,7 +18,6 @@ const EventSchema = new mongoose.Schema({
   ],
 });
 
-
 const createSha = function (eventid) {
   const shasum = crypto.createHash('sha1');
   shasum.update(eventid);
