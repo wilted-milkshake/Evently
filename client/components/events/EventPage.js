@@ -51,8 +51,27 @@ export default class EventPage extends React.Component {
   }
 
   isCoordinator() {
-    // return this.state.event.coordinator.includes(this.props.userID);
-    return false;
+    return this.state.event.coordinator.includes(this.props.userID);
+  }
+
+  renderJoinLeaveButton() {
+    if (this.state.event.guests.includes(this.props.user)) {
+      return (
+        <button
+          className="waves-effect waves-light btn red right"
+          onClick="{() => this.state.socket.emit('leave event', this.props.user)}">
+            Leave Event
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="waves-effect waves-light btn green accent-3 right"
+          onClick="{() => this.state.socket.emit('join event', this.props.user)}">
+            Join Event
+        </button>
+      );
+    }
   }
 
   addMarker(marker) {
@@ -67,6 +86,7 @@ export default class EventPage extends React.Component {
           <h2>Your Super Awesome Event</h2>
           <h2>{title}</h2>
           <h3>{this.props.user}</h3>
+          {this.renderJoinLeaveButton()}
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
