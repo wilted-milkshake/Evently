@@ -10,9 +10,11 @@ export default class Event extends React.Component {
     const { title, url } = this.props.event;
     return (
       <li>
-        <Link to={`/events/${url}`} className="collection-item" activeClassName="active">
-          {title} <i className="material-icons right">location_on</i>
-        </Link>
+        <div>
+          <Link to={`/events/${url}`} className="collection-item" activeClassName="active">
+            {title}
+          </Link>
+        </div>
       </li>
     )
   }

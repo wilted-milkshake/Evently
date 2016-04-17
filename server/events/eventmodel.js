@@ -8,7 +8,14 @@ const EventSchema = new mongoose.Schema({
   coordinator: [],
   description: String,
   guests: [],
-  locations: [],
+  locations: [{
+    title: String,
+    address: String,
+    description: String,
+    time: Date,
+    lat: Number,
+    lng: Number,
+  }],
   chats: [
     {
       author: String,

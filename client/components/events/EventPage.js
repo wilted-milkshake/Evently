@@ -102,7 +102,7 @@ class EventPage extends React.Component {
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              {/* <Map locations={locations} addMarker={this.addMarker.bind(this)} /> */}
+              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
             </div>
           </div>
         </div>
@@ -110,7 +110,6 @@ class EventPage extends React.Component {
           <GuestList guests={guests} />
           <Chat messages={chats} sendChat={this.sendChat.bind(this)}/>
         </div>
-        {this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>
     );
   }

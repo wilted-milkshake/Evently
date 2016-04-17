@@ -10,7 +10,8 @@ export default class ListOfEvents extends React.Component {
     const { events } = this.props;
     return (
       <div>
-        <ul className="collection">
+        <ul>
+          <li>My Events</li>
           { events.map((event, index) => <Event key={event.url} event={event} />) }
         </ul>
       </div>
