@@ -4,7 +4,7 @@ import Itinerary from './Itinerary.js';
 import GuestList from './GuestList.js';
 import Chat from './Chat.js';
 
-export default class EventPage extends React.Component {
+class EventPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ export default class EventPage extends React.Component {
         url: '',
         title: '',
         date: null,
-        coordinator: ['aaaaa'],
+        coordinator: [],
         description: '',
         guests: [],
         locations: [
@@ -47,12 +47,32 @@ export default class EventPage extends React.Component {
       query: `eventRoom=${eventID}`,
     });
     socket.on('event data', data => this.setState({ event: data }));
+    socket.on('update profile', userData => this.props.onAddEvent(userData))
     return socket;
   }
 
   isCoordinator() {
-    // return this.state.event.coordinator.includes(this.props.userID);
-    return false;
+    return this.state.event.coordinator.includes(this.props.userID);
+  }
+
+  renderJoinLeaveButton() {
+    if (this.state.event.guests.includes(this.props.user)) {
+      return (
+        <button
+          className="waves-effect waves-light btn red right"
+          onClick={() => this.state.socket.emit('leave event', this.props.user)}>
+            Leave Event
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="waves-effect waves-light btn green accent-3 right"
+          onClick={() => this.state.socket.emit('join event', this.props.user)}>
+            Join Event
+        </button>
+      );
+    }
   }
 
   addMarker(marker) {
@@ -67,6 +87,7 @@ export default class EventPage extends React.Component {
           <h2>Your Super Awesome Event</h2>
           <h2>{title}</h2>
           <h3>{this.props.user}</h3>
+          {this.renderJoinLeaveButton()}
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
@@ -74,7 +95,7 @@ export default class EventPage extends React.Component {
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
+              {/* <Map locations={locations} addMarker={this.addMarker.bind(this)} /> */}
             </div>
           </div>
         </div>
@@ -92,3 +113,5 @@ EventPage.propTypes = {
   params: React.PropTypes.object,
   user: React.PropTypes.string,
 };
+
+export default EventPage;

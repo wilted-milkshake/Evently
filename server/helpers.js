@@ -34,24 +34,17 @@ function findUserByUsernameMiddleware(request, response, next) {
 
 function createEvent(newEvent) {
   return Event.create(newEvent)
-  .then(event => {
-    return User.findOneAndUpdate(
-      {'local.username': event.coordinator[0]},
-      {$push: {'events': event._id}},
-      {new: true});
-  })
+  .then(event => addEventToUser(event.coordinator[0], event))
   .catch(err => console.log(err));
 }
 
 function addLocation(id, location, cb) {
-  Event.findByIdAndUpdate(id, {$push: {locations: location}}, {new: true}, cb);
+  Event.findByIdAndUpdate(id, {$addToSet: {locations: location}}, {new: true}, cb);
 }
 
 function getEventTitles(eventIds) {
   return Event.find({_id: {$in: eventIds}})
-    .then(events => {
-      return events.map(e => e.title);
-    })
+    .then(events => events.map(e => ({title: e.title, url: e.url})))
     .catch(err => console.log(err));
 }
 
@@ -62,6 +55,41 @@ function findUserByUsername(username, callback) {
   User.findOne({'local.username': username}, callback);
 }
 
+function addUserToEvent(user, event) {
+  return Event.findOneAndUpdate(
+    {url: event},
+    {$addToSet: {guests: user}},
+    {new: true}
+  );
+}
+
+function addEventToUser(user, event) {
+  return User.findOneAndUpdate(
+    {'local.username': user},
+    {$addToSet: {'events': event._id}},
+    {new: true}
+  );
+}
+
+function removeUserFromEvent(user, event) {
+  return Event.findOneAndUpdate(
+    {url: event},
+    {$pull: {guests: user}},
+    {new: true}
+  );
+}
+
+function removeEventFromUser(user, event) {
+  return User.findOneAndUpdate(
+    {'local.username': user},
+    {$pull: {'events': event._id}},
+    {new: true}
+  );
+}
+
+
+
+
 module.exports = {
   findUserByUsername: findUserByUsername,
   findUserByUsernameMiddleware: findUserByUsernameMiddleware,
@@ -70,4 +98,8 @@ module.exports = {
   createEvent:createEvent,
   isLoggedIn: isLoggedIn,
   findAllEvents: findAllEvents,
+  addUserToEvent: addUserToEvent,
+  addEventToUser: addEventToUser,
+  removeUserFromEvent: removeUserFromEvent,
+  removeEventFromUser: removeEventFromUser,
 };
