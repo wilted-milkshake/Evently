@@ -1,5 +1,6 @@
 import React from 'react';
-import Message from './Message.js';
+import Message from './Message';
+import ComposeChat from './ComposeChat';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -9,6 +10,10 @@ class Chat extends React.Component {
     };
   }
 
+  toggleComposingChatState() {
+    this.setState({ isComposingChat: !this.state.isComposingChat });
+  }
+
   render() {
     return (
       <div className="col sm12 m8 l8 chat">
@@ -16,12 +21,13 @@ class Chat extends React.Component {
           <h4 className="left">Chat</h4>
           <a
             className="btn-floating btn-med waves-effect waves-light yellow write-btn"
-            onClick={''}
+            onClick={() => this.toggleComposingChatState()}
           >
             <i className="material-icons">mode_edit</i>
           </a>
         </div>
         <ul className="collection">
+          {this.state.isComposingChat ? <ComposeChat /> : <span></span>}
           {this.props.messages.map((message, i) => <Message {...message} key={i} />)}
         </ul>
       </div>
