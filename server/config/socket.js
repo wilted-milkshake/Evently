@@ -16,10 +16,16 @@ module.exports = function socketConfig(io) {
       socket.emit('event data', dummyData);
     });
 
-    // socket.on('chat message', )
+    socket.on('new chat', chat => {
+      helpers.addChatToEvent(chat, event)
+      .then(eventData => {
+        console.log(eventData)
+        broadcastEventData(eventData);
+      });
+    });
 
-    socket.on('new marker added', function(marker) {
-      helpers.addLocation(marker.id, marker.location, function(err, eventData) {
+    socket.on('new marker added', (marker) => {
+      helpers.addLocation(marker.id, marker.location, (err, eventData) => {
         broadcastEventData(eventData);
       });
     });

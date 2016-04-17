@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
-var EventSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
   url: String,
   title: String,
   date: Date,
@@ -9,22 +9,28 @@ var EventSchema = new mongoose.Schema({
   description: String,
   guests: [],
   locations: [],
-  chats: []
+  chats: [
+    {
+      author: String,
+      message: String,
+      timestamp: Date,
+    },
+  ],
 });
 
 
-var createSha = function (eventid) {
-  var shasum = crypto.createHash('sha1');
+const createSha = function (eventid) {
+  const shasum = crypto.createHash('sha1');
   shasum.update(eventid);
   return shasum.digest('hex').slice(0, 8);
 };
 
 EventSchema.pre('save', function (next) {
-  var url = createSha(`${this.title}${this.desctiption}${this.date}`);
+  const url = createSha(`${this.title}${this.desctiption}${this.date}`);
   this.url = url;
   next();
 });
 
-var eventModel = mongoose.model('events', EventSchema);
+const eventModel = mongoose.model('events', EventSchema);
 
 module.exports = eventModel;

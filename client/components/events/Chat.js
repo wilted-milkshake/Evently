@@ -27,8 +27,16 @@ class Chat extends React.Component {
           </a>
         </div>
         <ul className="collection">
-          {this.state.isComposingChat ? <ComposeChat /> : <span></span>}
-          {this.props.messages.map((message, i) => <Message {...message} key={i} />)}
+          {this.state.isComposingChat ?
+            <ComposeChat
+              blurHandler={this.toggleComposingChatState.bind(this)}
+              submitHandler={this.props.sendChat}
+            /> :
+            <span></span>}
+          {this.props.messages
+            .slice(-20)
+            .reverse()
+            .map((message, i) => <Message {...message} key={message._id} />)}
         </ul>
       </div>
     );
@@ -37,6 +45,7 @@ class Chat extends React.Component {
 
 Chat.propTypes = {
   messages: React.PropTypes.array,
+  sendChat: React.PropTypes.func,
 };
 
 export default Chat;

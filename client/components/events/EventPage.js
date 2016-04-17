@@ -46,13 +46,13 @@ class EventPage extends React.Component {
     const socket = io.connect(window.location.origin, {
       query: `eventRoom=${eventID}`,
     });
-    socket.on('event data', data => this.setState({ event: data }));
+    socket.on('event data', eventData => this.setState({ event: eventData }));
     socket.on('update profile', userData => this.props.onAddEvent(userData))
     return socket;
   }
 
   isCoordinator() {
-    return this.state.event.coordinator.includes(this.props.userID);
+    return this.state.event.coordinator.includes(this.props.user);
   }
 
   renderJoinLeaveButton() {
@@ -79,11 +79,20 @@ class EventPage extends React.Component {
     this.state.socket.emit('new marker added', { marker, id: this.state.event.id });
   }
 
+  sendChat(message) {
+    const chat = {
+      message,
+      author: this.props.user,
+      timestamp: new Date(),
+    };
+    this.state.socket.emit('new chat', chat);
+  }
+
   render() {
     const { locations, chats, title, guests } = this.state.event;
     return (
       <div className="row">
-        <div>
+        <div className="row">
           <h2 className="left">{title}</h2>
           {this.renderJoinLeaveButton()}
         </div>
@@ -99,7 +108,7 @@ class EventPage extends React.Component {
         </div>
         <div className="row">
           <GuestList guests={guests} />
-          <Chat messages={chats} />
+          <Chat messages={chats} sendChat={this.sendChat.bind(this)}/>
         </div>
         {this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>

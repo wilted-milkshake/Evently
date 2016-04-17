@@ -90,6 +90,14 @@ function removeEventFromUser(user, event) {
   );
 }
 
+function addChatToEvent(chat, event) {
+  return Event.findOneAndUpdate(
+    { url: event },
+    { $push: { chats: chat } },
+    { new: true }
+  );
+}
+
 module.exports = {
   findUserByUsername,
   findUserByUsernameMiddleware,
@@ -102,4 +110,5 @@ module.exports = {
   addEventToUser,
   removeUserFromEvent,
   removeEventFromUser,
+  addChatToEvent,
 };
