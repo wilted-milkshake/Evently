@@ -81,3 +81,14 @@ header, main, footer {
 .chat h4 {
   margin: 0 1rem;
 }
+
+.chat textarea {
+  resize: none;
+  padding-right: 24px;
+  border-style: none;
+}
+
+.chat textarea:focus {
+  border-style: none;
+  outline: none;
+}
