@@ -1,8 +1,6 @@
 import React from 'react';
 import Event from './Event.js'
 
-require('./../../styles/styles.css');
-
 export default class ListOfEvents extends React.Component {
   constructor(props) {
     super(props);
