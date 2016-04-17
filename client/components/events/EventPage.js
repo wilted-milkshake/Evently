@@ -4,7 +4,7 @@ import Itinerary from './Itinerary.js';
 import GuestList from './GuestList.js';
 import Chat from './Chat.js';
 
-export default class EventPage extends React.Component {
+class EventPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ export default class EventPage extends React.Component {
         url: '',
         title: '',
         date: null,
-        coordinator: ['aaaaa'],
+        coordinator: [],
         description: '',
         guests: [],
         locations: [
@@ -113,3 +113,5 @@ EventPage.propTypes = {
   params: React.PropTypes.object,
   user: React.PropTypes.string,
 };
+
+export default EventPage;
