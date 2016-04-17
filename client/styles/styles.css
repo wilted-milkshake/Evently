@@ -63,3 +63,21 @@ header, main, footer {
   margin-right: 5px;
   margin-bottom: 5px;
 }
+
+/*.chat {
+  position: relative;
+}
+
+.write-btn {
+  position: absolute;
+  top: 59px;
+  left: 25px;
+}*/
+
+.chat .collection {
+  border-style: none;
+}
+
+.chat h4 {
+  margin: 0 1rem;
+}
