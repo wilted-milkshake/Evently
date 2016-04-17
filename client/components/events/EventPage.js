@@ -84,9 +84,7 @@ class EventPage extends React.Component {
     return (
       <div className="row">
         <div>
-          <h2>Your Super Awesome Event</h2>
-          <h2>{title}</h2>
-          <h3>{this.props.user}</h3>
+          <h2 className="left">{title}</h2>
           {this.renderJoinLeaveButton()}
         </div>
         <div className="row">
