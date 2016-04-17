@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install",
     "production": "webpack -p",
-    "start": "webpack-dev-server"
+    "dev": "webpack --watch",
+    "babel-node": "./node_modules/.bin/babel-node",
+    "start": "nodemon server/server.js --exec babel-node"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/wilted-milkshake/wilted-milkshake#readme",
   "dependencies": {
+    "babel-cli": "^6.7.5",
     "babelify": "^7.2.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",

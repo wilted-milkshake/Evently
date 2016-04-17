@@ -4,7 +4,7 @@ import Message from './Message.js';
 const Chat = (props) => (
   <div className="col sm12 m8 l8">
     <ul className="collection">
-      {props.messages.map(message => <Message {...message} />)}
+      {props.messages.map((message, i) => <Message {...message} key={i}/>)}
     </ul>
   </div>
 );
