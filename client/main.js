@@ -57,11 +57,6 @@ class App extends React.Component {
           </div>
         </header>
         <main>
-          <section id="header">
-            <div className="container">
-              <h1>Evently.io</h1>
-            </div>
-          </section>
           <section className="event-content">
             <div className="container">
               {React.cloneElement(this.props.children, {

@@ -10,16 +10,25 @@ module.exports = function socketConfig(io) {
     }
 
     socket.join(event);
-    socket.emit('event data', dummyData);
 
-    socket.on('fetch data', () => {
-      socket.emit('event data', dummyData);
+    socket.on('fetch data', (event) => {
+      console.log('heard fetch', event);
+      helpers.findEventByUrl(event)
+      .then(eventData => {
+        console.log(eventData);
+        socket.emit('event data', eventData);
+      });
     });
 
-    // socket.on('chat message', )
+    socket.on('new chat', chat => {
+      helpers.addChatToEvent(chat, event)
+      .then(eventData => {
+        broadcastEventData(eventData);
+      });
+    });
 
-    socket.on('new marker added', function(marker) {
-      helpers.addLocation(marker.id, marker.location, function(err, eventData) {
+    socket.on('new marker added', (marker) => {
+      helpers.addLocation(marker.id, marker.location, (err, eventData) => {
         broadcastEventData(eventData);
       });
     });

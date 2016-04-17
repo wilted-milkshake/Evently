@@ -63,3 +63,44 @@ header, main, footer {
   margin-right: 5px;
   margin-bottom: 5px;
 }
+
+/*.chat {
+  position: relative;
+}
+
+.write-btn {
+  position: absolute;
+  top: 59px;
+  left: 25px;
+}*/
+
+.chat .collection {
+  border-style: none;
+}
+
+.chat h4 {
+  margin: 0 1rem;
+}
+
+.chat input[type=text] {
+  resize: none;
+  padding-right: 24px;
+  border: none;
+  border-style: none;
+
+}
+
+.chat input[type=text]:focus {
+  border: none;
+  border-style: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.compose-chat button {
+  background-color: Transparent;
+  border: none;
+}
+.compose-chat button:focus {
+  outline: none;
+}
