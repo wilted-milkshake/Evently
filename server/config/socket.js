@@ -3,13 +3,12 @@ const dummyData = require('./dummydata.js');
 
 module.exports = function socketConfig(io) {
   io.on('connection', (socket) => {
-    const event = socket.handshake['query']['eventRoom'];
 
     function broadcastEventData(eventData) {
       io.to(event).emit('event data', eventData);
     }
 
-    socket.join(event);
+    socket.on('join room', event => socket.join(event));
 
     socket.on('fetch data', (event) => {
       helpers.findEventByUrl(event)
@@ -18,26 +17,26 @@ module.exports = function socketConfig(io) {
       });
     });
 
-    socket.on('new chat', chat => {
-      helpers.addChatToEvent(chat, event)
+    socket.on('new chat', chatData => {
+      helpers.addChatToEvent(chatData.chat, chatData.event)
       .then(eventData => broadcastEventData(eventData));
     });
 
     socket.on('event updated', location => {
-      helpers.updateLocation(location.id, location.updates, event)
+      helpers.updateLocation(location.id, location.updates, location.event)
         .then(eventData => {
           console.log('Event Data', eventData)
           broadcastEventData(eventData)
         });
     });
 
-    socket.on('new marker added', (marker) => {
-      helpers.addLocation(marker.id, marker.marker, (err, eventData) => {
+    socket.on('new marker added', (markerData) => {
+      helpers.addLocation(markerData.id, markerData.marker, (err, eventData) => {
         broadcastEventData(eventData);
       });
     });
 
-    socket.on('join event', user => {
+    socket.on('join event', (user, event) => {
       helpers.addUserToEvent(user, event)
       .then(eventData => {
         broadcastEventData(eventData);
@@ -47,7 +46,7 @@ module.exports = function socketConfig(io) {
       .then(eventTitles => socket.emit('update profile', eventTitles));
     });
 
-    socket.on('leave event', user => {
+    socket.on('leave event', (user, event) => {
       helpers.removeUserFromEvent(user, event)
       .then(eventData => {
         broadcastEventData(eventData);
