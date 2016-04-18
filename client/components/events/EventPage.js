@@ -16,7 +16,6 @@ class EventPage extends React.Component {
         date: null,
         coordinator: [],
         description: '',
-        guests: [],
         locations: [
           {
             title: '',
@@ -27,6 +26,7 @@ class EventPage extends React.Component {
             lng: 0,
           },
         ],
+        guests: [],
         chats: [],
       },
     };
@@ -102,7 +102,7 @@ class EventPage extends React.Component {
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              {/* <Map locations={locations} addMarker={this.addMarker.bind(this)} /> */}
+              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
             </div>
           </div>
         </div>

@@ -8,17 +8,19 @@ export default class AddEventForm extends React.Component {
       title: $('#event_title')[0].value,
       date: $('#date')[0].value,
       coordinator: [this.props.user],
+      description: '',
       locations: [
         {
           title: $('#event_location')[0].value,
           address: $('#address')[0].value,
           time: $('#time')[0].value,
           description: '',
-          latitude: 0,
-          longitude: 0,
+          lat: 0,
+          lng: 0,
         },
       ],
       guests: [this.props.user],
+      chats: [],
     };
     $.ajax({
       type: 'POST',

@@ -17,11 +17,48 @@ export default class Map extends React.Component {
     );
   }
 
+  coordToAddress(latlng, cb) {
+    const geocoder = new google.maps.Geocoder();
+    // get human-readable address of dropped marker (reverse geo-coding)
+    geocoder.geocode({ latLng: latlng }, (res, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (res[0]) {
+          return cb(res[0].formatted_address);
+        } else {
+          console.error("No results found");
+        }
+      } else {
+        console.error(`Could not get address from latLng: ${status}`);
+      }
+    });
+  }
+
+  addressToCoord(address, cb) {
+    const geocoder = new google.maps.Geocoder();
+    // get human-readable address of dropped marker (reverse geo-coding)
+    geocoder.geocode({ address: address }, (res, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (res[0]) {
+          return cb(res[0].location);
+        } else {
+          console.error("No results found");
+        }
+      } else {
+        console.error(`Could not get latlng from address: ${status}`);
+      }
+    });
+  }
+
   drawMap(props) {
     const eventMap = new google.maps.Map(document.getElementById('map'));
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const markers = props.locations;
+
+    console.log(markers);
+
+    const coordAddress = this.coordToAddress.bind(this);
+    const addressCoord = this.addressToCoord.bind(this);
 
     const createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
@@ -43,6 +80,20 @@ export default class Map extends React.Component {
         map: eventMap,
         draggable: true,
       });
+
+      const markerInfo = {
+        title: markerObj.title,
+        address: '',
+        description: 'no description',
+        time: null,
+        lat: markerObj.position.lat(),
+        lng: markerObj.position.lng(),
+      };
+
+      coordAddress(markerObj.position, function(address) {
+        markerInfo.address = address;
+      });
+
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
         return () => {
@@ -84,21 +135,11 @@ export default class Map extends React.Component {
         lng: markerObj.position.lng(),
       };
 
-      const geocoder = new google.maps.Geocoder();
-      // get human-readable address of dropped marker (reverse geo-coding)
-      geocoder.geocode({ latLng: markerObj.position }, (res, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (res[0]) {
-            markerInfo.address = res[0].formatted_address;
-          } else {
-            alert("No results found");
-          }
-        } else {
-          alert(`Could not get address from latLng: ${status}`);
-        }
-        // add marker information to event table
-        props.addMarker(markerInfo);
+      addressCoord(markerObj.position, function(coord) {
+        markerInfo.lat = coord.lat;
+        markerInfo.lng = coord.lng;
       });
+      // props.addMarker(markerInfo);
     });
   }
 
