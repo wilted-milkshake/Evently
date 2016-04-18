@@ -93,17 +93,15 @@ function addChatToEvent(chat, event) {
 }
 
 function updateLocation(id, updates, event) {
-  // return Event.findOne({url: event}, function(err, event) {
-    // console.log('EVENT', event)
-    // for (var i=0; i<event.locations.length; i++) {
-    //   if (event.locations._id === id) {
-    //     event.locations[i].description = updates.description;
-    //     event.locations[i].time = updates.time;
-    //   }
-    // }
-    // return event;
-
-  // })
+  return Event.findOne({url: event}).exec((err, event) => {
+    for (var i=0; i<event.locations.length; i++) {
+      if (event.locations[i]._id == id) {
+        event.locations[i].description = updates.description;
+        event.locations[i].time = updates.time;
+      }
+    }
+    return event;
+  })
 }
 
 module.exports = {
