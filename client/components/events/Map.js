@@ -115,10 +115,10 @@ export default class Map extends React.Component {
           if (res[0]) {
             markerInfo.address = res[0].formatted_address;
           } else {
-            alert("No results found");
+            console.log("No results found");
           }
         } else {
-          alert(`Could not get address from latLng: ${status}`);
+          console.log(`Could not get address from latLng: ${status}`);
         }
         // add marker information to event table
         props.addMarker(markerInfo);
