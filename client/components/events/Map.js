@@ -18,7 +18,7 @@ export default class Map extends React.Component {
   }
 
   drawMap(props) {
-    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: {lat: 0, lng: 0}});
+    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 100, center: {lat: 0, lng: 0}});
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const geocoder = new google.maps.Geocoder();
@@ -67,6 +67,8 @@ export default class Map extends React.Component {
       // }
       // extends map bounds to contain the marker
       bounds.extend(position);
+      eventMap.setCenter(bounds.getCenter());
+      eventMap.setZoom(9);
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
         return () => {
