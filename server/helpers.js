@@ -56,7 +56,7 @@ function createEvent(newEvent) {
 function addLocation(id, location, cb) {
   Event.findByIdAndUpdate(
     id,
-    { $addToSet: { locations: location } },
+    { $push: { locations: location } },
     { new: true },
     cb
   );

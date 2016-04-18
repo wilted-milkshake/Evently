@@ -12,7 +12,6 @@ module.exports = function socketConfig(io) {
     socket.join(event);
 
     socket.on('fetch data', (event) => {
-      console.log('heard fetch', event);
       helpers.findEventByUrl(event)
       .then(eventData => {
         console.log(eventData);
@@ -28,7 +27,8 @@ module.exports = function socketConfig(io) {
     });
 
     socket.on('new marker added', (marker) => {
-      helpers.addLocation(marker.id, marker.location, (err, eventData) => {
+      console.log('MARKER IN SOCKET', marker);
+      helpers.addLocation(marker.id, marker.marker, (err, eventData) => {
         broadcastEventData(eventData);
       });
     });

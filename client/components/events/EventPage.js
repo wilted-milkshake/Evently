@@ -76,7 +76,7 @@ class EventPage extends React.Component {
   }
 
   addMarker(marker) {
-    this.state.socket.emit('new marker added', { marker, id: this.state.event.id });
+    this.state.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
   }
 
   sendChat(message) {
