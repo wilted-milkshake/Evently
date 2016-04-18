@@ -92,23 +92,32 @@ function addChatToEvent(chat, event) {
   );
 }
 
+function removeLocation(id, event) {
+  return Event.findOne({'url': event}).exec((err, event) => {
+    var newLocationsArr = [];
+    for (var i=0; i<event.locations.length; i++) {
+      if (event.locations[i]._id != id) {
+        newLocationsArr.push(event.locations[i]);
+      }
+    }
+    event.locations = newLocationsArr;
+    event.save();
+  });
+}
+
 function updateLocation(id, updates, event) {
-  return Event.findOneAndUpdate({'url': event}
-    // {$set: {'locations.0.description': updates.description }}
-  );
-  // return Event.update({url: event},
-  //   {$push: { locations: updates }},
-  //   {new: true}
-  // );
-  // return Event.findOne({url: event}).exec((err, event) => {
-  //   for (var i=0; i<event.locations.length; i++) {
-  //     if (event.locations[i]._id == id) {
-  //       event.locations[i].description = updates.description;
-  //       event.locations[i].time = updates.time;
-  //     }
-  //   }
-  //   return event;
-  // })
+  return Event.findOne({'url': event}).exec((err, event) => {
+    var newLocationsArr = [];
+    for (var i=0; i<event.locations.length; i++) {
+      if (event.locations[i]._id == id) {
+        event.locations[i].description = updates.description;
+        event.locations[i].time = updates.time;
+      }
+      newLocationsArr.push(event.locations[i]);
+    }
+    event.locations = newLocationsArr;
+    event.save();
+  });
 }
 
 module.exports = {
@@ -125,4 +134,5 @@ module.exports = {
   addChatToEvent,
   findEventByUrl,
   updateLocation,
+  removeLocation,
 };

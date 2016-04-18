@@ -85,6 +85,15 @@ class EventPage extends React.Component {
     );
   }
 
+  removeLoc(id) {
+    this.props.socket.emit(
+      'remove loc',
+      {
+        id: id,
+        event: this.props.params.eventName,
+      })
+  }
+
   sendChat(message) {
     const chat = {
       message,
@@ -104,7 +113,7 @@ class EventPage extends React.Component {
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
-            <Itinerary updateLoc={this.updateLoc.bind(this)} entries={locations} />
+            <Itinerary removeLoc={this.removeLoc.bind(this)} updateLoc={this.updateLoc.bind(this)} entries={locations} />
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>

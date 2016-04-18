@@ -1,5 +1,4 @@
 const helpers = require('../helpers');
-const dummyData = require('./dummydata.js');
 
 module.exports = function socketConfig(io) {
   io.on('connection', (socket) => {
@@ -25,8 +24,17 @@ module.exports = function socketConfig(io) {
     socket.on('event updated', location => {
       helpers.updateLocation(location.id, location.updates, location.event)
         .then(eventData => {
-          console.log('Event Data', eventData)
-          broadcastEventData(eventData)
+          console.log('Event updated Data', eventData)
+          broadcastEventData(eventData);
+        });
+    });
+
+    socket.on('remove loc', location => {
+      console.log('LOCATION IN SOCKET.JS', location);
+      helpers.removeLocation(location.id, location.event)
+        .then(eventData => {
+          console.log('Remove loc eventData', eventData);
+          broadcastEventData(eventData);
         });
     });
 

@@ -18,7 +18,7 @@ export default class Map extends React.Component {
   }
 
   drawMap(props) {
-    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: {lat: 0, lng: 0}});
+    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 100, center: {lat: 0, lng: 0}});
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const geocoder = new google.maps.Geocoder();
@@ -103,7 +103,7 @@ export default class Map extends React.Component {
         index: markers.length.toString(),
         title: newMarker.title,
         address: '',
-        description: 'no description',
+        description: 'add a description',
         time: null,
         lat: newMarker.position.lat(),
         lng: newMarker.position.lng(),
@@ -115,10 +115,10 @@ export default class Map extends React.Component {
           if (res[0]) {
             markerInfo.address = res[0].formatted_address;
           } else {
-            alert("No results found");
+            console.log("No results found");
           }
         } else {
-          alert(`Could not get address from latLng: ${status}`);
+          console.log(`Could not get address from latLng: ${status}`);
         }
         // add marker information to event table
         props.addMarker(markerInfo);
@@ -126,6 +126,8 @@ export default class Map extends React.Component {
     });
     // codeAddress(eventMap, markers[0].address);
 
+    eventMap.setCenter(bounds.getCenter());
+    eventMap.setZoom(9);
   }
 
   render() {
