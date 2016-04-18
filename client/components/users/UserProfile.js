@@ -13,8 +13,10 @@ export default class UserProfile extends React.Component {
     return (
       <div className="profile">
         <h3 className="username">{username}</h3>
-        <a href='/logout' className="waves-effect waves-light btn white-text">Logout</a>
-        <div className="add-btn btn-floating btn-large waves-effect waves-light blue"><Link to='/events'><i className="material-icons">add</i></Link></div>
+        <div className="parent">
+          <a href='/logout' className="logout-btn waves-effect waves-light btn white-text">Logout</a>
+        </div>
+        <div className="add-btn btn-floating btn-large waves-effect waves-light yellow"><Link to='/events'><i className="material-icons">add</i></Link></div>
         <ListOfEvents events={events} />
       </div>
     );

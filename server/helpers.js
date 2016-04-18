@@ -93,7 +93,7 @@ function addChatToEvent(chat, event) {
 }
 
 function updateLocation(id, updates, event) {
-  return Event.findOne({url: event}, function(err, event) {
+  // return Event.findOne({url: event}, function(err, event) {
     // console.log('EVENT', event)
     // for (var i=0; i<event.locations.length; i++) {
     //   if (event.locations._id === id) {
@@ -103,7 +103,7 @@ function updateLocation(id, updates, event) {
     // }
     // return event;
 
-  })
+  // })
 }
 
 module.exports = {
