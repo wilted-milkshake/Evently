@@ -5,7 +5,6 @@ export default class AddEventForm extends React.Component {
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': event.locations[0].address}, (results, status) => {
       if (status = google.maps.GeocoderStatus.OK) {
-        console.log(results)
         event.locations[0].lat = results[0].geometry.location.lat();
         event.locations[0].lng = results[0].geometry.location.lng();
         this.sendEvent(event);
@@ -47,7 +46,7 @@ export default class AddEventForm extends React.Component {
     };
 
     this.codeAddress(eventInfo);
-  
+
   }
 
   render() {
