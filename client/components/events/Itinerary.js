@@ -42,7 +42,7 @@ class Itinerary extends React.Component {
   render() {
     return (
       <div>
-        <h3>Event Itinerary</h3>
+        <h4>Event Itinerary</h4>
         <table>
           <thead>
             <tr>

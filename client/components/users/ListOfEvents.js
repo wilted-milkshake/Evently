@@ -12,6 +12,7 @@ export default class ListOfEvents extends React.Component {
       <div>
         <ul>
           <li className="my-event">My Events</li>
+          <hr />
           { events.map((event, index) => <Event key={event.url} event={event} />) }
         </ul>
       </div>

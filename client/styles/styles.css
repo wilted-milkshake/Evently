@@ -74,7 +74,7 @@ header, main, footer {
   outline: none;
 }
 
-h3 {
+h3.username {
   text-align: center;
 }
 
@@ -90,6 +90,5 @@ h3 {
 
 ul .my-event {
   text-align: center;
-  font-weight: bold;
   font-size: 1.1rem;
 }
