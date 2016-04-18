@@ -7,7 +7,11 @@ module.exports = function socketConfig(io) {
       io.to(event).emit('event data', eventData);
     }
 
-    socket.on('join room', event => socket.join(event));
+    socket.on('join room', event => {
+      socket.join(event);
+      helpers.findEventByUrl(event)
+      .then(eventData => socket.emit('event data', eventData));
+    });
 
     socket.on('fetch data', (event) => {
       helpers.findEventByUrl(event)
