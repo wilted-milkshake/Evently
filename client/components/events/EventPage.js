@@ -60,7 +60,7 @@ class EventPage extends React.Component {
     if (this.state.event.guests.includes(this.props.user)) {
       return (
         <button
-          className="waves-effect waves-light btn red right"
+          className="join-leave-btn waves-effect waves-light btn red right"
           onClick={() => this.state.socket.emit('leave event', this.props.user)}>
             Leave Event
         </button>
@@ -68,7 +68,7 @@ class EventPage extends React.Component {
     } else {
       return (
         <button
-          className="waves-effect waves-light btn green accent-3 right"
+          className="join-leave-btn waves-effect waves-light btn green accent-3 right"
           onClick={() => this.state.socket.emit('join event', this.props.user)}>
             Join Event
         </button>
