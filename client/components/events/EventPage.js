@@ -42,7 +42,9 @@ class EventPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.socket.emit('leave room', this.props.params.eventName);
+    // console.log('unmounting');
+    // this.props.socket.removeAllListeners()
+    // this.props.socket.emit('leave room', this.props.params.eventName);
   }
 
   isCoordinator() {
@@ -71,27 +73,26 @@ class EventPage extends React.Component {
   }
 
   addMarker(marker) {
-    this.props.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
+    this.props.socket.emit('new marker added', {
+      marker: marker,
+      id: this.state.event._id,
+      event: this.props.params.eventName,
+    });
   }
 
   updateLoc(newLoc, id) {
-    this.props.socket.emit(
-      'event updated',
-      {
-        updates: newLoc,
-        id: id,
-        event: this.props.params.eventName,
-      }
-    );
+    this.props.socket.emit('event updated', {
+      updates: newLoc,
+      id: id,
+      event: this.props.params.eventName,
+    });
   }
 
   removeLoc(id) {
-    this.props.socket.emit(
-      'remove loc',
-      {
-        id: id,
-        event: this.props.params.eventName,
-      })
+    this.props.socket.emit('remove loc', {
+      id: id,
+      event: this.props.params.eventName,
+    });
   }
 
   sendChat(message) {

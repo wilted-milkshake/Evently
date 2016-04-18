@@ -7,13 +7,13 @@ export default class ListOfEvents extends React.Component {
   }
 
   render() {
-    const { events } = this.props;
+    const { events, socket } = this.props;
     return (
       <div>
         <ul>
           <li className="my-event">My Events</li>
           <hr />
-          { events.map((event, index) => <Event key={event.url} event={event} />) }
+          { events.map((event, index) => <Event key={event.url} event={event} socket={socket}/>) }
         </ul>
       </div>
     )

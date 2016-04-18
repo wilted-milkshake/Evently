@@ -3,7 +3,7 @@ const helpers = require('../helpers');
 module.exports = function socketConfig(io) {
   io.on('connection', (socket) => {
 
-    function broadcastEventData(eventData) {
+    function broadcastEventData(eventData, event) {
       io.to(event).emit('event data', eventData);
     }
 
@@ -11,43 +11,34 @@ module.exports = function socketConfig(io) {
 
     socket.on('fetch data', (event) => {
       helpers.findEventByUrl(event)
-      .then(eventData => {
-        socket.emit('event data', eventData);
-      });
+      .then(eventData => socket.emit('event data', eventData));
     });
 
     socket.on('new chat', chatData => {
       helpers.addChatToEvent(chatData.chat, chatData.event)
-      .then(eventData => broadcastEventData(eventData));
+      .then(eventData => broadcastEventData(eventData, chatData.event));
     });
 
     socket.on('event updated', location => {
       helpers.updateLocation(location.id, location.updates, location.event)
-        .then(eventData => {
-          console.log('Event updated Data', eventData)
-          broadcastEventData(eventData);
-        });
+        .then(eventData => broadcastEventData(eventData, location.event));
     });
 
     socket.on('remove loc', location => {
-      console.log('LOCATION IN SOCKET.JS', location);
       helpers.removeLocation(location.id, location.event)
-        .then(eventData => {
-          console.log('Remove loc eventData', eventData);
-          broadcastEventData(eventData);
-        });
+        .then(eventData => broadcastEventData(eventData, location.event));
     });
 
     socket.on('new marker added', (markerData) => {
       helpers.addLocation(markerData.id, markerData.marker, (err, eventData) => {
-        broadcastEventData(eventData);
+        broadcastEventData(eventData, markerData.event);
       });
     });
 
     socket.on('join event', (user, event) => {
       helpers.addUserToEvent(user, event)
       .then(eventData => {
-        broadcastEventData(eventData);
+        broadcastEventData(eventData, event);
         return helpers.addEventToUser(user, eventData);
       })
       .then(userData => helpers.getEventTitles(userData.events))
@@ -57,7 +48,7 @@ module.exports = function socketConfig(io) {
     socket.on('leave event', (user, event) => {
       helpers.removeUserFromEvent(user, event)
       .then(eventData => {
-        broadcastEventData(eventData);
+        broadcastEventData(eventData, event);
         return helpers.removeEventFromUser(user, eventData);
       })
       .then(userData => helpers.getEventTitles(userData.events))
