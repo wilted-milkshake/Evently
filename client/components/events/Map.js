@@ -18,31 +18,54 @@ export default class Map extends React.Component {
   }
 
   drawMap(props) {
-    const eventMap = new google.maps.Map(document.getElementById('map'));
+    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: {lat: 0, lng: 0}});
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
+    const geocoder = new google.maps.Geocoder();
     const markers = props.locations;
-
     const createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
     const infoWindowContent = markers.map(marker => createInfo(marker));
 
+    function codeAddress(map, address) {
+      geocoder.geocode({'address': address}, (results, status) => {
+        if (status = google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            title: markers[0].title,
+            position: results[0].geometry.location,
+            draggable: true,
+          });
+          return marker;
+        } else {
+          console.error('Error in codeAddress function', status);
+        }
+      });
+    }
     // set up existing locations markers
     for (let i = 0; i < markers.length; i++) {
-      // get LatLng object from marker
-      let position = new google.maps.LatLng({
-        lat: markers[i].lat,
-        lng: markers[i].lng,
-      });
+      let markerObj;
+      let position;
+      if (markers[i].lat === null || markers[i].lng === null) {
+        markerObj = codeAddress(eventMap, markers[i].address);
+        position = markerObj.getPosition();
+      } else {
+        // get LatLng object from marker
+        position = new google.maps.LatLng({
+          lat: markers[i].lat,
+          lng: markers[i].lng,
+        });
+        // create marker object
+        markerObj = new google.maps.Marker({
+          position,
+          title: markers[i].title,
+          map: eventMap,
+          draggable: true,
+        });
+      }
       // extends map bounds to contain the marker
       bounds.extend(position);
-      // create marker object
-      let markerObj = new google.maps.Marker({
-        position,
-        title: markers[i].title,
-        map: eventMap,
-        draggable: true,
-      });
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
         return () => {
@@ -50,8 +73,7 @@ export default class Map extends React.Component {
           infoWindow.open(eventMap, mrkr);
         };
       })(markerObj, i));
-      // center the map based on marker positions
-      eventMap.fitBounds(bounds);
+      
     }
 
 
@@ -84,7 +106,6 @@ export default class Map extends React.Component {
         lng: markerObj.position.lng(),
       };
 
-      const geocoder = new google.maps.Geocoder();
       // get human-readable address of dropped marker (reverse geo-coding)
       geocoder.geocode({ latLng: markerObj.position }, (res, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -100,6 +121,8 @@ export default class Map extends React.Component {
         props.addMarker(markerInfo);
       });
     });
+    codeAddress(eventMap, markers[0].address);
+
   }
 
   render() {

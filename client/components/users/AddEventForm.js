@@ -13,9 +13,9 @@ export default class AddEventForm extends React.Component {
           title: $('#event_location')[0].value,
           address: $('#address')[0].value,
           time: $('#time')[0].value,
-          description: '',
-          latitude: 0,
-          longitude: 0,
+          description: $('#description')[0].value,
+          latitude: null,
+          longitude: null,
         },
       ],
       guests: [this.props.user],
@@ -33,7 +33,7 @@ export default class AddEventForm extends React.Component {
   render() {
     return (
       <div className="row">
-        <h3>Create a new event</h3>
+        <h4>Create a new event</h4>
         <form className="col s12">
           <div className="row">
             <div className="input-field col s6">
@@ -55,6 +55,12 @@ export default class AddEventForm extends React.Component {
             </div>
             <div className="input-field col s4">
               <input id="date" type="date" className="validate" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input id="description" type="text" className="validate" />
+              <label htmlFor="description">Description</label>
             </div>
           </div>
           <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">

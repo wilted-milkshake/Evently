@@ -56,7 +56,7 @@ function createEvent(newEvent) {
 function addLocation(id, location, cb) {
   Event.findByIdAndUpdate(
     id,
-    { $addToSet: { locations: location } },
+    { $push: { locations: location } },
     { new: true },
     cb
   );
@@ -92,6 +92,18 @@ function addChatToEvent(chat, event) {
   );
 }
 
+function updateLocation(id, updates, event) {
+  return Event.findOne({url: event}).exec((err, event) => {
+    for (var i=0; i<event.locations.length; i++) {
+      if (event.locations[i]._id == id) {
+        event.locations[i].description = updates.description;
+        event.locations[i].time = updates.time;
+      }
+    }
+    return event;
+  })
+}
+
 module.exports = {
   findUserByUsername,
   findUserByUsernameMiddleware,
@@ -105,4 +117,5 @@ module.exports = {
   removeEventFromUser,
   addChatToEvent,
   findEventByUrl,
+  updateLocation,
 };

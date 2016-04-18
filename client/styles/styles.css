@@ -18,37 +18,6 @@
   left: 16.25px;
 }
 
-.username, {
-  text-align: center;
-}
-
-.events-title {
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-.btn-text {
-  color: white;
-  text-align: center;
-}
-
-/*.logout-btn {
-  padding: 12px;
-}*/
-
-.list-item {
-  border: 1px solid #eee;
-}
-
-.list-events {
-  margin-top: 5px;
-}
-
-.side-nav .style-btn {
-  height: 30px;
-  line-height: 30px;
-}
-
 header, main, footer {
   padding-left: 240px;
 }
@@ -103,4 +72,28 @@ header, main, footer {
 }
 .compose-chat button:focus {
   outline: none;
+}
+
+h3.username {
+  text-align: center;
+}
+
+.profile .logout-btn {
+  height: 35px;
+  line-height: 35px;
+}
+
+.events-title {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+
+ul .my-event {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.join-leave-btn {
+  margin-top: 30px;
 }

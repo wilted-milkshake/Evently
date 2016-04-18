@@ -12,23 +12,27 @@ module.exports = function socketConfig(io) {
     socket.join(event);
 
     socket.on('fetch data', (event) => {
-      console.log('heard fetch', event);
       helpers.findEventByUrl(event)
       .then(eventData => {
-        console.log(eventData);
         socket.emit('event data', eventData);
       });
     });
 
     socket.on('new chat', chat => {
       helpers.addChatToEvent(chat, event)
-      .then(eventData => {
-        broadcastEventData(eventData);
-      });
+      .then(eventData => broadcastEventData(eventData));
+    });
+
+    socket.on('event updated', location => {
+      helpers.updateLocation(location.id, location.updates, event)
+        .then(eventData => {
+          console.log('Event Data', eventData)
+          broadcastEventData(eventData)
+        });
     });
 
     socket.on('new marker added', (marker) => {
-      helpers.addLocation(marker.id, marker.location, (err, eventData) => {
+      helpers.addLocation(marker.id, marker.marker, (err, eventData) => {
         broadcastEventData(eventData);
       });
     });

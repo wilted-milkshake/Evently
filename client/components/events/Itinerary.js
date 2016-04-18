@@ -1,24 +1,64 @@
 import React from 'react';
 import ItineraryEntry from './ItineraryEntry.js';
 
-const Itinerary = (props) => (
-  <div>
-    <h3>Event Itinerary</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Location</th>
+class Itinerary extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: null
+    }
+  }
+
+  toggleEdit(entryId) {
+    this.setState( { editing: entryId } )
+  }
+
+  handleEditItem() {
+    var values = document.querySelectorAll('#edit-row input');
+    var newLocation = {
+      time: values[0].value,
+      description: values[1].value,
+    }
+    this.props.updateLoc(newLocation, this.state.editing);
+    this.setState({editing: null})
+  }
+
+  renderEntryOrEditField(e) {
+    if (this.state.editing === e._id) {
+      return (
+        <tr id="edit-row">
+          <td><input type="time" name="time" defaultValue={e.time} /></td>
+          <td><input type="text" name="description" defaultValue={e.description} /></td>
+          <td><a onClick={ this.handleEditItem.bind(this) } className="waves-effect waves-light btn">update</a></td>
         </tr>
-      </thead>
-      <tbody>
-        {props.entries.map((e, i) => (
-          <ItineraryEntry time={e.time} description={e.description} key={i} />)
-        )}
-      </tbody>
-    </table>
-  </div>
-);
+      );
+    }
+    return (
+      <ItineraryEntry toggleEdit={this.toggleEdit.bind(this, e._id)} time={e.time} description={e.description} key={e._id} />
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <h4>Event Itinerary</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.entries.map(e => this.renderEntryOrEditField(e))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}
+
 
 export default Itinerary;
 

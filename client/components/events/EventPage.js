@@ -25,6 +25,7 @@ class EventPage extends React.Component {
             time: null,
             lat: 0,
             lng: 0,
+            _id: 0
           },
         ],
         chats: [],
@@ -59,7 +60,7 @@ class EventPage extends React.Component {
     if (this.state.event.guests.includes(this.props.user)) {
       return (
         <button
-          className="waves-effect waves-light btn red right"
+          className="join-leave-btn waves-effect waves-light btn red right"
           onClick={() => this.state.socket.emit('leave event', this.props.user)}>
             Leave Event
         </button>
@@ -67,7 +68,7 @@ class EventPage extends React.Component {
     } else {
       return (
         <button
-          className="waves-effect waves-light btn green accent-3 right"
+          className="join-leave-btn waves-effect waves-light btn green accent-3 right"
           onClick={() => this.state.socket.emit('join event', this.props.user)}>
             Join Event
         </button>
@@ -76,7 +77,11 @@ class EventPage extends React.Component {
   }
 
   addMarker(marker) {
-    this.state.socket.emit('new marker added', { marker, id: this.state.event.id });
+    this.state.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
+  }
+
+  updateLoc(newLoc, id) {
+    this.state.socket.emit('event updated', {updates: newLoc, id: id})
   }
 
   sendChat(message) {
@@ -98,11 +103,11 @@ class EventPage extends React.Component {
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
-            <Itinerary entries={locations} />
+            <Itinerary updateLoc={this.updateLoc.bind(this)} entries={locations} />
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
-              {/* <Map locations={locations} addMarker={this.addMarker.bind(this)} /> */}
+              <Map locations={locations} addMarker={this.addMarker.bind(this)} />
             </div>
           </div>
         </div>
@@ -110,7 +115,6 @@ class EventPage extends React.Component {
           <GuestList guests={guests} />
           <Chat messages={chats} sendChat={this.sendChat.bind(this)}/>
         </div>
-        {this.isCoordinator() ? <p>work it guuurrl</p> : <p>you don't work it</p>}
       </div>
     );
   }
