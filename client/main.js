@@ -13,9 +13,14 @@ class App extends React.Component {
     this.state = {
       username: '',
       events: [],
+      socket: null,
     };
   }
-
+  componentWillMount() {
+    this.setState({
+      socket: io.connect(window.location.origin),
+    });
+  }
   componentDidMount() {
     this.fetchProfile();
     $(".button-collapse").sideNav();
@@ -63,6 +68,7 @@ class App extends React.Component {
                 user: this.state.username,
                 userID: this.state.userID,
                 onAddEvent: this.onAddEvent.bind(this),
+                socket: this.state.socket,
               })}
             </div>
           </section>

@@ -1,25 +1,21 @@
 import React from 'react';
 
 export default class AddEventForm extends React.Component {
+  codeAddress(event) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': event.locations[0].address}, (results, status) => {
+      if (status = google.maps.GeocoderStatus.OK) {
+        console.log(results)
+        event.locations[0].lat = results[0].geometry.location.lat();
+        event.locations[0].lng = results[0].geometry.location.lng();
+        this.sendEvent(event);
+      } else {
+        console.error('Error in codeAddress function', status);
+      }
+    });
+  }
 
-  postEvent(e) {
-    e.preventDefault();
-    var eventInfo = {
-      title: $('#event_title')[0].value,
-      date: $('#date')[0].value,
-      coordinator: [this.props.user],
-      locations: [
-        {
-          title: $('#event_location')[0].value,
-          address: $('#address')[0].value,
-          time: $('#time')[0].value,
-          description: $('#description')[0].value,
-          latitude: null,
-          longitude: null,
-        },
-      ],
-      guests: [this.props.user],
-    };
+  sendEvent(eventInfo) {
     $.ajax({
       type: 'POST',
       url: '/api/events/',
@@ -28,6 +24,30 @@ export default class AddEventForm extends React.Component {
       contentType: 'application/json',
       success: (events) => this.props.onAddEvent(events),
     });
+  }
+
+  handleNewEvent(e) {
+    e.preventDefault();
+    var eventInfo = {
+      title: $('#event_title')[0].value,
+      date: $('#date')[0].value,
+      coordinator: [this.props.user],
+      locations: [
+        {
+          index: '1',
+          title: $('#event_location')[0].value,
+          address: $('#address')[0].value,
+          time: $('#time')[0].value,
+          description: $('#description')[0].value,
+          lat: 0,
+          lng: 0,
+        },
+      ],
+      guests: [this.props.user],
+    };
+
+    this.codeAddress(eventInfo);
+  
   }
 
   render() {
@@ -63,7 +83,7 @@ export default class AddEventForm extends React.Component {
               <label htmlFor="description">Description</label>
             </div>
           </div>
-          <button onClick={this.postEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">
+          <button onClick={this.handleNewEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">
             Submit<i className="material-icons right">send</i>
           </button>
         </form>

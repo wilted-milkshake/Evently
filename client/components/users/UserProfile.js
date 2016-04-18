@@ -9,7 +9,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { username, events } = this.props
+    const { username, events, socket } = this.props
     return (
       <div className="profile">
         <h3 className="username">{username}</h3>
@@ -21,7 +21,7 @@ export default class UserProfile extends React.Component {
           className="add-btn btn-floating btn-large waves-effect waves-light yellow">
           <Link to='/events'><i className="material-icons">add</i></Link>
         </div>
-        <ListOfEvents events={events} />
+        <ListOfEvents events={events} socket={socket}/>
       </div>
     );
   }

@@ -12,7 +12,10 @@ export default class Event extends React.Component {
       <li>
         <div>
           <Link to={`/events/${url}`}
-            onClick={$(".button-collapse").sideNav('hide')}
+            onClick={() => {
+              this.props.socket.emit('join room', url);
+              $(".button-collapse").sideNav('hide')
+            }}
             className="collection-item"
             activeClassName="active">
             {title}

@@ -9,7 +9,6 @@ class EventPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: undefined,
       event: {
         url: '',
         title: '',
@@ -34,22 +33,16 @@ class EventPage extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      socket: this.configSocket(this.props.params.eventName),
-    });
+    this.props.socket.on('event data', eventData => this.setState({ event: eventData }));
+    this.props.socket.on('update profile', userData => this.props.onAddEvent(userData))
   }
 
   componentDidMount() {
-    this.state.socket.emit('fetch data', this.props.params.eventName);
+    this.props.socket.emit('fetch data', this.props.params.eventName);
   }
 
-  configSocket(eventID) {
-    const socket = io.connect(window.location.origin, {
-      query: `eventRoom=${eventID}`,
-    });
-    socket.on('event data', eventData => this.setState({ event: eventData }));
-    socket.on('update profile', userData => this.props.onAddEvent(userData))
-    return socket;
+  componentWillUnmount() {
+    this.props.socket.emit('leave room', this.props.params.eventName);
   }
 
   isCoordinator() {
@@ -57,11 +50,12 @@ class EventPage extends React.Component {
   }
 
   renderJoinLeaveButton() {
+    const { user, 'prams.eventName': room  } = this.props;
     if (this.state.event.guests.includes(this.props.user)) {
       return (
         <button
           className="join-leave-btn waves-effect waves-light btn red right"
-          onClick={() => this.state.socket.emit('leave event', this.props.user)}>
+          onClick={() => this.props.socket.emit('leave event', { user, room })}>
             Leave Event
         </button>
       );
@@ -69,7 +63,7 @@ class EventPage extends React.Component {
       return (
         <button
           className="join-leave-btn waves-effect waves-light btn green accent-3 right"
-          onClick={() => this.state.socket.emit('join event', this.props.user)}>
+          onClick={() => this.props.socket.emit('join event', { user, room })}>
             Join Event
         </button>
       );
@@ -77,11 +71,18 @@ class EventPage extends React.Component {
   }
 
   addMarker(marker) {
-    this.state.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
+    this.props.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
   }
 
   updateLoc(newLoc, id) {
-    this.state.socket.emit('event updated', {updates: newLoc, id: id})
+    this.props.socket.emit(
+      'event updated',
+      {
+        updates: newLoc,
+        id: id,
+        event: this.props.params.eventName,
+      }
+    );
   }
 
   sendChat(message) {
@@ -90,7 +91,7 @@ class EventPage extends React.Component {
       author: this.props.user,
       timestamp: new Date(),
     };
-    this.state.socket.emit('new chat', chat);
+    this.props.socket.emit('new chat', {chat, event: this.props.params.eventName});
   }
 
   render() {
