@@ -27,31 +27,10 @@ export default class Map extends React.Component {
     // Info Window content for each InfoWindow() marker
     const infoWindowContent = markers.map(marker => createInfo(marker));
 
-    // function codeAddress(map, address) {
-    //   geocoder.geocode({'address': address}, (results, status) => {
-    //     if (status = google.maps.GeocoderStatus.OK) {
-    //       map.setCenter(results[0].geometry.location);
-    //       var marker = new google.maps.Marker({
-    //         label: markers.length.toString(),
-    //         map: map,
-    //         title: markers[0].title,
-    //         position: results[0].geometry.location,
-    //         draggable: true,
-    //       });
-    //       return marker;
-    //     } else {
-    //       console.error('Error in codeAddress function', status);
-    //     }
-    //   });
-    // }
     // set up existing locations markers
     for (let i = 0; i < markers.length; i++) {
       let markerObj;
       let position;
-      // if (markers[i].lat === null || markers[i].lng === undefined) {
-      //   markerObj = codeAddress(eventMap, markers[i].address);
-      //   position = markerObj.getPosition();
-      // } else {
       // get LatLng object from marker
       position = new google.maps.LatLng({
         lat: markers[i].lat,
@@ -64,7 +43,6 @@ export default class Map extends React.Component {
         title: markers[i].title,
         map: eventMap,
       });
-      // }
       // extends map bounds to contain the marker
       bounds.extend(position);
       // on click, show InfoWindow
@@ -73,10 +51,8 @@ export default class Map extends React.Component {
           infoWindow.setContent(infoWindowContent[content]);
           infoWindow.open(eventMap, mrkr);
         };
-      })(markerObj, i));
-      
+      })(markerObj, i)); 
     }
-
 
     // event listener for click to add a marker
     google.maps.event.addListener(eventMap, 'dblclick', function(event) {

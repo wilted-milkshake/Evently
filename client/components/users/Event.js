@@ -1,27 +1,20 @@
-import React from 'react';
 import { Link } from 'react-router';
+import React from 'react';
 
-export default class Event extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Event = (props) => (
+  <li>
+    <div>
+      <Link to={`/events/${props.event.url}`}
+        onClick={() => {
+          this.props.socket.emit('join room', url);
+          $(".button-collapse").sideNav('hide')
+        }}
+        className="collection-item"
+        activeClassName="active">
+        {props.event.title}
+      </Link>
+    </div>
+  </li>
+);
 
-  render() {
-    const { title, url } = this.props.event;
-    return (
-      <li>
-        <div>
-          <Link to={`/events/${url}`}
-            onClick={() => {
-              this.props.socket.emit('join room', url);
-              $(".button-collapse").sideNav('hide')
-            }}
-            className="collection-item"
-            activeClassName="active">
-            {title}
-          </Link>
-        </div>
-      </li>
-    )
-  }
-};
+export default Event;
