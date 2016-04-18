@@ -18,7 +18,7 @@ export default class Map extends React.Component {
   }
 
   drawMap(props) {
-    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 100, center: {lat: 0, lng: 0}});
+    const eventMap = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: {lat: 0, lng: 0}});
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const geocoder = new google.maps.Geocoder();
@@ -52,18 +52,18 @@ export default class Map extends React.Component {
       //   markerObj = codeAddress(eventMap, markers[i].address);
       //   position = markerObj.getPosition();
       // } else {
-        // get LatLng object from marker
-        position = new google.maps.LatLng({
-          lat: markers[i].lat,
-          lng: markers[i].lng,
-        });
-        // create marker object
-        markerObj = new google.maps.Marker({
-          position,
-          label: 'a',
-          title: markers[i].title,
-          map: eventMap,
-        });
+      // get LatLng object from marker
+      position = new google.maps.LatLng({
+        lat: markers[i].lat,
+        lng: markers[i].lng,
+      });
+      // create marker object
+      markerObj = new google.maps.Marker({
+        position,
+        label: markers[i].index,
+        title: markers[i].title,
+        map: eventMap,
+      });
       // }
       // extends map bounds to contain the marker
       bounds.extend(position);
@@ -84,12 +84,11 @@ export default class Map extends React.Component {
       const newMarker = new google.maps.Marker({
         label: markers.length.toString(),
         title: 'untitled event',
-        map: eventMap, // this.getMap(),
+        map: eventMap,
         position: event.latLng,
         draggable: true,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
       });
-      console.log('MarkerObj', newMarker);
       infoWindowContent.push(createInfo(newMarker));
 
       const info = new google.maps.InfoWindow();

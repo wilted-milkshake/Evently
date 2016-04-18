@@ -44,11 +44,11 @@ class Itinerary extends React.Component {
             </a>
           </td>
           <td>
-            <button
+            <a
               className="secondary-content update-btn"
               onClick={this.handleRemove.bind(this)}>
               <i className="material-icons">not_interested</i>
-            </button>
+            </a>
           </td>
         </tr>
       );

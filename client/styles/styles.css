@@ -33,16 +33,6 @@ header, main, footer {
   margin-bottom: 5px;
 }
 
-/*.chat {
-  position: relative;
-}
-
-.write-btn {
-  position: absolute;
-  top: 59px;
-  left: 25px;
-}*/
-
 .chat .collection {
   border-style: none;
 }
@@ -100,4 +90,5 @@ ul .my-event {
 .update-btn {
   background-color: Transparent;
   border: none;
+  cursor: pointer;
 }
