@@ -92,8 +92,7 @@ function addChatToEvent(chat, event) {
   );
 }
 
-function updateLocation(id, updates, index, event) {
-  console.log('IDIDI', id);
+function updateLocation(id, updates, event) {
   return Event.findOne({'url': event}).exec((err, event) => {
     var newlocationsArr = [];
     for (var i=0; i<event.locations.length; i++) {

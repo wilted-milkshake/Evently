@@ -33,14 +33,14 @@ class Itinerary extends React.Component {
       return (
         <tr id="edit-row">
           <td><input type="time" name="time" defaultValue={e.time} /></td>
-          <td><input type="text" name="description" defaultValue={e.description} /></td>
-          {/*<td><a onClick={ this.handleEditItem.bind(this, e.index) } className="waves-effect waves-light btn">update</a></td>*/}
+          <td><input type="text" name="description" defaultValue={e.description} />
+          </td>
           <td>
-            <button
+            <a
               className="secondary-content update-btn"
               onClick={this.handleEditItem.bind(this, e.index)}>
               <i className="material-icons">done</i>
-            </button>
+            </a>
           </td>
           <td>
             <button
