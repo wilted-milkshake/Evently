@@ -25,6 +25,7 @@ class EventPage extends React.Component {
             time: null,
             lat: 0,
             lng: 0,
+            _id: 0
           },
         ],
         chats: [],

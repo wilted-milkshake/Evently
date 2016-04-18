@@ -35,6 +35,7 @@ export default class Map extends React.Component {
             map: map,
             title: markers[0].title,
             position: results[0].geometry.location,
+            draggable: true,
           });
           return marker;
         } else {
@@ -65,7 +66,8 @@ export default class Map extends React.Component {
       }
       // extends map bounds to contain the marker
       bounds.extend(position);
-
+      console.log('Marker Obj and i', markerObj, i)
+      console.log(infoWindowContent[i])
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
         return () => {
