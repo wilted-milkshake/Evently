@@ -9,6 +9,7 @@ const EventSchema = new mongoose.Schema({
   description: String,
   guests: [],
   locations: [{
+    index: String,
     title: String,
     address: String,
     description: String,
