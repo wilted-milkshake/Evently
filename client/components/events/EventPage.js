@@ -80,6 +80,10 @@ class EventPage extends React.Component {
     this.state.socket.emit('new marker added', { marker: marker, id: this.state.event._id });
   }
 
+  updateLoc(newLoc, id) {
+    this.state.socket.emit('event updated', {updates: newLoc, id: id})
+  }
+
   sendChat(message) {
     const chat = {
       message,
@@ -99,7 +103,7 @@ class EventPage extends React.Component {
         </div>
         <div className="row">
           <div className="col s12 m6 l6">
-            <Itinerary entries={locations} />
+            <Itinerary updateLoc={this.updateLoc.bind(this)} entries={locations} />
           </div>
           <div className="col s12 m6 l6">
             <div id="map" style={{ width: '400px', height: '350px' }}>
