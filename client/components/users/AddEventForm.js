@@ -83,8 +83,8 @@ export default class AddEventForm extends React.Component {
               <label htmlFor="description">Description</label>
             </div>
           </div>
-          <button onClick={this.handleNewEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action"><Link to={'/events/' + $('#event_title')[0].value}>
-            Submit<i className="material-icons right">send</i></Link>
+          <button onClick={this.handleNewEvent.bind(this)} className="btn waves-effect waves-light" type="submit" name="action">
+            Submit<i className="material-icons right">send</i>
           </button>
         </form>
       </div>

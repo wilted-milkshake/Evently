@@ -99,7 +99,7 @@ export default class Map extends React.Component {
       });
       // set up marker information to be added to database
       const markerInfo = {
-        index: markers.length.toString(),
+        index: (markers.length + 1).toString(),
         title: newMarker.title,
         address: '',
         description: 'add a description',
