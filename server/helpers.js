@@ -92,18 +92,30 @@ function addChatToEvent(chat, event) {
   );
 }
 
+function removeLocation(id, event) {
+  return Event.findOne({'url': event}).exec((err, event) => {
+    var newLocationsArr = [];
+    for (var i=0; i<event.locations.length; i++) {
+      if (event.locations[i]._id != id) {
+        newLocationsArr.push(event.locations[i]);
+      }
+    }
+    event.locations = newLocationsArr;
+    event.save();
+  });
+}
+
 function updateLocation(id, updates, event) {
   return Event.findOne({'url': event}).exec((err, event) => {
-    var newlocationsArr = [];
+    var newLocationsArr = [];
     for (var i=0; i<event.locations.length; i++) {
       if (event.locations[i]._id == id) {
-        console.log('EVENT', event.locations[i])
         event.locations[i].description = updates.description;
         event.locations[i].time = updates.time;
       }
-      newlocationsArr.push(event.locations[i]);
+      newLocationsArr.push(event.locations[i]);
     }
-    event.locations = newlocationsArr;
+    event.locations = newLocationsArr;
     event.save();
   });
 }
@@ -122,4 +134,5 @@ module.exports = {
   addChatToEvent,
   findEventByUrl,
   updateLocation,
+  removeLocation,
 };
