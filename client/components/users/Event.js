@@ -11,7 +11,10 @@ export default class Event extends React.Component {
     return (
       <li>
         <div>
-          <Link to={`/events/${url}`} className="collection-item" activeClassName="active">
+          <Link to={`/events/${url}`}
+            onClick={$(".button-collapse").sideNav('hide')}
+            className="collection-item"
+            activeClassName="active">
             {title}
           </Link>
         </div>
