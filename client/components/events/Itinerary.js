@@ -7,11 +7,11 @@ class Itinerary extends React.Component {
     super(props);
     this.state = {
       editing: null
-    }
+    };
   }
 
   toggleEdit(entryId) {
-    this.setState( { editing: entryId } )
+    this.setState({ editing: entryId });
   }
 
   handleEditItem() {
@@ -19,13 +19,14 @@ class Itinerary extends React.Component {
     var newLocation = {
       time: values[0].value,
       description: values[1].value,
-    }
+    };
     this.props.updateLoc(newLocation, this.state.editing);
-    this.setState({editing: null})
+    this.setState({ editing: null });
   }
 
-  removeEvent() {
-
+  handleRemove() {
+    this.props.removeLoc(this.state.editing);
+    this.setState({ editing: null });
   }
 
   renderEntryOrEditField(e) {
@@ -38,14 +39,14 @@ class Itinerary extends React.Component {
           <td>
             <a
               className="secondary-content update-btn"
-              onClick={this.handleEditItem.bind(this, e.index)}>
+              onClick={this.handleEditItem.bind(this)}>
               <i className="material-icons">done</i>
             </a>
           </td>
           <td>
             <button
               className="secondary-content update-btn"
-              onClick={this.removeEvent.bind(this, e.index)}>
+              onClick={this.handleRemove.bind(this)}>
               <i className="material-icons">not_interested</i>
             </button>
           </td>
