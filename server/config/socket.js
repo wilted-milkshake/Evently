@@ -1,5 +1,4 @@
 const helpers = require('../helpers');
-const dummyData = require('./dummydata.js');
 
 module.exports = function socketConfig(io) {
   io.on('connection', (socket) => {

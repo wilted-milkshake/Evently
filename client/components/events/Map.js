@@ -67,8 +67,6 @@ export default class Map extends React.Component {
       // }
       // extends map bounds to contain the marker
       bounds.extend(position);
-      eventMap.setCenter(bounds.getCenter());
-      eventMap.setZoom(9);
       // on click, show InfoWindow
       google.maps.event.addListener(markerObj, 'click', (function(mrkr, content) {
         return () => {
@@ -105,7 +103,7 @@ export default class Map extends React.Component {
         index: markers.length.toString(),
         title: newMarker.title,
         address: '',
-        description: 'no description',
+        description: 'add a description',
         time: null,
         lat: newMarker.position.lat(),
         lng: newMarker.position.lng(),
@@ -128,6 +126,8 @@ export default class Map extends React.Component {
     });
     // codeAddress(eventMap, markers[0].address);
 
+    eventMap.setCenter(bounds.getCenter());
+    eventMap.setZoom(9);
   }
 
   render() {
