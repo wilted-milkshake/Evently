@@ -26,6 +26,7 @@ export default class Map extends React.Component {
     const createInfo = this.createInfoWindowContent.bind(this);
     // Info Window content for each InfoWindow() marker
     const infoWindowContent = markers.map(marker => createInfo(marker));
+    let labelCount = markers.length;
 
     // set up existing locations markers
     for (let i = 0; i < markers.length; i++) {
@@ -43,6 +44,7 @@ export default class Map extends React.Component {
         title: markers[i].title,
         map: eventMap,
       });
+
       // extends map bounds to contain the marker
       bounds.extend(position);
       // on click, show InfoWindow
@@ -51,14 +53,15 @@ export default class Map extends React.Component {
           infoWindow.setContent(infoWindowContent[content]);
           infoWindow.open(eventMap, mrkr);
         };
-      })(markerObj, i)); 
+      })(markerObj, i));
     }
 
     // event listener for click to add a marker
     google.maps.event.addListener(eventMap, 'dblclick', function(event) {
       // create marker on screen
+      labelCount++;
       const newMarker = new google.maps.Marker({
-        label: markers.length.toString(),
+        label: labelCount.toString(),
         title: 'untitled event',
         map: eventMap,
         position: event.latLng,
@@ -75,7 +78,7 @@ export default class Map extends React.Component {
       });
       // set up marker information to be added to database
       const markerInfo = {
-        index: (markers.length + 1).toString(),
+        index: labelCount.toString(),
         title: newMarker.title,
         address: '',
         description: 'add a description',

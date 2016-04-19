@@ -43,7 +43,6 @@ class EventPage extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if ( nextProps.params.eventName !== this.props.params.eventName ) {
-      console.log('will update', nextState);
       this.props.socket.emit('leave room', this.props.params.eventName);
     }
   }
@@ -53,7 +52,8 @@ class EventPage extends React.Component {
   }
 
   renderJoinLeaveButton() {
-    const { user, 'params.eventName': room  } = this.props;
+    const { user } = this.props;
+    const { eventName: room  } = this.props.params;
     if (this.state.event.guests.includes(this.props.user)) {
       return (
         <button
