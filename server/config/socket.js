@@ -7,7 +7,11 @@ module.exports = function socketConfig(io) {
       io.to(event).emit('event data', eventData);
     }
 
-    socket.on('join room', event => socket.join(event));
+    socket.on('join room', event => {
+      socket.join(event);
+      helpers.findEventByUrl(event)
+      .then(eventData => socket.emit('event data', eventData));
+    });
 
     socket.on('fetch data', (event) => {
       helpers.findEventByUrl(event)
@@ -35,21 +39,22 @@ module.exports = function socketConfig(io) {
       });
     });
 
-    socket.on('join event', (user, event) => {
-      helpers.addUserToEvent(user, event)
+    socket.on('join event', (data) => {
+      helpers.addUserToEvent(data.user, data.room)
       .then(eventData => {
-        broadcastEventData(eventData, event);
-        return helpers.addEventToUser(user, eventData);
+        broadcastEventData(eventData, data.room);
+        return helpers.addEventToUser(data.user, eventData);
       })
       .then(userData => helpers.getEventTitles(userData.events))
       .then(eventTitles => socket.emit('update profile', eventTitles));
     });
 
-    socket.on('leave event', (user, event) => {
-      helpers.removeUserFromEvent(user, event)
+    socket.on('leave event', (data) => {
+
+      helpers.removeUserFromEvent(data.user, data.room)
       .then(eventData => {
-        broadcastEventData(eventData, event);
-        return helpers.removeEventFromUser(user, eventData);
+        broadcastEventData(eventData, data.room);
+        return helpers.removeEventFromUser(data.user, eventData);
       })
       .then(userData => helpers.getEventTitles(userData.events))
       .then(eventTitles => socket.emit('update profile', eventTitles));

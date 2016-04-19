@@ -41,10 +41,10 @@ class EventPage extends React.Component {
     this.props.socket.emit('fetch data', this.props.params.eventName);
   }
 
-  componentWillUnmount() {
-    // console.log('unmounting');
-    // this.props.socket.removeAllListeners()
-    // this.props.socket.emit('leave room', this.props.params.eventName);
+  componentWillUpdate(nextProps, nextState) {
+    if ( nextProps.params.eventName !== this.props.params.eventName ) {
+      this.props.socket.emit('leave room', this.props.params.eventName);
+    }
   }
 
   isCoordinator() {
@@ -52,7 +52,8 @@ class EventPage extends React.Component {
   }
 
   renderJoinLeaveButton() {
-    const { user, 'prams.eventName': room  } = this.props;
+    const { user } = this.props;
+    const { eventName: room  } = this.props.params;
     if (this.state.event.guests.includes(this.props.user)) {
       return (
         <button
